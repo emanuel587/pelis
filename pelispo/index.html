@@ -1,0 +1,1541 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cine Latino</title>
+
+<style>
+:root{
+    --r:#f01422;
+    --bg:#08090c;
+    --p:#14161c;
+    --m:#a7abb5;
+    --l:#2b2e37;
+}
+
+*{
+    box-sizing:border-box;
+}
+
+body{
+    margin:0;
+    background:
+        radial-gradient(circle at 80% 0,#300b12,transparent 30%),
+        var(--bg);
+    color:#fff;
+    font:15px system-ui,Segoe UI,sans-serif;
+}
+
+button,
+input,
+select{
+    font:inherit;
+}
+
+button{
+    cursor:pointer;
+}
+
+header{
+    position:sticky;
+    top:0;
+    z-index:10;
+    display:flex;
+    align-items:center;
+    gap:18px;
+    padding:14px 5%;
+    background:#08090cea;
+    border-bottom:1px solid #ffffff14;
+    backdrop-filter:blur(16px);
+}
+
+.logo{
+    color:#ff2835;
+    font-size:26px;
+    font-weight:950;
+}
+
+.nav{
+    display:flex;
+    gap:5px;
+}
+
+.nav button,
+.ghost{
+    border:0;
+    background:transparent;
+    color:var(--m);
+    padding:10px;
+    border-radius:9px;
+    font-weight:750;
+}
+
+.nav button.active,
+.nav button:hover,
+.ghost:hover{
+    color:#fff;
+    background:#ffffff12;
+}
+
+.search{
+    margin-left:auto;
+    display:flex;
+    max-width:420px;
+    flex:1;
+    border:1px solid #393d47;
+    border-radius:11px;
+    overflow:hidden;
+    background:#181a20;
+}
+
+.search input{
+    width:100%;
+    padding:11px;
+    border:0;
+    outline:0;
+    background:transparent;
+    color:#fff;
+}
+
+.search button{
+    border:0;
+    background:transparent;
+    color:#fff;
+    padding:0 15px;
+}
+
+.hero{
+    min-height:340px;
+    padding:65px 5%;
+    display:flex;
+    align-items:end;
+    background:
+        linear-gradient(90deg,#08090c 5%,#08090cb0,transparent),
+        linear-gradient(0deg,#08090c,transparent);
+}
+
+.hero div{
+    max-width:620px;
+}
+
+.hero h1{
+    font-size:clamp(38px,6vw,68px);
+    line-height:.95;
+    letter-spacing:-3px;
+    margin:8px 0;
+}
+
+.hero p{
+    color:#d0d2d7;
+}
+
+.red,
+.dark{
+    border:0;
+    border-radius:10px;
+    padding:12px 17px;
+    color:#fff;
+    font-weight:850;
+}
+
+.red{
+    background:linear-gradient(135deg,#ff2d3a,#c9000b);
+}
+
+.dark{
+    background:#ffffff1a;
+}
+
+main{
+    padding:10px 5% 70px;
+}
+
+.section{
+    margin:28px 0;
+}
+
+.head{
+    display:flex;
+    justify-content:space-between;
+    align-items:end;
+    gap:10px;
+    margin-bottom:15px;
+}
+
+.head h2{
+    margin:0;
+    font-size:28px;
+}
+
+.head small{
+    color:var(--m);
+}
+
+select{
+    background:#191b22;
+    color:#fff;
+    border:1px solid var(--l);
+    border-radius:9px;
+    padding:10px;
+}
+
+.grid,
+.rail{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(160px,1fr));
+    gap:18px;
+}
+
+.rail{
+    grid-auto-flow:column;
+    grid-auto-columns:180px;
+    grid-template-columns:none;
+    overflow:auto;
+    padding-bottom:12px;
+}
+
+.card{
+    position:relative;
+    overflow:hidden;
+    background:var(--p);
+    border:1px solid #ffffff15;
+    border-radius:14px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 18px 38px #000a;
+}
+
+.poster,
+.noPoster{
+    display:block;
+    width:100%;
+    aspect-ratio:2/3;
+    object-fit:cover;
+    background:#222;
+}
+
+.noPoster{
+    display:grid;
+    place-items:center;
+    color:#777;
+}
+
+.info{
+    padding:11px;
+}
+
+.title{
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    font-weight:800;
+}
+
+.meta{
+    display:flex;
+    justify-content:space-between;
+    color:var(--m);
+    font-size:12px;
+    margin-top:7px;
+}
+
+.badge{
+    position:absolute;
+    top:8px;
+    left:8px;
+    padding:5px 8px;
+    border-radius:20px;
+    background:#08753de8;
+    font-size:11px;
+    font-weight:900;
+}
+
+.bar{
+    height:4px;
+    background:#ffffff15;
+}
+
+.bar i{
+    display:block;
+    height:100%;
+    background:var(--r);
+}
+
+.empty{
+    grid-column:1/-1;
+    padding:32px;
+    text-align:center;
+    color:var(--m);
+    border:1px dashed var(--l);
+    border-radius:12px;
+}
+
+.pages{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    margin:28px;
+}
+
+.hidden{
+    display:none!important;
+}
+
+.modal{
+    position:fixed;
+    inset:0;
+    z-index:20;
+    display:none;
+    place-items:center;
+    padding:20px;
+    background:#000e;
+    backdrop-filter:blur(8px);
+}
+
+.modal.show{
+    display:grid;
+}
+
+.box{
+    width:min(1050px,100%);
+    max-height:96vh;
+    overflow:auto;
+    background:#14161c;
+    border:1px solid #ffffff22;
+    border-radius:18px;
+}
+
+.cover{
+    position:relative;
+    min-height:350px;
+    background:center/cover;
+}
+
+.cover::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(0deg,#14161c,transparent 80%);
+}
+
+.close{
+    position:absolute;
+    z-index:2;
+    right:15px;
+    top:15px;
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:50%;
+    background:#090a0ddd;
+    color:#fff;
+}
+
+.details{
+    position:relative;
+    z-index:2;
+    margin-top:-115px;
+    padding:24px 4% 40px;
+}
+
+.details h2{
+    font-size:clamp(30px,5vw,48px);
+    margin:0;
+}
+
+.desc{
+    max-width:790px;
+    color:#d2d4da;
+    line-height:1.6;
+}
+
+.actions{
+    display:flex;
+    gap:9px;
+    flex-wrap:wrap;
+    margin:17px 0;
+}
+
+.status{
+    color:var(--m);
+}
+
+.player{
+    display:none;
+    margin-top:15px;
+    background:#000;
+    border-radius:13px;
+    overflow:hidden;
+}
+
+.player.show{
+    display:block;
+}
+
+.playerTop{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:9px 12px;
+    background:#171920;
+}
+
+.frame{
+    position:relative;
+    aspect-ratio:16/9;
+}
+
+.frame iframe{
+    width:100%;
+    height:100%;
+    border:0;
+}
+
+.count{
+    position:absolute;
+    inset:0;
+    display:none;
+    place-items:center;
+    text-align:center;
+    background:#000d;
+}
+
+.count.show{
+    display:grid;
+}
+
+.count strong{
+    display:block;
+    font-size:64px;
+}
+
+.episodes{
+    margin-top:24px;
+    border-top:1px solid var(--l);
+    padding-top:18px;
+}
+
+.epHead{
+    display:flex;
+    justify-content:space-between;
+}
+
+.ep{
+    display:grid;
+    grid-template-columns:42px 120px 1fr auto;
+    align-items:center;
+    gap:12px;
+    padding:9px;
+    margin-top:7px;
+    border-radius:10px;
+    background:#ffffff08;
+    cursor:pointer;
+}
+
+.ep:hover{
+    background:#ffffff12;
+}
+
+.ep img{
+    width:120px;
+    aspect-ratio:16/9;
+    object-fit:cover;
+    border-radius:7px;
+}
+
+.ep p{
+    margin:3px 0;
+    color:var(--m);
+    font-size:12px;
+}
+
+.tick{
+    color:#52dd87;
+    font-size:20px;
+}
+
+.toast{
+    position:fixed;
+    z-index:50;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    padding:11px 16px;
+    background:#20232b;
+    border-radius:10px;
+    display:none;
+}
+
+@media(max-width:700px){
+    header{
+        flex-wrap:wrap;
+        padding:11px;
+    }
+
+    .nav{
+        order:3;
+        width:100%;
+    }
+
+    .nav button{
+        flex:1;
+    }
+
+    .hero{
+        min-height:290px;
+    }
+
+    .grid{
+        grid-template-columns:repeat(2,1fr);
+        gap:12px;
+    }
+
+    .modal{
+        padding:0;
+    }
+
+    .box{
+        height:100vh;
+        max-height:none;
+        border-radius:0;
+    }
+
+    .ep{
+        grid-template-columns:30px 85px 1fr;
+    }
+
+    .ep img{
+        width:85px;
+    }
+
+    .ep p,
+    .tick{
+        display:none;
+    }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <div class="logo">CINE LATINO</div>
+
+    <nav class="nav">
+        <button data-type="movie" class="active">Películas</button>
+        <button data-type="tv">Series</button>
+        <button data-type="library">Mi lista</button>
+    </nav>
+
+    <div class="search">
+        <input id="q" placeholder="Buscar películas...">
+        <button id="search">⌕</button>
+    </div>
+</header>
+
+<section class="hero">
+    <div>
+        <small style="color:#ff5963;font-weight:900">
+            CINE Y SERIES
+        </small>
+
+        <h1>Tu próxima historia empieza aquí.</h1>
+
+        <p>
+            Continúa donde te quedaste y lleva el control de
+            películas y episodios vistos.
+        </p>
+
+        <button
+            class="red"
+            onclick="document.querySelector('main').scrollIntoView({behavior:'smooth'})"
+        >
+            Explorar catálogo
+        </button>
+    </div>
+</section>
+
+<main>
+    <section id="continue" class="section hidden">
+        <div class="head">
+            <div>
+                <h2>Continuar viendo</h2>
+                <small>Guardado en este dispositivo</small>
+            </div>
+
+            <button id="clear" class="ghost">
+                Borrar historial
+            </button>
+        </div>
+
+        <div id="rail" class="rail"></div>
+    </section>
+
+    <section class="section">
+        <div class="head">
+            <div>
+                <h2 id="heading">Películas populares</h2>
+                <small id="total"></small>
+            </div>
+
+            <select id="sort">
+                <option value="popularity.desc">
+                    Más populares
+                </option>
+
+                <option value="primary_release_date.desc">
+                    Más recientes
+                </option>
+
+                <option value="vote_average.desc">
+                    Mejor puntuadas
+                </option>
+            </select>
+        </div>
+
+        <div id="catalog" class="grid"></div>
+
+        <div id="pages" class="pages">
+            <button id="prev" class="dark">
+                ← Anterior
+            </button>
+
+            <span id="pageText"></span>
+
+            <button id="next" class="dark">
+                Siguiente →
+            </button>
+        </div>
+    </section>
+</main>
+
+<div id="modal" class="modal">
+    <div class="box">
+        <div id="cover" class="cover">
+            <button id="close" class="close">✕</button>
+        </div>
+
+        <div class="details">
+            <h2 id="name"></h2>
+
+            <div id="meta" class="status"></div>
+
+            <p id="desc" class="desc"></p>
+
+            <div class="actions">
+                <button id="play" class="red">
+                    ▶ Reproducir
+                </button>
+
+                <button id="watched" class="dark">
+                    ✓ Marcar como vista
+                </button>
+            </div>
+
+            <div id="status" class="status"></div>
+
+            <div id="player" class="player">
+                <div class="playerTop">
+                    <b id="now">Reproduciendo</b>
+
+                    <div>
+                        <button id="finished" class="ghost">
+                            Terminó
+                        </button>
+
+                        <button id="closePlayer" class="ghost">
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+
+                <div class="frame">
+                    <iframe
+                        id="frame"
+                        allow="autoplay; fullscreen; picture-in-picture"
+                        allowfullscreen
+                    ></iframe>
+
+                    <div id="count" class="count">
+                        <div>
+                            Siguiente en
+                            <strong id="number">5</strong>
+
+                            <button id="cancel" class="dark">
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <section id="episodes" class="episodes hidden">
+                <div class="epHead">
+                    <h3>Episodios</h3>
+                    <select id="seasons"></select>
+                </div>
+
+                <div id="epList"></div>
+            </section>
+        </div>
+    </div>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script>
+const API = "62459cbcaab6ee0aea2cf0c583e3f1e7";
+
+const IMG = "https://image.tmdb.org/t/p/w500";
+const BACK = "https://image.tmdb.org/t/p/original";
+const STILL = "https://image.tmdb.org/t/p/w300";
+const STORE = "cineLatinoVistos";
+
+const $ = selector => document.querySelector(selector);
+
+let type = "movie";
+let page = 1;
+let max = 1;
+let query = "";
+let list = [];
+let item = null;
+let episode = null;
+let timer = null;
+
+let data = JSON.parse(
+    localStorage.getItem(STORE) || "{}"
+);
+
+const save = () => {
+    localStorage.setItem(
+        STORE,
+        JSON.stringify(data)
+    );
+};
+
+const esc = text => String(text || "").replace(
+    /[&<>"']/g,
+    character => ({
+        "&":"&amp;",
+        "<":"&lt;",
+        ">":"&gt;",
+        '"':"&quot;",
+        "'":"&#39;"
+    }[character])
+);
+
+const key = (content, currentEpisode) => {
+    if(currentEpisode){
+        return `tv:${content.id}:s${currentEpisode.season_number}e${currentEpisode.episode_number}`;
+    }
+
+    return `${content.media_type || type}:${content.id}`;
+};
+
+async function json(url){
+    const response = await fetch(url);
+    const result = await response.json();
+
+    if(!response.ok){
+        throw new Error(
+            result.status_message || response.status
+        );
+    }
+
+    return result;
+}
+
+function toast(message){
+    $("#toast").textContent = message;
+    $("#toast").style.display = "block";
+
+    setTimeout(() => {
+        $("#toast").style.display = "none";
+    }, 1700);
+}
+
+function remember(content, currentEpisode, changes){
+    const storageKey = key(
+        content,
+        currentEpisode
+    );
+
+    data[storageKey] = {
+        ...data[storageKey],
+        ...changes,
+        id:content.id,
+        type:content.media_type || type,
+        title:content.title || content.name,
+        poster_path:content.poster_path,
+        updated:Date.now(),
+
+        ...(currentEpisode ? {
+            season:currentEpisode.season_number,
+            episode:currentEpisode.episode_number,
+            episodeName:currentEpisode.name
+        } : {})
+    };
+
+    save();
+    renderContinue();
+}
+
+function card(content){
+    const contentType = content.media_type || type;
+
+    const saved = data[
+        key({
+            ...content,
+            media_type:contentType
+        })
+    ] || {};
+
+    const contentName =
+        content.title ||
+        content.name;
+
+    const badge = saved.watched
+        ? `<span class="badge">✓ VISTA</span>`
+        : saved.progress
+            ? `<span class="badge" style="background:#111d">CONTINUAR</span>`
+            : "";
+
+    const poster = content.poster_path
+        ? `<img
+              class="poster"
+              src="${IMG + content.poster_path}"
+              loading="lazy"
+              alt="${esc(contentName)}"
+           >`
+        : `<div class="noPoster">Sin portada</div>`;
+
+    const progress = saved.progress
+        ? `
+          <div class="bar">
+              <i style="width:${saved.progress}%"></i>
+          </div>
+          `
+        : "";
+
+    const date =
+        content.release_date ||
+        content.first_air_date ||
+        "";
+
+    return `
+        <article
+            class="card"
+            data-id="${content.id}"
+            data-type="${contentType}"
+        >
+            ${badge}
+            ${poster}
+            ${progress}
+
+            <div class="info">
+                <div class="title">
+                    ${esc(contentName)}
+                </div>
+
+                <div class="meta">
+                    <span>
+                        ${date.slice(0,4) || "—"}
+                    </span>
+
+                    <span>
+                        ★ ${Number(content.vote_average || 0).toFixed(1)}
+                    </span>
+                </div>
+            </div>
+        </article>
+    `;
+}
+
+function bind(root){
+    root.querySelectorAll(".card").forEach(cardElement => {
+        cardElement.onclick = () => {
+            openTitle(
+                cardElement.dataset.id,
+                cardElement.dataset.type
+            );
+        };
+    });
+}
+
+function render(contents){
+    list = contents;
+
+    $("#catalog").innerHTML = contents.length
+        ? contents.map(card).join("")
+        : `<div class="empty">
+               No se encontró contenido.
+           </div>`;
+
+    bind($("#catalog"));
+}
+
+async function load(){
+    stop();
+
+    if(type === "library"){
+        const savedContents = history();
+
+        render(savedContents);
+
+        $("#heading").textContent =
+            "Mi lista y vistos";
+
+        $("#total").textContent =
+            `${savedContents.length} títulos`;
+
+        $("#pages").classList.add("hidden");
+        return;
+    }
+
+    $("#catalog").innerHTML =
+        `<div class="empty">Cargando…</div>`;
+
+    try{
+        const endpoint = query
+            ? `search/${type}`
+            : `discover/${type}`;
+
+        const extra = query
+            ? `query=${encodeURIComponent(query)}`
+            : `sort_by=${$("#sort").value}`;
+
+        const result = await json(
+            `https://api.themoviedb.org/3/${endpoint}` +
+            `?api_key=${API}` +
+            `&language=es-MX` +
+            `&page=${page}` +
+            `&${extra}`
+        );
+
+        max = Math.min(
+            result.total_pages || 1,
+            500
+        );
+
+        render(result.results || []);
+
+        $("#heading").textContent = query
+            ? `Resultados para “${query}”`
+            : type === "tv"
+                ? "Series populares"
+                : "Películas populares";
+
+        $("#total").textContent =
+            `${Number(result.total_results || 0).toLocaleString()} títulos`;
+
+        $("#pageText").textContent =
+            `Página ${page} de ${max}`;
+
+        $("#prev").disabled = page <= 1;
+        $("#next").disabled = page >= max;
+
+        $("#pages").classList.remove("hidden");
+    }catch(error){
+        $("#catalog").innerHTML = `
+            <div class="empty">
+                ${esc(error.message)}
+            </div>
+        `;
+    }
+}
+
+function history(){
+    const map = new Map();
+
+    Object.values(data)
+        .sort((a,b) => b.updated - a.updated)
+        .forEach(saved => {
+            const contentKey =
+                saved.type + saved.id;
+
+            if(!map.has(contentKey)){
+                map.set(contentKey,{
+                    ...saved,
+                    media_type:saved.type,
+
+                    [saved.type === "tv"
+                        ? "name"
+                        : "title"
+                    ]:saved.title,
+
+                    progress:saved.watched
+                        ? 100
+                        : saved.progress || 3
+                });
+            }
+        });
+
+    return [...map.values()];
+}
+
+function renderContinue(){
+    const savedContents = history();
+
+    $("#continue").classList.toggle(
+        "hidden",
+        !savedContents.length
+    );
+
+    $("#rail").innerHTML = savedContents
+        .slice(0,15)
+        .map(card)
+        .join("");
+
+    bind($("#rail"));
+}
+async function openTitle(id, contentType){
+    stop();
+
+    type = contentType;
+    episode = null;
+
+    $("#modal").classList.add("show");
+    $("#episodes").classList.add("hidden");
+    $("#status").textContent = "Cargando…";
+
+    try{
+        item = await json(
+            `https://api.themoviedb.org/3/${contentType}/${id}` +
+            `?api_key=${API}` +
+            `&language=es-MX` +
+            `&append_to_response=external_ids`
+        );
+
+        item.media_type = contentType;
+
+        $("#name").textContent =
+            item.title ||
+            item.name;
+
+        const date =
+            item.release_date ||
+            item.first_air_date ||
+            "";
+
+        $("#meta").textContent =
+            `${date.slice(0,4) || "—"} · ` +
+            `★ ${Number(item.vote_average || 0).toFixed(1)} · ` +
+            `TMDB ${item.id}`;
+
+        $("#desc").textContent =
+            item.overview ||
+            "Sin descripción disponible.";
+
+        $("#cover").style.backgroundImage =
+            item.backdrop_path
+                ? `url("${BACK + item.backdrop_path}")`
+                : "none";
+
+        updateButton();
+
+        if(contentType === "tv"){
+            setupSeasons();
+
+            $("#play").classList.add("hidden");
+            $("#status").textContent =
+                "Elige un episodio.";
+        }else{
+            $("#play").classList.remove("hidden");
+
+            $("#play").onclick = () => {
+                play();
+            };
+
+            $("#status").textContent =
+                "✓ Reproductor listo";
+        }
+    }catch(error){
+        $("#status").textContent =
+            error.message;
+    }
+}
+
+function setupSeasons(){
+    const availableSeasons =
+        (item.seasons || []).filter(
+            season => season.season_number > 0
+        );
+
+    $("#seasons").innerHTML =
+        availableSeasons.map(season => `
+            <option value="${season.season_number}">
+                ${esc(season.name)}
+            </option>
+        `).join("");
+
+    $("#episodes").classList.remove("hidden");
+
+    $("#seasons").onchange = () => {
+        loadSeason(
+            Number($("#seasons").value)
+        );
+    };
+
+    if(availableSeasons[0]){
+        loadSeason(
+            availableSeasons[0].season_number
+        );
+    }
+}
+
+async function loadSeason(seasonNumber){
+    $("#epList").innerHTML =
+        `<div class="empty">
+             Cargando episodios…
+         </div>`;
+
+    try{
+        const seasonData = await json(
+            `https://api.themoviedb.org/3/tv/${item.id}/season/${seasonNumber}` +
+            `?api_key=${API}` +
+            `&language=es-MX`
+        );
+
+        item.eps = seasonData.episodes || [];
+
+        $("#epList").innerHTML =
+            item.eps.map(currentEpisode => {
+                const watched =
+                    data[key(item,currentEpisode)]
+                        ?.watched;
+
+                const image = currentEpisode.still_path
+                    ? `
+                      <img
+                          src="${STILL + currentEpisode.still_path}"
+                          loading="lazy"
+                          alt="${esc(currentEpisode.name)}"
+                      >
+                      `
+                    : `<div></div>`;
+
+                return `
+                    <article
+                        class="ep"
+                        data-n="${currentEpisode.episode_number}"
+                    >
+                        <b>
+                            ${currentEpisode.episode_number}
+                        </b>
+
+                        ${image}
+
+                        <div>
+                            <b>
+                                ${esc(currentEpisode.name)}
+                            </b>
+
+                            <p>
+                                ${esc(
+                                    currentEpisode.overview ||
+                                    "Sin descripción."
+                                )}
+                            </p>
+                        </div>
+
+                        <span class="tick">
+                            ${watched ? "✓" : ""}
+                        </span>
+                    </article>
+                `;
+            }).join("");
+
+        $("#epList")
+            .querySelectorAll(".ep")
+            .forEach(episodeElement => {
+                episodeElement.onclick = () => {
+                    episode = item.eps.find(
+                        currentEpisode =>
+                            currentEpisode.episode_number ==
+                            episodeElement.dataset.n
+                    );
+
+                    play(episode);
+                };
+            });
+    }catch(error){
+        $("#epList").innerHTML = `
+            <div class="empty">
+                ${esc(error.message)}
+            </div>
+        `;
+    }
+}
+
+function play(currentEpisode = null){
+    episode = currentEpisode;
+
+    stop(false);
+
+    const contentId =
+        item.external_ids?.imdb_id ||
+        item.id;
+
+    const playerUrl = currentEpisode
+        ? `https://unlimplay.com/f/embed/tv/${contentId}/${currentEpisode.season_number}/${currentEpisode.episode_number}`
+        : `https://unlimplay.com/f/embed/movie/${contentId}`;
+
+    $("#now").textContent = currentEpisode
+        ? `${item.name} · ` +
+          `T${currentEpisode.season_number}:` +
+          `E${currentEpisode.episode_number} · ` +
+          `${currentEpisode.name}`
+        : item.title;
+
+    $("#frame").src = playerUrl;
+    $("#player").classList.add("show");
+
+    remember(item,currentEpisode,{
+        progress:Math.max(
+            data[key(item,currentEpisode)]
+                ?.progress || 0,
+            3
+        ),
+        watched:false
+    });
+
+    $("#player").scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+    });
+}
+
+function updateButton(){
+    if(!item){
+        return;
+    }
+
+    const watched =
+        data[key(item,episode)]
+            ?.watched;
+
+    $("#watched").textContent = watched
+        ? "↶ Marcar como no vista"
+        : "✓ Marcar como vista";
+}
+
+function toggle(){
+    if(!item){
+        return;
+    }
+
+    const watched =
+        !data[key(item,episode)]
+            ?.watched;
+
+    remember(item,episode,{
+        watched,
+        progress:watched ? 100 : 0
+    });
+
+    updateButton();
+
+    if(episode){
+        loadSeason(
+            episode.season_number
+        );
+    }
+
+    toast(
+        watched
+            ? "Marcada como vista"
+            : "Quitada de vistos"
+    );
+}
+
+function findNextMovie(){
+    const currentIndex = list.findIndex(
+        content => String(content.id) ===
+                   String(item.id)
+    );
+
+    return list[currentIndex + 1] || null;
+}
+
+function findNextEpisode(){
+    if(!item.eps || !episode){
+        return null;
+    }
+
+    const currentIndex = item.eps.findIndex(
+        currentEpisode =>
+            currentEpisode.id === episode.id
+    );
+
+    return item.eps[currentIndex + 1] || null;
+}
+
+function ended(){
+    if(!item){
+        return;
+    }
+
+    remember(item,episode,{
+        watched:true,
+        progress:100
+    });
+
+    updateButton();
+
+    let seconds = 5;
+
+    $("#number").textContent = seconds;
+    $("#count").classList.add("show");
+
+    clearInterval(timer);
+
+    timer = setInterval(() => {
+        seconds--;
+
+        $("#number").textContent = seconds;
+
+        if(seconds > 0){
+            return;
+        }
+
+        cancel();
+
+        if(episode){
+            const nextEpisode =
+                findNextEpisode();
+
+            if(nextEpisode){
+                play(nextEpisode);
+            }else{
+                toast(
+                    "No hay otro episodio en esta temporada"
+                );
+            }
+
+            return;
+        }
+
+        const nextMovie =
+            findNextMovie();
+
+        if(nextMovie){
+            openTitle(
+                nextMovie.id,
+                "movie"
+            );
+        }else{
+            toast(
+                "No hay otra película disponible"
+            );
+        }
+    },1000);
+}
+
+function cancel(){
+    clearInterval(timer);
+    timer = null;
+
+    $("#count").classList.remove("show");
+}
+
+function stop(hidePlayer = true){
+    cancel();
+
+    $("#frame").src = "";
+
+    if(hidePlayer){
+        $("#player").classList.remove("show");
+    }
+}
+
+function closeModal(){
+    stop();
+
+    $("#modal").classList.remove("show");
+
+    renderContinue();
+
+    if(type !== "library"){
+        render(list);
+    }
+}
+
+function changeType(newType, button){
+    type = newType;
+    page = 1;
+    query = "";
+
+    $("#q").value = "";
+
+    document
+        .querySelectorAll(".nav button")
+        .forEach(navButton => {
+            navButton.classList.toggle(
+                "active",
+                navButton === button
+            );
+        });
+
+    $("#q").placeholder =
+        newType === "tv"
+            ? "Buscar series..."
+            : "Buscar películas...";
+
+    load();
+}
+
+function searchContent(){
+    const searchText =
+        $("#q").value.trim();
+
+    if(!searchText){
+        return;
+    }
+
+    if(type === "library"){
+        type = "movie";
+    }
+
+    query = searchText;
+    page = 1;
+
+    load();
+}
+
+document
+    .querySelectorAll(".nav button")
+    .forEach(button => {
+        button.onclick = () => {
+            changeType(
+                button.dataset.type,
+                button
+            );
+        };
+    });
+
+$("#search").onclick = searchContent;
+
+$("#q").onkeydown = event => {
+    if(event.key === "Enter"){
+        searchContent();
+    }
+};
+
+$("#sort").onchange = () => {
+    page = 1;
+    query = "";
+    load();
+};
+
+$("#prev").onclick = () => {
+    if(page <= 1){
+        return;
+    }
+
+    page--;
+    load();
+
+    window.scrollTo({
+        top:300,
+        behavior:"smooth"
+    });
+};
+
+$("#next").onclick = () => {
+    if(page >= max){
+        return;
+    }
+
+    page++;
+    load();
+
+    window.scrollTo({
+        top:300,
+        behavior:"smooth"
+    });
+};
+
+$("#close").onclick =
+    closeModal;
+
+$("#modal").onclick = event => {
+    if(event.target === $("#modal")){
+        closeModal();
+    }
+};
+
+$("#closePlayer").onclick = () => {
+    stop();
+};
+
+$("#finished").onclick =
+    ended;
+
+$("#watched").onclick =
+    toggle;
+
+$("#cancel").onclick =
+    cancel;
+
+$("#clear").onclick = () => {
+    const confirmed = confirm(
+        "¿Borrar todo el historial?"
+    );
+
+    if(!confirmed){
+        return;
+    }
+
+    data = {};
+    save();
+    renderContinue();
+
+    if(type === "library"){
+        load();
+    }
+
+    toast("Historial borrado");
+};
+
+/*
+UnlimPlay está dentro de un iframe externo.
+
+Si el reproductor manda un mensaje indicando que terminó,
+se inicia automáticamente la cuenta regresiva.
+
+Si no manda ese mensaje, se puede usar el botón "Terminó".
+*/
+window.addEventListener("message", event => {
+    if(event.origin !== "https://unlimplay.com"){
+        return;
+    }
+
+    const message = typeof event.data === "string"
+        ? event.data
+        : JSON.stringify(event.data || {});
+
+    if(/ended|finish|complete/i.test(message)){
+        ended();
+    }
+});
+
+document.addEventListener("keydown", event => {
+    if(
+        event.key === "Escape" &&
+        $("#modal").classList.contains("show")
+    ){
+        closeModal();
+    }
+});
+
+renderContinue();
+load();
+</script>
+
+</body>
+</html>
