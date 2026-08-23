@@ -1,4 +1,4 @@
-<!doctype html>
+!doctype html>
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
@@ -940,6 +940,193 @@ img{
     display:none;
   }
 }
+
+/* ==========================================================
+   REDISEÑO 2026 · capa visual (no altera la lógica existente)
+   ========================================================== */
+
+:root{
+  --bg:#05060a;
+  --panel:#0e1118;
+  --panel2:#151923;
+  --line:#ffffff14;
+  --text:#f8f9fc;
+  --muted:#9ba3b4;
+  --red:#ff253a;
+  --red2:#ff5062;
+  --green:#45e190;
+  --amber:#ffc95c;
+  --radius:22px;
+  --shadow:0 26px 80px #000c;
+  --content:min(1500px,calc(100% - clamp(28px,6vw,96px)));
+}
+
+body{
+  background:
+    radial-gradient(circle at 8% 4%,#43101b66 0,transparent 25rem),
+    radial-gradient(circle at 92% 25%,#17235252 0,transparent 30rem),
+    var(--bg);
+  letter-spacing:.005em;
+}
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-1;
+  pointer-events:none;
+  opacity:.25;
+  background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
+  background-size:80px 80px;
+  mask-image:linear-gradient(to bottom,#000,transparent 45%);
+}
+
+.topbar{
+  min-height:72px;
+  padding:10px max(20px,calc((100% - 1500px)/2));
+  gap:30px;
+  background:linear-gradient(180deg,#08090ff5,#08090fce);
+  border-bottom-color:#ffffff0d;
+  box-shadow:0 10px 30px #0004;
+}
+
+.brand{font-size:22px;letter-spacing:-.9px}
+.brandMark{
+  width:39px;height:39px;border-radius:13px;
+  background:linear-gradient(145deg,#ff6170 0,#f3132b 48%,#8e0010 100%);
+  box-shadow:0 8px 26px #ff253a55,inset 0 1px #ffffff70;
+  font-size:14px;
+}
+
+.nav{padding:4px;background:#ffffff08;border:1px solid #ffffff0c;border-radius:14px}
+.navBtn{padding:9px 15px;border-radius:10px;font-size:14px}
+.navBtn.active{color:#fff;background:#ffffff14;box-shadow:inset 0 1px #ffffff12}
+
+.searchBox{max-width:390px}
+.searchBox input{
+  height:46px;padding-left:43px;border-color:#ffffff16;border-radius:14px;
+  background:#ffffff0a;transition:border-color .2s,background .2s,box-shadow .2s;
+}
+.searchBox::before{content:"⌕";position:absolute;left:15px;z-index:2;color:#b8bdc9;font-size:22px;line-height:1}
+.searchBox input:focus{background:#11151e;border-color:#ffffff48;box-shadow:0 0 0 4px #ffffff0b}
+
+.hero{
+  min-height:min(78vh,760px);
+  width:var(--content);margin:24px auto 0;border-radius:30px;overflow:hidden;
+  border:1px solid #ffffff13;box-shadow:0 36px 100px #000b;
+}
+.hero::before{
+  background:
+    linear-gradient(90deg,#06070a 0,#06070ae8 28%,#06070a75 58%,transparent 82%),
+    linear-gradient(0deg,#06070af5 0,transparent 48%),
+    linear-gradient(180deg,#0005 0,transparent 25%);
+}
+.hero::after{
+  content:"";position:absolute;inset:0;z-index:-1;
+  background:linear-gradient(120deg,transparent 45%,#ff36421a);pointer-events:none;
+}
+.heroContent{width:min(760px,92%);padding:clamp(100px,15vh,170px) clamp(24px,5vw,78px) clamp(54px,8vh,90px)}
+.kicker{padding:7px 11px;border:1px solid #ff526242;border-radius:99px;background:#ff253a12;color:#ff7d89;font-size:11px;letter-spacing:1.7px}
+.kicker::before{width:7px;height:7px;border-radius:50%;box-shadow:0 0 14px var(--red2)}
+.heroTitle{margin:17px 0 18px;font-size:clamp(44px,6vw,88px);line-height:.92;letter-spacing:-.055em;text-shadow:0 6px 30px #000}
+.heroMeta{gap:9px;color:#e6e8ef}
+.heroMeta>span{padding:5px 9px;border-radius:8px;background:#ffffff0d;border:1px solid #ffffff0e}
+.heroMeta .score{background:#45e19017;border-color:#45e19027;color:#73eeaa}
+.heroDescription{max-width:650px;margin:20px 0 25px;color:#d4d8e2;font-size:clamp(15px,1.4vw,18px);line-height:1.65;text-shadow:0 2px 10px #000}
+
+.primaryBtn,.secondaryBtn{
+  min-height:46px;padding:0 19px;border-radius:13px;font-weight:850;transition:transform .18s,filter .18s,border-color .18s,background .18s;
+}
+.primaryBtn{background:linear-gradient(135deg,#ff5363,#e80e27);box-shadow:0 12px 28px #ef18263d,inset 0 1px #ffffff55}
+.secondaryBtn{background:#ffffff12;border:1px solid #ffffff20;backdrop-filter:blur(10px)}
+.primaryBtn:hover,.secondaryBtn:hover{transform:translateY(-2px);filter:brightness(1.1)}
+
+.appMain{width:var(--content);max-width:none;margin:0 auto;padding:52px 0 90px}
+.section{margin:0 0 58px}
+.sectionHead{align-items:end;margin-bottom:21px}
+.sectionTitle{font-size:clamp(23px,2.3vw,34px);letter-spacing:-.035em}
+.sectionSub{display:block;margin-top:4px;color:#7f8798;font-size:13px}
+.headTools{display:flex;align-items:center;gap:10px}
+.select{height:44px;padding:0 38px 0 14px;border:1px solid #ffffff17;border-radius:12px;background:#11151e;color:#e9ebf1}
+
+.grid{grid-template-columns:repeat(auto-fill,minmax(174px,1fr));gap:27px 18px}
+.mediaCard{border:1px solid #ffffff0c;border-radius:18px;background:#10131a;box-shadow:0 12px 32px #0005;isolation:isolate}
+.mediaCard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px #ffffff00;transition:.22s}
+.mediaCard:hover,.mediaCard:focus-visible{transform:translateY(-8px) scale(1.025);border-color:#ffffff36;box-shadow:0 24px 54px #000c}
+.mediaCard:hover::after,.mediaCard:focus-visible::after{box-shadow:inset 0 0 0 1px #ffffff26}
+.poster{aspect-ratio:2/3;object-fit:cover;transition:transform .45s,filter .3s}
+.mediaCard:hover .poster{transform:scale(1.035);filter:saturate(1.08)}
+.cardShade{background:linear-gradient(0deg,#0a0c12 0,#0a0c12e8 19%,transparent 58%)}
+.cardInfo{padding:14px 14px 15px;background:linear-gradient(180deg,#11141b,#0c0f15)}
+.cardTitle{font-size:15px;letter-spacing:-.01em}
+.cardMeta{margin-top:5px;color:#8f97a7;font-size:12px}
+.cardBadge{top:11px;left:11px;padding:6px 9px;border-radius:9px;box-shadow:0 5px 15px #0008;backdrop-filter:blur(8px)}
+.progressTrack{height:5px;background:#ffffff17}.progressFill{box-shadow:0 0 14px #ff253a}
+
+.rail{gap:16px;padding:8px 3px 18px;scroll-snap-type:x mandatory;scrollbar-color:#ffffff26 transparent}
+.rail .mediaCard{min-width:180px;scroll-snap-align:start}
+.pagination{margin-top:45px;padding:12px;border:1px solid #ffffff0d;border-radius:16px;background:#ffffff06}
+.pageLabel{min-width:105px;text-align:center;color:#cdd1da;font-weight:800}
+
+.detailModal{padding:clamp(12px,3vw,42px);background:#020307db;backdrop-filter:blur(18px) saturate(.7)}
+.detailPanel{width:min(1040px,100%);max-height:min(920px,94vh);border:1px solid #ffffff18;border-radius:28px;background:#0c0f15;box-shadow:0 44px 130px #000}
+.detailBackdrop{min-height:410px}
+.detailBackdrop::after{background:linear-gradient(0deg,#0c0f15 0,transparent 66%),linear-gradient(90deg,#0c0f1599,transparent 65%)}
+.closeDetail{top:18px;right:18px;width:44px;height:44px;border:1px solid #ffffff20;border-radius:50%;background:#080a0dc7;backdrop-filter:blur(10px)}
+.detailContent{position:relative;margin-top:-95px;padding:0 clamp(22px,5vw,62px) 54px}
+.detailTitle{font-size:clamp(34px,5vw,58px);letter-spacing:-.05em;line-height:1}
+.detailMeta{gap:8px;margin:14px 0 18px}.detailMeta span{padding:5px 9px;border:1px solid #ffffff10;border-radius:8px;background:#ffffff08}
+.detailOverview{max-width:780px;color:#b9c0cd;font-size:15px;line-height:1.75}
+.statusLine{margin-top:20px;padding:12px 14px;border:1px solid #ffffff0d;border-radius:12px;background:#ffffff06}
+.episodeSection{margin-top:35px;padding-top:25px;border-top:1px solid #ffffff10}
+.episodeCard{padding:10px;border:1px solid transparent;border-radius:15px;background:#ffffff04;transition:.18s}
+.episodeCard:hover,.episodeCard:focus-visible{background:#ffffff0c;border-color:#ffffff17;transform:translateX(4px)}
+.episodeStill,.episodeStillEmpty{border-radius:11px}
+
+.playerOverlay{background:#000}
+.playerShell{background:#000}
+.playerBar{min-height:68px;padding:9px clamp(10px,3vw,34px);background:linear-gradient(180deg,#11141a,#090b0f);border-bottom:1px solid #ffffff12}
+.playerBack{width:44px;height:44px;border-radius:12px;background:#ffffff0a}
+.playingTitle{font-weight:800;letter-spacing:-.015em}
+.playerStage{background:radial-gradient(circle at center,#171a22,#000 62%)}
+.nextOverlay{border:1px solid #ffffff18;border-radius:24px;background:#080a0eea;box-shadow:0 25px 80px #000;padding:34px}
+.nextOverlay strong{color:var(--red2);text-shadow:0 0 28px #ff253a66}
+.toast{bottom:30px;padding:13px 18px;border-radius:14px;background:#171b24e8;backdrop-filter:blur(16px)}
+.emptyState{border:1px dashed #ffffff20;border-radius:20px;background:#ffffff04;padding:44px 20px;color:#929aaa}
+
+@media(max-width:1000px){
+  .topbar{gap:14px}.navBtn{padding-inline:11px}.hero{width:calc(100% - 28px);margin-top:14px}.appMain{width:calc(100% - 34px)}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+}
+
+@media(max-width:760px){
+  body::before{display:none}.topbar{padding:9px 12px;min-height:64px}.brandMark{width:38px;height:38px}.searchBox{max-width:none}
+  .nav{order:3;width:100%;overflow:auto}.navBtn{min-width:max-content}
+  .hero{min-height:520px;border-radius:22px}.hero::before{background:linear-gradient(0deg,#06070b 0,#06070bd9 35%,transparent 78%),linear-gradient(90deg,#06070b44,transparent)}
+  .heroContent{align-self:flex-end;width:100%;padding:170px 22px 38px}.heroTitle{font-size:clamp(39px,12vw,58px)}.heroDescription{-webkit-line-clamp:2}
+  .appMain{padding-top:38px}.section{margin-bottom:44px}.sectionHead{align-items:flex-start;gap:12px}.headTools{width:100%}.select{width:100%}
+  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 11px}.mediaCard{border-radius:14px}.cardInfo{padding:11px}.cardTitle{font-size:13px}
+  .detailBackdrop{min-height:330px}.detailContent{margin-top:-65px}.detailTitle{font-size:36px}.detailOverview{font-size:14px}.detailActions{display:grid;grid-template-columns:1fr 1fr}
+}
+
+@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
+/* Funciones ampliadas */
+.profileButton{flex:0 0 auto;width:42px;height:42px;border:1px solid #ffffff20;border-radius:14px;background:linear-gradient(145deg,#ff5363,#a90018);color:#fff;font-weight:950;box-shadow:0 8px 20px #ff253a2e}
+.searchSuggestions{position:absolute;top:54px;right:0;left:0;z-index:150;max-height:430px;overflow:auto;padding:8px;border:1px solid #ffffff18;border-radius:16px;background:#10131bf5;box-shadow:0 24px 70px #000d;backdrop-filter:blur(18px)}
+.suggestionItem{display:grid;grid-template-columns:43px 1fr;gap:10px;align-items:center;width:100%;padding:8px;border:0;border-radius:11px;background:transparent;color:#fff;text-align:left}
+.suggestionItem:hover,.suggestionItem:focus-visible{background:#ffffff10}.suggestionItem img,.suggestionPoster{width:43px;height:59px;border-radius:7px;object-fit:cover;background:#222733}.suggestionItem b,.suggestionItem small{display:block}.suggestionItem small{margin-top:2px;color:var(--muted)}
+.discoveryGroup{margin-bottom:34px}.discoveryGroupHead{display:flex;justify-content:space-between;align-items:center;margin:0 2px 10px}.discoveryGroupHead h3{margin:0;font-size:18px}.discoveryGroupHead button{padding:7px 10px}
+.discoveryGroup .rail .mediaCard{min-width:158px}.compactRail .mediaCard{min-width:145px;max-width:160px}.compactRail .cardInfo{padding:10px}.compactRail .cardTitle{font-size:12px}
+.filterBar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:-3px 0 24px;padding:14px;border:1px solid #ffffff0d;border-radius:17px;background:#ffffff05}.filterBar label{display:grid;gap:5px;min-width:155px}.filterBar label>span{padding-left:3px;color:#858d9d;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.filterBar .ghostBtn{height:44px;margin-left:auto}
+.libraryTools{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}.libraryTabs{display:flex;gap:5px;padding:4px;border:1px solid #ffffff0d;border-radius:14px;background:#ffffff06}.libraryTab{padding:9px 12px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-weight:800}.libraryTab.active{background:#ffffff14;color:#fff}.libraryActions{display:flex;gap:8px}.importButton{display:grid;place-items:center;cursor:pointer}.importButton input{display:none}
+.favoriteQuick{position:absolute;z-index:4;top:10px;right:10px;display:grid;place-items:center;width:34px;height:34px;border:1px solid #ffffff1c;border-radius:50%;background:#080a0dbd;color:#fff;font-size:18px;backdrop-filter:blur(10px)}.favoriteQuick.active{color:#ff6877;background:#3b0c15db}
+.castRail{display:grid;grid-auto-flow:column;grid-auto-columns:110px;gap:13px;overflow-x:auto;padding:5px 2px 14px}.castCard{text-align:center}.castCard img,.castAvatar{width:84px;height:84px;margin:auto;border-radius:50%;object-fit:cover;background:#242936;border:3px solid #ffffff12}.castCard b{display:block;margin-top:8px;font-size:12px}.castCard span{display:block;color:var(--muted);font-size:11px}.detailExtra{margin-top:32px;padding-top:24px;border-top:1px solid #ffffff10}
+.trailerModal{position:fixed;z-index:3000;inset:0;display:grid;place-items:center;padding:5vw;background:#000e;backdrop-filter:blur(14px)}.trailerModal .closeDetail{position:absolute;z-index:2}.trailerShell{width:min(1100px,100%);aspect-ratio:16/9;border:1px solid #ffffff20;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 30px 100px #000}.trailerShell iframe{width:100%;height:100%;border:0}
+.skeleton{position:relative;overflow:hidden;background:#161b24}.skeleton::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,#ffffff0c,transparent);animation:shimmer 1.25s infinite}@keyframes shimmer{to{transform:translateX(100%)}}
+.offlineBadge{position:fixed;z-index:1700;right:18px;bottom:18px;padding:9px 12px;border-radius:12px;background:#ffc95c;color:#18120a;font-weight:900;box-shadow:0 10px 30px #0008}
+
+@media(max-width:760px){.profileButton{display:none}.discoveryGroup .rail .mediaCard{min-width:140px}.filterBar{display:grid;grid-template-columns:1fr 1fr}.filterBar label{min-width:0}.filterBar .ghostBtn{grid-column:1/-1;margin:0}.libraryTools{align-items:stretch;flex-direction:column}.libraryTabs{overflow:auto}.libraryActions>*{flex:1}.detailActions{grid-template-columns:1fr 1fr}.castRail{grid-auto-columns:95px}.trailerModal{padding:8px}.trailerShell{border-radius:13px}}
 </style>
 </head>
 <body>
@@ -978,7 +1165,13 @@ img{
     <button id="searchButton" aria-label="Buscar">
       ⌕
     </button>
+
+    <div id="searchSuggestions" class="searchSuggestions hidden"></div>
   </div>
+
+  <button id="profileButton" class="profileButton" aria-label="Abrir mi espacio" title="Mi espacio">
+    ER
+  </button>
 </header>
 
 <section id="hero" class="hero">
@@ -1035,6 +1228,16 @@ img{
     <div id="continueRail" class="rail"></div>
   </section>
 
+  <section id="discoverySection" class="section discoverySection">
+    <div class="sectionHead">
+      <div>
+        <h2 class="sectionTitle">Explora a tu manera</h2>
+        <span class="sectionSub">Colecciones actualizadas desde TMDB</span>
+      </div>
+    </div>
+    <div id="discoveryRows"></div>
+  </section>
+
   <section class="section">
     <div class="sectionHead">
       <div>
@@ -1061,6 +1264,40 @@ img{
             Mejor puntuadas
           </option>
         </select>
+      </div>
+    </div>
+
+    <div id="filterBar" class="filterBar">
+      <label>
+        <span>Género</span>
+        <select id="genreFilter" class="select"><option value="">Todos</option></select>
+      </label>
+      <label>
+        <span>Año</span>
+        <select id="yearFilter" class="select"><option value="">Cualquier año</option></select>
+      </label>
+      <label>
+        <span>Puntuación</span>
+        <select id="ratingFilter" class="select">
+          <option value="">Cualquiera</option>
+          <option value="8">8 o más</option>
+          <option value="7">7 o más</option>
+          <option value="6">6 o más</option>
+        </select>
+      </label>
+      <button id="clearFilters" class="ghostBtn">Limpiar filtros</button>
+    </div>
+
+    <div id="libraryTools" class="libraryTools hidden">
+      <div class="libraryTabs" role="tablist">
+        <button class="libraryTab active" data-library-filter="all">Todo</button>
+        <button class="libraryTab" data-library-filter="favorites">Favoritos</button>
+        <button class="libraryTab" data-library-filter="progress">En progreso</button>
+        <button class="libraryTab" data-library-filter="watched">Terminados</button>
+      </div>
+      <div class="libraryActions">
+        <button id="exportHistory" class="secondaryBtn">Exportar</button>
+        <label class="secondaryBtn importButton">Importar<input id="importHistory" type="file" accept="application/json"></label>
       </div>
     </div>
 
@@ -1121,6 +1358,9 @@ img{
         >
           ✓ Marcar como vista
         </button>
+
+        <button id="toggleFavorite" class="secondaryBtn">♡ Favorito</button>
+        <button id="playTrailer" class="secondaryBtn hidden">▷ Tráiler</button>
       </div>
 
       <div id="detailStatus" class="statusLine">
@@ -1142,8 +1382,23 @@ img{
 
         <div id="episodeList" class="episodeList"></div>
       </section>
+
+      <section id="castSection" class="detailExtra hidden">
+        <div class="episodeHeader"><h3>Reparto principal</h3></div>
+        <div id="castRail" class="castRail"></div>
+      </section>
+
+      <section id="similarSection" class="detailExtra hidden">
+        <div class="episodeHeader"><h3>También podría gustarte</h3></div>
+        <div id="similarRail" class="rail compactRail"></div>
+      </section>
     </div>
   </article>
+</div>
+
+<div id="trailerModal" class="trailerModal hidden" role="dialog" aria-modal="true">
+  <button id="closeTrailer" class="closeDetail" aria-label="Cerrar tráiler">✕</button>
+  <div class="trailerShell"><iframe id="trailerFrame" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
 </div>
 
 <div id="playerOverlay" class="playerOverlay">
@@ -1249,6 +1504,14 @@ let currentItem = null;
 let currentEpisode = null;
 let nextTimer = null;
 let toastTimer = null;
+let suggestionTimer = null;
+let genreId = "";
+let yearValue = "";
+let ratingValue = "";
+let libraryFilter = "all";
+let trailerKey = "";
+const discoveryCache = new Map();
+const itemCache = new Map();
 
 let historyData = {};
 
@@ -1402,6 +1665,8 @@ function cardTemplate(item){
   const type =
     mediaType(item);
 
+  itemCache.set(`${type}:${item.id}`,{...item,media_type:type});
+
   const saved =
     savedEntry({
       ...item,
@@ -1471,6 +1736,9 @@ function cardTemplate(item){
       aria-label="${escapeHTML(name)}"
     >
       ${badge}
+      <button class="favoriteQuick ${saved.favorite ? "active" : ""}" data-favorite="${item.id}" aria-label="${saved.favorite ? "Quitar de favoritos" : "Agregar a favoritos"}" title="Favorito">
+        ${saved.favorite ? "♥" : "♡"}
+      </button>
       ${posterHTML}
 
       <span class="cardShade"></span>
@@ -1497,6 +1765,25 @@ function cardTemplate(item){
 }
 
 function bindCards(root){
+  root.querySelectorAll(".favoriteQuick").forEach(button => {
+    button.onclick = event => {
+      event.stopPropagation();
+      const card = button.closest(".mediaCard");
+      const item = {
+        ...(itemCache.get(`${card.dataset.type}:${card.dataset.id}`) || {}),
+        id:Number(card.dataset.id),
+        media_type:card.dataset.type,
+        [card.dataset.type === "tv" ? "name" : "title"]:card.getAttribute("aria-label")
+      };
+      const favorite = !savedEntry(item).favorite;
+      remember(item,null,{favorite});
+      button.classList.toggle("active",favorite);
+      button.textContent = favorite ? "♥" : "♡";
+      showToast(favorite ? "Agregado a favoritos" : "Eliminado de favoritos");
+      updateStats();
+    };
+  });
+
   root
     .querySelectorAll(".mediaCard")
     .forEach(card => {
@@ -1581,11 +1868,22 @@ function renderContinue(){
       .join("");
 
   bindCards($("#continueRail"));
+  updateStats();
 }
 
 function renderLibrary(){
-  const items =
-    historyTitles();
+  let items = historyTitles();
+
+  if(libraryFilter === "favorites"){
+    items = items.filter(item => savedEntry(item).favorite);
+  }else if(libraryFilter === "progress"){
+    items = items.filter(item => {
+      const saved = savedEntry(item);
+      return saved.progress > 0 && !saved.watched;
+    });
+  }else if(libraryFilter === "watched"){
+    items = items.filter(item => savedEntry(item).watched);
+  }
 
   renderCatalog(items);
 
@@ -1593,7 +1891,7 @@ function renderLibrary(){
     "Mi espacio";
 
   $("#catalogSubtitle").textContent =
-    `${items.length} títulos vistos o empezados`;
+    `${items.length} títulos en esta colección`;
 
   $("#pagination").classList.add("hidden");
 
@@ -1607,6 +1905,9 @@ function renderLibrary(){
     "Continúa una película o serie y administra fácilmente tu historial.";
 
   $("#heroPlay").classList.add("hidden");
+  $("#filterBar").classList.add("hidden");
+  $("#libraryTools").classList.remove("hidden");
+  $("#discoverySection").classList.add("hidden");
 }
 
 async function loadCatalog(){
@@ -1616,6 +1917,10 @@ async function loadCatalog(){
     renderLibrary();
     return;
   }
+
+  $("#filterBar").classList.remove("hidden");
+  $("#libraryTools").classList.add("hidden");
+  $("#discoverySection").classList.toggle("hidden",Boolean(query));
 
   $("#catalog").innerHTML = `
     <div class="emptyState">
@@ -1641,7 +1946,10 @@ async function loadCatalog(){
         `?page=${page}` +
         `&sort_by=${encodeURIComponent(
           $("#sortSelect").value
-        )}`
+        )}` +
+        (genreId ? `&with_genres=${genreId}` : "") +
+        (ratingValue ? `&vote_average.gte=${ratingValue}&vote_count.gte=100` : "") +
+        (yearValue ? (section === "tv" ? `&first_air_date_year=${yearValue}` : `&primary_release_year=${yearValue}`) : "")
       );
 
     const result =
@@ -1680,6 +1988,7 @@ async function loadCatalog(){
     setFeatured(
       result.results?.[0] || null
     );
+    loadDiscovery();
   }catch(error){
     $("#catalog").innerHTML = `
       <div class="emptyState">
@@ -1757,12 +2066,17 @@ async function openDetails(id,type){
   $("#detailStatus").textContent =
     "Cargando información…";
 
+  $("#castSection").classList.add("hidden");
+  $("#similarSection").classList.add("hidden");
+  $("#playTrailer").classList.add("hidden");
+  trailerKey = "";
+
   currentEpisode = null;
 
   try{
     currentItem = await getJSON(
       `/${type}/${id}` +
-      `?append_to_response=external_ids`
+      `?append_to_response=external_ids,credits,videos,recommendations`
     );
 
     currentItem.media_type = type;
@@ -1809,6 +2123,8 @@ async function openDetails(id,type){
         : "none";
 
     updateWatchedButton();
+    updateFavoriteButton();
+    renderDetailExtras();
 
     if(type === "tv"){
       prepareSeasons();
@@ -1841,6 +2157,46 @@ async function openDetails(id,type){
     $("#detailStatus").textContent =
       error.message;
   }
+}
+
+function updateFavoriteButton(){
+  if(!currentItem) return;
+  const favorite = Boolean(savedEntry(currentItem).favorite);
+  $("#toggleFavorite").textContent = favorite ? "♥ En favoritos" : "♡ Favorito";
+  $("#toggleFavorite").classList.toggle("active",favorite);
+}
+
+function toggleFavorite(){
+  if(!currentItem) return;
+  const favorite = !savedEntry(currentItem).favorite;
+  remember(currentItem,null,{favorite});
+  updateFavoriteButton();
+  updateStats();
+  showToast(favorite ? "Agregado a favoritos" : "Eliminado de favoritos");
+}
+
+function renderDetailExtras(){
+  const cast = (currentItem.credits?.cast || []).slice(0,10);
+  $("#castRail").innerHTML = cast.map(person => `
+    <div class="castCard">
+      ${person.profile_path
+        ? `<img src="${IMG}${person.profile_path}" alt="${escapeHTML(person.name)}" loading="lazy">`
+        : `<div class="castAvatar"></div>`}
+      <b>${escapeHTML(person.name)}</b>
+      <span>${escapeHTML(person.character || "")}</span>
+    </div>
+  `).join("");
+  $("#castSection").classList.toggle("hidden",!cast.length);
+
+  const similar = (currentItem.recommendations?.results || []).slice(0,12).map(item => ({...item,media_type:currentItem.media_type}));
+  $("#similarRail").innerHTML = similar.map(cardTemplate).join("");
+  $("#similarSection").classList.toggle("hidden",!similar.length);
+  if(similar.length) bindCards($("#similarRail"));
+
+  const videos = currentItem.videos?.results || [];
+  const trailer = videos.find(video => video.site === "YouTube" && video.type === "Trailer") || videos.find(video => video.site === "YouTube");
+  trailerKey = trailer?.key || "";
+  $("#playTrailer").classList.toggle("hidden",!trailerKey);
 }
 
 function prepareSeasons(){
@@ -2233,6 +2589,9 @@ function changeSection(nextSection){
     nextSection === "library"
   );
 
+  genreId = "";
+  initializeFilters();
+
   loadCatalog();
 }
 
@@ -2269,6 +2628,99 @@ function closeDetails(){
   }
 }
 
+function updateStats(){
+  if(!$("#statStarted")) return;
+  const titles = historyTitles();
+  $("#statStarted").textContent = titles.filter(item => {
+    const saved = savedEntry(item);
+    return saved.progress || saved.watched;
+  }).length;
+  $("#statWatched").textContent = titles.filter(item => savedEntry(item).watched).length;
+  $("#statFavorites").textContent = titles.filter(item => savedEntry(item).favorite).length;
+}
+
+async function initializeFilters(){
+  const currentYear = new Date().getFullYear();
+  $("#yearFilter").innerHTML += Array.from({length:35},(_,index) => {
+    const value = currentYear - index;
+    return `<option value="${value}">${value}</option>`;
+  }).join("");
+  try{
+    const data = await getJSON(`/genre/${section === "tv" ? "tv" : "movie"}/list`);
+    $("#genreFilter").innerHTML = `<option value="">Todos</option>` + (data.genres || []).map(genre => `<option value="${genre.id}">${escapeHTML(genre.name)}</option>`).join("");
+    $("#genreFilter").value = genreId;
+  }catch{}
+}
+
+async function loadDiscovery(){
+  if(section === "library" || query) return;
+  const type = section;
+  const groups = type === "tv"
+    ? [["Tendencias","/trending/tv/week"],["Mejor valoradas","/tv/top_rated"],["Al aire hoy","/tv/airing_today"]]
+    : [["Tendencias","/trending/movie/week"],["En cartelera","/movie/now_playing"],["Mejor valoradas","/movie/top_rated"]];
+  $("#discoveryRows").innerHTML = groups.map(([title]) => `<div class="discoveryGroup"><div class="discoveryGroupHead"><h3>${title}</h3></div><div class="rail"><div class="mediaCard skeleton" style="min-height:260px"></div></div></div>`).join("");
+  const results = await Promise.all(groups.map(async ([title,path]) => {
+    const key = `${type}:${path}`;
+    if(!discoveryCache.has(key)) discoveryCache.set(key,getJSON(path));
+    const data = await discoveryCache.get(key);
+    return [title,(data.results || []).slice(0,14).map(item => ({...item,media_type:type}))];
+  })).catch(() => []);
+  $("#discoveryRows").innerHTML = results.map(([title,items]) => `<div class="discoveryGroup"><div class="discoveryGroupHead"><h3>${title}</h3></div><div class="rail">${items.map(cardTemplate).join("")}</div></div>`).join("");
+  $("#discoveryRows").querySelectorAll(".rail").forEach(bindCards);
+}
+
+async function showSearchSuggestions(){
+  const value = $("#searchInput").value.trim();
+  clearTimeout(suggestionTimer);
+  if(value.length < 2){ $("#searchSuggestions").classList.add("hidden"); return; }
+  suggestionTimer = setTimeout(async () => {
+    try{
+      const type = section === "library" ? "multi" : section;
+      const data = await getJSON(`/search/${type}?query=${encodeURIComponent(value)}&page=1`);
+      const items = (data.results || []).filter(item => item.media_type !== "person").slice(0,6);
+      $("#searchSuggestions").innerHTML = items.map(item => {
+        const itemType = item.media_type || section;
+        return `<button class="suggestionItem" data-id="${item.id}" data-type="${itemType}">${item.poster_path ? `<img src="${IMG}${item.poster_path}" alt="">` : `<span class="suggestionPoster"></span>`}<span><b>${escapeHTML(mediaName(item))}</b><small>${mediaDate(item).slice(0,4) || "—"} · ${itemType === "tv" ? "Serie" : "Película"}</small></span></button>`;
+      }).join("") || `<div class="emptyState">Sin coincidencias</div>`;
+      $("#searchSuggestions").classList.remove("hidden");
+      $("#searchSuggestions").querySelectorAll(".suggestionItem").forEach(button => button.onclick = () => {
+        $("#searchSuggestions").classList.add("hidden");
+        openDetails(button.dataset.id,button.dataset.type);
+      });
+    }catch{}
+  },280);
+}
+
+function exportHistoryFile(){
+  const blob = new Blob([JSON.stringify({app:"Cine Latino",version:2,exported:new Date().toISOString(),history:historyData},null,2)],{type:"application/json"});
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `cine-latino-respaldo-${new Date().toISOString().slice(0,10)}.json`;
+  link.click();
+  setTimeout(() => URL.revokeObjectURL(link.href),1000);
+}
+
+function setupSpatialNavigation(){
+  document.addEventListener("keydown",event => {
+    if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key)) return;
+    const active = document.activeElement;
+    if(!active?.matches("button,[tabindex='0']") || active.matches("input,select,textarea")) return;
+    const candidates = [...document.querySelectorAll("button:not([disabled]),[tabindex='0']")].filter(element => element.offsetParent !== null && element !== active);
+    const source = active.getBoundingClientRect();
+    const horizontal = event.key === "ArrowLeft" || event.key === "ArrowRight";
+    const direction = event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
+    const valid = candidates.map(element => ({element,rect:element.getBoundingClientRect()})).filter(({rect}) => {
+      const delta = horizontal ? rect.left - source.left : rect.top - source.top;
+      return Math.sign(delta) === direction;
+    }).sort((a,b) => {
+      const da = horizontal ? Math.abs(a.rect.left-source.left)+Math.abs(a.rect.top-source.top)*2 : Math.abs(a.rect.top-source.top)+Math.abs(a.rect.left-source.left)*2;
+      const db = horizontal ? Math.abs(b.rect.left-source.left)+Math.abs(b.rect.top-source.top)*2 : Math.abs(b.rect.top-source.top)+Math.abs(b.rect.left-source.left)*2;
+      return da-db;
+    });
+    if(valid[0]){ event.preventDefault(); valid[0].element.focus({preventScroll:true}); valid[0].element.scrollIntoView({block:"nearest",inline:"nearest"}); }
+  });
+}
+
 document
   .querySelectorAll(".navBtn")
   .forEach(button => {
@@ -2286,6 +2738,45 @@ $("#searchInput").onkeydown = event => {
   if(event.key === "Enter"){
     searchCatalog();
   }
+};
+
+$("#searchInput").oninput = showSearchSuggestions;
+
+$("#genreFilter").onchange = event => { genreId = event.target.value; page = 1; query = ""; loadCatalog(); };
+$("#yearFilter").onchange = event => { yearValue = event.target.value; page = 1; query = ""; loadCatalog(); };
+$("#ratingFilter").onchange = event => { ratingValue = event.target.value; page = 1; query = ""; loadCatalog(); };
+$("#clearFilters").onclick = () => {
+  genreId = yearValue = ratingValue = "";
+  $("#genreFilter").value = $("#yearFilter").value = $("#ratingFilter").value = "";
+  page = 1; query = ""; loadCatalog();
+};
+
+document.querySelectorAll(".libraryTab").forEach(button => button.onclick = () => {
+  libraryFilter = button.dataset.libraryFilter;
+  document.querySelectorAll(".libraryTab").forEach(tab => tab.classList.toggle("active",tab === button));
+  renderLibrary();
+});
+
+$("#profileButton").onclick = () => changeSection("library");
+$("#toggleFavorite").onclick = toggleFavorite;
+$("#playTrailer").onclick = () => {
+  if(!trailerKey) return;
+  $("#trailerFrame").src = `https://www.youtube.com/embed/${encodeURIComponent(trailerKey)}?autoplay=1&rel=0`;
+  $("#trailerModal").classList.remove("hidden");
+};
+$("#closeTrailer").onclick = () => { $("#trailerFrame").src = ""; $("#trailerModal").classList.add("hidden"); };
+$("#trailerModal").onclick = event => { if(event.target === $("#trailerModal")) $("#closeTrailer").click(); };
+$("#exportHistory").onclick = exportHistoryFile;
+$("#importHistory").onchange = async event => {
+  const file = event.target.files?.[0];
+  if(!file) return;
+  try{
+    const data = JSON.parse(await file.text());
+    const imported = data.history || data;
+    if(!imported || typeof imported !== "object" || Array.isArray(imported)) throw new Error();
+    historyData = {...historyData,...imported}; saveHistory(); renderContinue(); renderLibrary(); showToast("Historial importado");
+  }catch{ showToast("El archivo no es un respaldo válido"); }
+  event.target.value = "";
 };
 
 $("#sortSelect").onchange = () => {
@@ -2463,6 +2954,13 @@ document.addEventListener(
 );
 
 renderContinue();
+initializeFilters();
+setupSpatialNavigation();
+window.addEventListener("offline",() => {
+  if($("#offlineNotice")) return;
+  const notice = document.createElement("div"); notice.id = "offlineNotice"; notice.className = "offlineBadge"; notice.textContent = "Sin conexión"; document.body.append(notice);
+});
+window.addEventListener("online",() => { $("#offlineNotice")?.remove(); showToast("Conexión restaurada"); });
 loadCatalog();
 </script>
 
