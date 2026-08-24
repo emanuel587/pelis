@@ -857,34 +857,6 @@ img{
   border-top-color:#fff;
 }
 
-.firetv .playerBar{
-  min-height:76px;
-  padding:10px 18px;
-}
-
-.firetv .playerBack{
-  width:54px;
-  height:54px;
-  font-size:27px;
-}
-
-.firetv .playerActions .ghostBtn{
-  min-height:52px;
-  padding:0 20px;
-  border:2px solid #ffffff20;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:850;
-}
-
-.firetv .playerActions .ghostBtn:focus-visible,
-.firetv .playerBack:focus-visible{
-  color:#05060a;
-  background:#fff;
-  outline:4px solid #60a5fa;
-  outline-offset:2px;
-}
-
 .player-open .detailModal{
   visibility:hidden;
 }
@@ -1449,10 +1421,6 @@ body::before{
           Terminó
         </button>
 
-        <button id="retryPlayer" class="ghostBtn">
-          Reintentar
-        </button>
-
         <button id="playerFullscreen" class="ghostBtn">
           Pantalla completa
         </button>
@@ -1462,11 +1430,11 @@ body::before{
     <div id="playerStage" class="playerStage">
       <iframe
         id="playerFrame"
+        sandbox="allow-scripts allow-same-origin allow-forms allow-presentation"
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
+        referrerpolicy="no-referrer"
         allowfullscreen
-        loading="eager"
         scrolling="no"
-        tabindex="0"
       ></iframe>
 
       <div id="playerLoading" class="playerLoading">
@@ -1514,17 +1482,11 @@ const STILL =
 const STORAGE_KEY =
   "cineLatinoFireTVV1";
 
-const PLAYER_SESSION_KEY =
-  "cineLatinoFireTVPlayerV1";
-
-const PLAYER_SESSION_MAX_AGE =
-  6 * 60 * 60 * 1000;
-
 const $ = selector =>
   document.querySelector(selector);
 
 const IS_FIRE_TV =
-  /AFT|Fire TV|Silk\/|Vega/i.test(
+  /AFT|Fire TV|Silk\//i.test(
     navigator.userAgent
   );
 
@@ -1545,7 +1507,6 @@ let currentEpisode = null;
 let nextTimer = null;
 let toastTimer = null;
 let suggestionTimer = null;
-let restoringPlayer = false;
 let genreId = "";
 let yearValue = "";
 let ratingValue = "";
@@ -2090,7 +2051,7 @@ function setFeatured(item){
   };
 }
 
-async function openDetails(id,type,preferredSeason = null){
+async function openDetails(id,type){
   closePlayer(false);
 
   $("#detailModal")
@@ -2168,7 +2129,7 @@ async function openDetails(id,type,preferredSeason = null){
     renderDetailExtras();
 
     if(type === "tv"){
-      await prepareSeasons(preferredSeason);
+      prepareSeasons();
 
       $("#playTitle")
         .classList.add("hidden");
@@ -2240,7 +2201,7 @@ function renderDetailExtras(){
   $("#playTrailer").classList.toggle("hidden",!trailerKey);
 }
 
-async function prepareSeasons(preferredSeason = null){
+function prepareSeasons(){
   const seasons =
     (currentItem.seasons || [])
       .filter(season =>
@@ -2263,18 +2224,9 @@ async function prepareSeasons(preferredSeason = null){
     );
   };
 
-  const selectedSeason =
-    seasons.find(season =>
-      season.season_number ===
-      Number(preferredSeason)
-    ) || seasons[0];
-
-  if(selectedSeason){
-    $("#seasonSelect").value =
-      String(selectedSeason.season_number);
-
-    await loadSeason(
-      selectedSeason.season_number
+  if(seasons[0]){
+    loadSeason(
+      seasons[0].season_number
     );
   }
 }
@@ -2464,19 +2416,6 @@ function playMedia(episode = null){
   $("#playerFrame").src =
     playerURL;
 
-  localStorage.setItem(
-    PLAYER_SESSION_KEY,
-    JSON.stringify({
-      active:true,
-      itemId:currentItem.id,
-      type:currentItem.media_type,
-      season:episode?.season_number || null,
-      episode:episode?.episode_number || null,
-      playerURL,
-      savedAt:Date.now()
-    })
-  );
-
   $("#playerOverlay")
     .classList.add("show");
 
@@ -2514,124 +2453,9 @@ function closePlayer(clear = true){
 
   if(clear){
     $("#playerFrame").src = "";
-    localStorage.removeItem(
-      PLAYER_SESSION_KEY
-    );
   }
 
   renderContinue();
-}
-
-function readPlayerSession(){
-  try{
-    const saved = JSON.parse(
-      localStorage.getItem(
-        PLAYER_SESSION_KEY
-      )
-    );
-
-    if(
-      !saved?.active ||
-      !saved.itemId ||
-      !saved.type ||
-      Date.now() - Number(saved.savedAt || 0) >
-        PLAYER_SESSION_MAX_AGE
-    ){
-      localStorage.removeItem(
-        PLAYER_SESSION_KEY
-      );
-      return null;
-    }
-
-    return saved;
-  }catch{
-    localStorage.removeItem(
-      PLAYER_SESSION_KEY
-    );
-    return null;
-  }
-}
-
-async function restorePlayerSession(){
-  if(
-    restoringPlayer ||
-    $("#playerOverlay").classList.contains(
-      "show"
-    )
-  ){
-    return;
-  }
-
-  const saved = readPlayerSession();
-
-  if(!saved){
-    return;
-  }
-
-  restoringPlayer = true;
-
-  try{
-    await openDetails(
-      saved.itemId,
-      saved.type,
-      saved.season
-    );
-
-    if(saved.type === "tv"){
-      const episode =
-        (currentItem._episodes || []).find(
-          item =>
-            Number(item.episode_number) ===
-            Number(saved.episode)
-        );
-
-      if(!episode){
-        throw new Error(
-          "No se pudo recuperar el episodio"
-        );
-      }
-
-      playMedia(episode);
-    }else{
-      playMedia();
-    }
-
-    showToast(
-      "Reproductor restaurado"
-    );
-  }catch(error){
-    localStorage.removeItem(
-      PLAYER_SESSION_KEY
-    );
-
-    showToast(
-      error.message ||
-      "No se pudo restaurar"
-    );
-  }finally{
-    restoringPlayer = false;
-  }
-}
-
-function retryCurrentPlayer(){
-  const saved = readPlayerSession();
-  const frame = $("#playerFrame");
-
-  if(!saved?.playerURL){
-    showToast(
-      "No hay reproducción para reintentar"
-    );
-    return;
-  }
-
-  $("#playerLoading")
-    .classList.remove("hidden");
-
-  frame.src = "about:blank";
-
-  setTimeout(() => {
-    frame.src = saved.playerURL;
-  },120);
 }
 
 function findNext(){
@@ -3018,9 +2842,6 @@ $("#playerBack").onclick = () => {
 $("#finishedButton").onclick =
   playbackEnded;
 
-$("#retryPlayer").onclick =
-  retryCurrentPlayer;
-
 $("#cancelNext").onclick =
   cancelNextPlayback;
 
@@ -3045,14 +2866,6 @@ $("#playerFrame").addEventListener(
     setTimeout(() => {
       $("#playerLoading")
         .classList.add("hidden");
-
-      try{
-        $("#playerFrame")
-          .contentWindow
-          .focus();
-      }catch{
-        $("#playerFrame").focus();
-      }
     },450);
   }
 );
@@ -3150,35 +2963,7 @@ window.addEventListener("offline",() => {
   const notice = document.createElement("div"); notice.id = "offlineNotice"; notice.className = "offlineBadge"; notice.textContent = "Sin conexión"; document.body.append(notice);
 });
 window.addEventListener("online",() => { $("#offlineNotice")?.remove(); showToast("Conexión restaurada"); });
-
-window.addEventListener(
-  "beforeunload",
-  event => {
-    if(
-      !$("#playerOverlay")
-        .classList.contains("show")
-    ){
-      return;
-    }
-
-    event.preventDefault();
-    event.returnValue = true;
-  }
-);
-
-window.addEventListener(
-  "pageshow",
-  event => {
-    if(event.persisted){
-      restorePlayerSession();
-    }
-  }
-);
-
-(async function initializeApp(){
-  await loadCatalog();
-  await restorePlayerSession();
-})();
+loadCatalog();
 </script>
 
 </body>
