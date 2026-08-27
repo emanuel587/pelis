@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#07080b">
 <title>Cine Latino</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer">
 
 <style>
 :root{
@@ -1155,13 +1156,523 @@ body::before{
 .offlineBadge{position:fixed;z-index:1700;right:18px;bottom:18px;padding:9px 12px;border-radius:12px;background:#ffc95c;color:#18120a;font-weight:900;box-shadow:0 10px 30px #0008}
 
 @media(max-width:760px){.profileButton{display:none}.discoveryGroup .rail .mediaCard{min-width:140px}.filterBar{display:grid;grid-template-columns:1fr 1fr}.filterBar label{min-width:0}.filterBar .ghostBtn{grid-column:1/-1;margin:0}.libraryTools{align-items:stretch;flex-direction:column}.libraryTabs{overflow:auto}.libraryActions>*{flex:1}.detailActions{grid-template-columns:1fr 1fr}.castRail{grid-auto-columns:95px}.trailerModal{padding:8px}.trailerShell{border-radius:13px}}
+
+/* ==========================================================
+   AJUSTES 2026.2 · búsqueda global + reproductor TV-friendly
+   ========================================================== */
+.searchBox{max-width:520px}
+.searchScope{
+  position:absolute;left:42px;z-index:3;display:inline-flex;align-items:center;gap:5px;
+  height:26px;padding:0 9px;border:1px solid #ffffff16;border-radius:999px;
+  background:#ffffff0a;color:#cfd4df;font-size:10px;font-weight:900;letter-spacing:.04em;
+  pointer-events:none;white-space:nowrap
+}
+.searchBox input{padding-left:138px}
+.searchSuggestions{top:58px}
+.suggestionItem{grid-template-columns:43px 1fr auto}
+.suggestionType{padding:4px 7px;border:1px solid #ffffff14;border-radius:999px;background:#ffffff08;color:#aeb5c3;font-size:9px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
+.typePill{position:absolute;z-index:3;right:10px;bottom:67px;padding:5px 8px;border:1px solid #ffffff17;border-radius:999px;background:#06070bcf;color:#e9ebf1;font-size:9px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(8px)}
+
+.playerBar{gap:14px;flex-wrap:wrap}
+.playerServerTools{display:flex;align-items:center;gap:8px;margin-left:auto}
+.playerServerLabel{color:#8f97a7;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
+.playerSourceSelect{height:42px;min-width:178px;border:1px solid #ffffff1c;border-radius:11px;background:#151922;color:#fff;padding:0 34px 0 12px;font-weight:800}
+.playerControlBtn{min-height:42px;border:1px solid #ffffff1b!important;background:#ffffff08!important;color:#fff!important}
+.playerControlBtn:hover,.playerControlBtn:focus-visible{background:#fff!important;color:#08090d!important}
+.playerHint{display:none;width:100%;padding:7px 11px;border:1px solid #ffffff0d;border-radius:10px;background:#ffffff05;color:#9ba3b4;font-size:11px}
+.firetv .playerHint{display:block}
+.firetv .playerServerTools{margin-left:0}
+.firetv .playerSourceSelect{height:52px;min-width:210px;font-size:15px}
+.firetv .playerControlBtn{min-height:52px;padding:0 18px!important}
+.firetv .playerFrameFocused{outline:4px solid #60a5fa;outline-offset:-4px}
+
+@media(max-width:980px){
+  .playerBar{align-items:center}.playerServerTools{order:3;width:100%;margin-left:54px}.playerActions{margin-left:auto}
+}
+@media(max-width:760px){
+  .searchScope{display:none}.searchBox input{padding-left:43px}.searchBox{max-width:none}
+  .playerServerTools{order:4;width:100%;margin:0;display:grid;grid-template-columns:auto 1fr auto}.playerSourceSelect{min-width:0;width:100%}
+  .playerActions{width:100%;justify-content:space-between}.playerActions .ghostBtn{flex:1;padding-inline:8px}
+  .playerHint{order:5}
+}
+
+
+/* ==========================================================
+   INTERFAZ PLUS 2026.3 · look friendly inspirado en Netflix + Apple TV
+   ========================================================== */
+:root{
+  --glass:#ffffff0a;
+  --glass2:#ffffff08;
+  --softBorder:#ffffff12;
+  --softBorder2:#ffffff1e;
+}
+
+body{
+  background:
+    radial-gradient(circle at 5% 0%,#7e152733 0,transparent 22rem),
+    radial-gradient(circle at 90% 10%,#2347a326 0,transparent 28rem),
+    radial-gradient(circle at 50% 100%,#5c17281d 0,transparent 34rem),
+    linear-gradient(180deg,#04050a 0,#070a11 42%,#06070b 100%);
+}
+
+.brandText{
+  display:grid;
+  gap:2px;
+  line-height:1;
+}
+.brandText small{
+  font-size:10px;
+  font-weight:700;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:#96a0b1;
+}
+
+.topbar{
+  width:var(--content);
+  margin:16px auto 0;
+  top:12px;
+  border:1px solid #ffffff10;
+  border-radius:24px;
+  background:linear-gradient(180deg,#0b0d13e8,#090b11d0);
+  box-shadow:0 18px 45px #0007;
+}
+
+.nav{
+  padding:5px;
+  background:linear-gradient(180deg,#ffffff10,#ffffff07);
+}
+.navBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  min-height:40px;
+}
+
+.searchBox{
+  max-width:560px;
+}
+.searchBox input{
+  background:linear-gradient(180deg,#111621,#0e121a);
+  box-shadow:inset 0 1px 0 #ffffff08,0 10px 24px #00000030;
+}
+.searchBox button{
+  right:6px;
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  background:#ffffff10;
+}
+.searchSuggestions{
+  border:1px solid var(--softBorder2);
+  background:linear-gradient(180deg,#121722f7,#0d1119f1);
+}
+.suggestionItem{
+  padding:10px;
+  border:1px solid transparent;
+}
+.suggestionItem:hover,.suggestionItem:focus-visible{
+  border-color:#ffffff14;
+}
+
+.hero{
+  position:relative;
+  min-height:min(82vh,820px);
+  margin-top:20px;
+  border-radius:34px;
+  border:1px solid #ffffff15;
+  box-shadow:0 36px 120px #000c;
+}
+.hero::after{
+  background:
+    radial-gradient(circle at 100% 0%,#ff30401f 0,transparent 28%),
+    linear-gradient(180deg,transparent 20%,#030409 100%);
+}
+.heroContent{
+  padding-bottom:44px;
+}
+.heroDescription{
+  max-width:700px;
+}
+.heroActions{
+  margin-top:24px;
+}
+.heroQuickPanel{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:14px;
+  margin-top:30px;
+  max-width:860px;
+}
+.heroQuickCard{
+  padding:16px 16px 15px;
+  border:1px solid var(--softBorder);
+  border-radius:18px;
+  background:linear-gradient(180deg,#ffffff14,#ffffff08);
+  backdrop-filter:blur(12px);
+  box-shadow:inset 0 1px 0 #ffffff0c,0 12px 32px #0006;
+}
+.heroQuickCard small{
+  display:block;
+  margin-bottom:8px;
+  color:#ff8a95;
+  font-size:11px;
+  font-weight:900;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+}
+.heroQuickCard strong{
+  display:block;
+  margin-bottom:7px;
+  font-size:15px;
+  line-height:1.25;
+}
+.heroQuickCard span{
+  display:block;
+  color:#c2c7d2;
+  font-size:13px;
+  line-height:1.5;
+}
+
+.appMain{
+  padding-top:34px;
+}
+.section{
+  padding:24px;
+  border:1px solid #ffffff0d;
+  border-radius:28px;
+  background:linear-gradient(180deg,#10141d88,#0b0e15aa);
+  box-shadow:0 24px 70px #0006;
+}
+.section.discoverySection{
+  padding-bottom:10px;
+}
+.section + .section{
+  margin-top:30px;
+}
+.sectionHead{
+  margin-bottom:20px;
+}
+.sectionSub{
+  color:#9ea8bb;
+}
+
+.filterBar,
+.libraryTools,
+.pagination{
+  background:linear-gradient(180deg,#ffffff08,#ffffff05);
+  border:1px solid #ffffff10;
+}
+.filterBar{
+  padding:16px;
+  border-radius:20px;
+}
+.libraryTools{
+  padding:14px;
+  border-radius:18px;
+}
+.pagination{
+  margin-bottom:6px;
+}
+
+.mediaCard{
+  border-radius:20px;
+  background:linear-gradient(180deg,#121722,#0b0f16);
+}
+.poster{
+  border-top-left-radius:inherit;
+  border-top-right-radius:inherit;
+}
+.cardInfo{
+  border-top:1px solid #ffffff0a;
+}
+.favoriteQuick,
+.cardBadge,
+.typePill{
+  box-shadow:0 10px 30px #0008;
+}
+
+.detailPanel{
+  background:
+    linear-gradient(180deg,#0d1118,#0a0d13);
+}
+.statusLine{
+  background:linear-gradient(180deg,#ffffff09,#ffffff05);
+}
+.episodeCard{
+  background:linear-gradient(180deg,#ffffff08,#ffffff04);
+}
+
+.playerBar{
+  background:linear-gradient(180deg,#11151d,#090c12);
+}
+.playerSourceSelect{
+  background:linear-gradient(180deg,#181e2a,#111621);
+}
+.playerHint{
+  background:linear-gradient(180deg,#ffffff08,#ffffff04);
+}
+
+.ghostBtn,.secondaryBtn,.primaryBtn,.playerBack,.playerSourceSelect,.select,.libraryTab,.profileButton{
+  transition:transform .18s ease,filter .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
+}
+.ghostBtn:hover,.secondaryBtn:hover,.libraryTab:hover,.playerBack:hover,.profileButton:hover,.select:hover,.playerSourceSelect:hover{
+  transform:translateY(-1px);
+}
+
+@media(max-width:1000px){
+  .topbar{width:calc(100% - 28px)}
+  .heroQuickPanel{grid-template-columns:1fr 1fr}
+}
+
+@media(max-width:760px){
+  .topbar{
+    margin-top:10px;
+    border-radius:18px;
+  }
+  .brandText small{display:none}
+  .hero{
+    min-height:610px;
+    border-radius:24px;
+  }
+  .heroContent{
+    padding:160px 22px 30px;
+  }
+  .heroQuickPanel{
+    grid-template-columns:1fr;
+    gap:10px;
+    margin-top:20px;
+  }
+  .heroQuickCard{
+    padding:14px;
+    border-radius:16px;
+  }
+  .section{
+    padding:16px;
+    border-radius:22px;
+  }
+  
+}
+
+
+
+/* ==========================================================
+   NETFLIX INSPIRED UI · rediseño estructural completo
+   ========================================================== */
+:root{
+  --nf-red:#e50914;
+  --nf-red-hover:#f6121d;
+  --nf-bg:#141414;
+  --nf-card:#181818;
+  --nf-muted:#b3b3b3;
+  --nf-white:#fff;
+  --content:calc(100% - clamp(32px,7vw,110px));
+}
+html,body{background:var(--nf-bg)!important}
+body{background:#141414!important;color:#fff!important;font-family:Arial,Helvetica,sans-serif!important}
+body::before{display:none!important}
+
+/* navegación Netflix */
+.topbar{
+  position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:1000!important;
+  width:100%!important;min-height:68px!important;margin:0!important;padding:0 clamp(20px,4vw,62px)!important;
+  border:0!important;border-radius:0!important;
+  background:linear-gradient(180deg,rgba(0,0,0,.88),rgba(0,0,0,.62) 62%,transparent)!important;
+  box-shadow:none!important;backdrop-filter:none!important;gap:28px!important;
+}
+.brand{gap:10px!important;font-size:25px!important;letter-spacing:-1.3px!important;color:var(--nf-red)!important}
+.brandMark{display:none!important}
+.brandText{display:block!important;font-weight:950!important;color:var(--nf-red)!important;line-height:1!important}
+.brandText span{color:var(--nf-red)!important}
+.brandText small{display:none!important}
+.nav{padding:0!important;gap:22px!important;background:transparent!important;border:0!important;border-radius:0!important}
+.navBtn{
+  position:relative!important;min-height:68px!important;padding:0!important;border-radius:0!important;
+  background:transparent!important;color:#ddd!important;font-size:14px!important;font-weight:500!important;
+}
+.navBtn i{display:none!important}
+.navBtn:hover,.navBtn.active{background:transparent!important;color:#fff!important}
+.navBtn.active::after{content:"";position:absolute;left:0;right:0;bottom:14px;height:2px;background:var(--nf-red);border-radius:2px}
+.searchBox{max-width:410px!important;margin-left:auto!important}
+.searchScope{display:none!important}
+.searchBox input{
+  height:36px!important;padding:0 42px 0 14px!important;border:1px solid #ffffff9a!important;border-radius:2px!important;
+  background:#000a!important;color:#fff!important;box-shadow:none!important;font-size:14px!important;
+}
+.searchBox input::placeholder{color:#aaa!important}
+.searchBox input:focus{border-color:#fff!important;background:#000!important;box-shadow:none!important}
+.searchBox::before{display:none!important}
+.searchBox button{right:0!important;top:0!important;width:38px!important;height:36px!important;border-radius:0!important;background:transparent!important;font-size:16px!important}
+.profileButton{width:34px!important;height:34px!important;border:0!important;border-radius:4px!important;background:#333!important;box-shadow:none!important;font-size:14px!important}
+
+/* hero real de streaming, sin caja ni tarjetas flotantes */
+.hero{
+  width:100%!important;min-height:min(82vh,820px)!important;margin:0!important;border:0!important;border-radius:0!important;
+  box-shadow:none!important;background-position:center top!important;overflow:hidden!important;
+}
+.hero::before{
+  background:
+    linear-gradient(90deg,#141414 0,rgba(20,20,20,.92) 16%,rgba(20,20,20,.62) 44%,rgba(20,20,20,.15) 72%,transparent 100%),
+    linear-gradient(0deg,#141414 0,rgba(20,20,20,.75) 12%,transparent 38%),
+    linear-gradient(180deg,rgba(0,0,0,.28),transparent 30%)!important;
+}
+.hero::after{display:none!important}
+.heroContent{width:min(670px,82%)!important;padding:165px 0 150px clamp(22px,4vw,62px)!important}
+.kicker{padding:0!important;border:0!important;background:transparent!important;color:#fff!important;font-size:13px!important;letter-spacing:.18em!important;font-weight:800!important}
+.kicker::before{width:4px!important;height:17px!important;border-radius:1px!important;background:var(--nf-red)!important;box-shadow:none!important}
+.heroTitle{margin:14px 0 16px!important;font-size:clamp(44px,6vw,78px)!important;line-height:.96!important;letter-spacing:-.045em!important;text-shadow:0 4px 24px #000!important}
+.heroMeta{gap:12px!important;color:#fff!important;font-size:14px!important}
+.heroMeta>span{padding:0!important;border:0!important;background:transparent!important}
+.heroMeta .score{color:#46d369!important;background:transparent!important;border:0!important}
+.heroDescription{max-width:610px!important;margin:18px 0 22px!important;color:#fff!important;font-size:clamp(15px,1.3vw,18px)!important;line-height:1.48!important;text-shadow:0 2px 10px #000!important}
+.heroActions{gap:10px!important;margin-top:22px!important}
+.heroActions .primaryBtn,.detailActions .primaryBtn{
+  min-height:44px!important;padding:0 24px!important;border-radius:4px!important;background:#fff!important;color:#000!important;box-shadow:none!important;font-size:16px!important;font-weight:700!important;
+}
+.heroActions .primaryBtn:hover,.detailActions .primaryBtn:hover{background:#e6e6e6!important;filter:none!important;transform:none!important}
+.heroActions .secondaryBtn{
+  min-height:44px!important;padding:0 24px!important;border:0!important;border-radius:4px!important;background:rgba(109,109,110,.7)!important;color:#fff!important;box-shadow:none!important;font-size:16px!important;font-weight:700!important;
+}
+.heroActions .secondaryBtn:hover{background:rgba(109,109,110,.45)!important;filter:none!important;transform:none!important}
+.primaryBtn i,.secondaryBtn i,.ghostBtn i{margin-right:8px}
+
+/* contenido sobrepuesto como Netflix */
+.appMain{position:relative!important;z-index:4!important;width:var(--content)!important;margin:-105px auto 0!important;padding:0 0 70px!important}
+.section,.section.discoverySection{
+  margin:0 0 42px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+}
+.section + .section{margin-top:0!important}
+.sectionHead{align-items:end!important;margin-bottom:12px!important}
+.sectionTitle{font-size:clamp(20px,2vw,28px)!important;letter-spacing:-.02em!important;font-weight:700!important}
+.sectionSub{display:none!important}
+.headTools{gap:8px!important}
+
+/* filas y tarjetas horizontales */
+.rail{
+  grid-auto-columns:clamp(230px,20vw,320px)!important;gap:7px!important;padding:8px 2px 34px!important;overflow-x:auto!important;overflow-y:visible!important;scroll-snap-type:x proximity!important;
+}
+.grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))!important;gap:10px 7px!important}
+.mediaCard{
+  position:relative!important;overflow:visible!important;border:0!important;border-radius:4px!important;background:#181818!important;box-shadow:none!important;
+  transform-origin:center center!important;transition:transform .25s ease,box-shadow .25s ease!important;
+}
+.mediaCard:hover,.mediaCard:focus-visible{z-index:20!important;transform:scale(1.075)!important;border-color:transparent!important;box-shadow:0 15px 35px #000d!important}
+.mediaCard::after{display:none!important}
+.poster,.posterEmpty{width:100%!important;aspect-ratio:16/9!important;border-radius:4px!important;object-fit:cover!important;background:#242424!important}
+.mediaCard:hover .poster{transform:none!important;filter:none!important}
+.cardShade{inset:auto 0 0!important;height:56%!important;background:linear-gradient(0deg,#181818 0,rgba(24,24,24,.96) 40%,transparent 100%)!important;border-radius:0 0 4px 4px!important}
+.cardInfo{
+  position:absolute!important;z-index:3!important;left:0!important;right:0!important;bottom:0!important;padding:34px 12px 10px!important;
+  background:transparent!important;opacity:0!important;transform:translateY(6px)!important;transition:.18s ease!important;pointer-events:none!important;
+}
+.mediaCard:hover .cardInfo,.mediaCard:focus-visible .cardInfo{opacity:1!important;transform:none!important}
+.cardTitle{font-size:13px!important;font-weight:700!important;text-shadow:0 1px 3px #000!important}
+.cardMeta{margin-top:5px!important;color:#ddd!important;font-size:11px!important}
+.cardMeta .fa-star,.cardMeta i{color:#f5c518!important}
+.cardBadge{top:8px!important;left:8px!important;padding:4px 7px!important;border:0!important;border-radius:3px!important;background:#111d!important;font-size:9px!important;box-shadow:none!important}
+.cardBadge.watched{background:#0f7b3acc!important}
+.typePill{right:8px!important;bottom:auto!important;top:8px!important;padding:4px 7px!important;border:0!important;border-radius:3px!important;background:#111d!important;font-size:9px!important;box-shadow:none!important}
+.favoriteQuick{
+  z-index:5!important;top:auto!important;right:8px!important;bottom:8px!important;width:30px!important;height:30px!important;border:1px solid #aaa!important;border-radius:50%!important;background:#2a2a2ad9!important;color:#fff!important;font-size:13px!important;opacity:0!important;transition:.18s!important;
+}
+.mediaCard:hover .favoriteQuick,.mediaCard:focus-visible .favoriteQuick,.favoriteQuick:focus-visible{opacity:1!important}
+.favoriteQuick.active{color:#fff!important;background:var(--nf-red)!important;border-color:var(--nf-red)!important}
+.progressTrack{position:absolute!important;z-index:6!important;left:0!important;right:0!important;bottom:0!important;height:3px!important;background:#555!important}
+.progressFill{background:var(--nf-red)!important;box-shadow:none!important}
+
+/* filtros: simples, discretos */
+.filterBar,.libraryTools,.pagination{
+  border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
+}
+.filterBar{margin:0 0 18px!important;padding:0!important;gap:8px!important}
+.filterBar label{min-width:145px!important}
+.filterBar label>span{display:none!important}
+.select,.playerSourceSelect{
+  height:36px!important;border:1px solid #555!important;border-radius:2px!important;background:#000!important;color:#fff!important;padding:0 34px 0 10px!important;font-size:13px!important;box-shadow:none!important;
+}
+.ghostBtn,.secondaryBtn{
+  border:1px solid #666!important;border-radius:3px!important;background:#252525!important;color:#fff!important;box-shadow:none!important;
+}
+.ghostBtn:hover,.secondaryBtn:hover{background:#333!important;transform:none!important;filter:none!important}
+.libraryTools{margin-bottom:18px!important;padding:0!important}
+.libraryTabs{padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;gap:14px!important}
+.libraryTab{padding:8px 0!important;border-radius:0!important;color:#aaa!important}
+.libraryTab.active{background:transparent!important;color:#fff!important;border-bottom:2px solid var(--nf-red)!important}
+.pagination{margin:26px 0 0!important;padding:0!important}
+
+/* modal de detalle cinematográfico */
+.detailModal{padding:32px!important;background:#000b!important;backdrop-filter:none!important}
+.detailPanel{width:min(980px,100%)!important;max-height:92vh!important;border:0!important;border-radius:8px!important;background:#181818!important;box-shadow:0 20px 80px #000!important;overflow:hidden auto!important}
+.detailBackdrop{min-height:500px!important;background-position:center top!important}
+.detailBackdrop::after{background:linear-gradient(0deg,#181818 0,rgba(24,24,24,.88) 20%,transparent 58%)!important}
+.closeDetail{top:15px!important;right:15px!important;width:36px!important;height:36px!important;border:0!important;background:#181818!important;border-radius:50%!important;font-size:17px!important}
+.detailContent{margin-top:-150px!important;padding:0 46px 48px!important}
+.detailTitle{font-size:clamp(34px,5vw,56px)!important}
+.detailMeta{margin:12px 0 17px!important;gap:12px!important}
+.detailMeta span{padding:0!important;border:0!important;background:transparent!important}
+.detailMeta .score{color:#46d369!important}
+.detailOverview{max-width:720px!important;color:#e5e5e5!important;font-size:14px!important;line-height:1.55!important}
+.detailActions{gap:9px!important;margin-top:18px!important}
+.detailActions .secondaryBtn{min-height:44px!important;padding:0 16px!important}
+.statusLine{margin-top:18px!important;padding:0!important;border:0!important;background:transparent!important;color:#aaa!important}
+.episodeSection,.detailExtra{border-top:1px solid #333!important}
+.episodeCard{border:0!important;border-radius:4px!important;background:#232323!important;padding:10px!important}
+.episodeCard:hover,.episodeCard:focus-visible{background:#2f2f2f!important;transform:none!important}
+.episodeStill,.episodeStillEmpty{border-radius:3px!important}
+.episodeCheck{color:#46d369!important}
+
+/* reproductor coherente */
+.playerBar{min-height:62px!important;padding:8px 18px!important;background:#080808!important;border-bottom:1px solid #222!important}
+.playerBack{width:38px!important;height:38px!important;border:0!important;border-radius:50%!important;background:#202020!important}
+.playingTitle{font-size:14px!important;font-weight:600!important}
+.playerServerTools{margin-left:auto!important}
+.playerServerLabel{display:none!important}
+.playerControlBtn{background:#222!important;border-color:#444!important}
+.playerActions .ghostBtn{min-height:38px!important;background:#161616!important;border-color:#333!important;font-size:12px!important}
+.playerHint{border:0!important;border-radius:0!important;background:transparent!important;color:#777!important}
+.playerStage{background:#000!important}
+.nextOverlay{border:0!important;border-radius:0!important;background:#000e!important;box-shadow:none!important}
+.nextOverlay strong{color:#fff!important;text-shadow:none!important}
+.toast{border:0!important;border-radius:3px!important;background:#222!important;box-shadow:0 10px 35px #000!important}
+
+/* TV: foco blanco/rojo y menos animación */
+.firetv .mediaCard:hover,.firetv .mediaCard:focus-visible{transform:scale(1.04)!important;outline:3px solid #fff!important;outline-offset:2px!important}
+.firetv .favoriteQuick{opacity:1!important}
+.firetv .navBtn:focus-visible,.firetv .ghostBtn:focus-visible,.firetv .secondaryBtn:focus-visible,.firetv .primaryBtn:focus-visible{outline:3px solid #fff!important;outline-offset:3px!important}
+
+@media(max-width:1000px){
+  .nav{gap:14px!important}.navBtn{font-size:13px!important}
+  .appMain{width:calc(100% - 36px)!important}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important}
+  .rail{grid-auto-columns:minmax(220px,290px)!important}
+}
+@media(max-width:760px){
+  .topbar{min-height:58px!important;padding:0 12px!important;gap:10px!important;flex-wrap:wrap!important;background:#0d0d0df5!important}
+  .brand{font-size:18px!important}.profileButton{display:none!important}
+  .nav{order:3!important;width:100%!important;height:38px!important;justify-content:space-around!important;border-top:1px solid #222!important}
+  .navBtn{min-height:38px!important;font-size:12px!important}.navBtn.active::after{bottom:0!important}
+  .searchBox{max-width:none!important;flex:1!important}.searchBox input{height:34px!important}.searchBox button{height:34px!important}
+  .hero{min-height:610px!important;padding-top:58px!important;background-position:center!important}
+  .hero::before{background:linear-gradient(0deg,#141414 0,rgba(20,20,20,.88) 28%,rgba(20,20,20,.28) 70%,transparent 100%)!important}
+  .heroContent{width:100%!important;padding:250px 20px 120px!important}.heroTitle{font-size:40px!important}.heroDescription{-webkit-line-clamp:3!important}
+  .appMain{width:calc(100% - 24px)!important;margin-top:-90px!important}
+  .section{margin-bottom:32px!important}.sectionTitle{font-size:20px!important}
+  .rail{grid-auto-columns:72vw!important;gap:6px!important;padding-bottom:25px!important}
+  .grid{grid-template-columns:1fr 1fr!important;gap:7px!important}
+  .mediaCard:hover,.mediaCard:focus-visible{transform:scale(1.025)!important}
+  .cardInfo{opacity:1!important;transform:none!important;padding:25px 8px 8px!important}.favoriteQuick{opacity:1!important}
+  .filterBar{display:grid!important;grid-template-columns:1fr 1fr!important}.filterBar .ghostBtn{grid-column:1/-1!important}
+  .detailModal{padding:0!important}.detailPanel{height:100vh!important;max-height:100vh!important;border-radius:0!important}.detailBackdrop{min-height:350px!important}.detailContent{margin-top:-90px!important;padding:0 20px 35px!important}
+  .playerBar{align-items:center!important}.playerServerTools{width:100%!important;margin:0!important}.playerActions{width:100%!important}
+}
+
 </style>
 </head>
 <body>
 
 <header class="topbar">
   <div class="brand">
-    <span class="brandMark">▶</span>
+    <span class="brandMark" aria-hidden="true"><i class="fa-solid fa-play"></i></span>
 
     <span class="brandText">
       CINE <span>LATINO</span>
@@ -1169,37 +1680,31 @@ body::before{
   </div>
 
   <nav class="nav" aria-label="Secciones">
-    <button class="navBtn active" data-section="movie">
-      Películas
-    </button>
+    <button class="navBtn active" data-section="movie"><i class="fa-solid fa-film"></i><span>Películas</span></button>
 
-    <button class="navBtn" data-section="tv">
-      Series
-    </button>
+    <button class="navBtn" data-section="tv"><i class="fa-solid fa-tv"></i><span>Series</span></button>
 
-    <button class="navBtn" data-section="library">
-      Mi espacio
-    </button>
+    <button class="navBtn" data-section="library"><i class="fa-solid fa-bookmark"></i><span>Mi espacio</span></button>
   </nav>
 
   <div class="searchBox">
+    <span class="searchScope">PELIS + SERIES</span>
     <input
       id="searchInput"
       type="search"
-      placeholder="Buscar películas…"
+      placeholder="Buscar películas y series…"
       autocomplete="off"
+      aria-label="Buscar películas y series"
     >
 
     <button id="searchButton" aria-label="Buscar">
-      ⌕
+      <i class="fa-solid fa-magnifying-glass"></i>
     </button>
 
     <div id="searchSuggestions" class="searchSuggestions hidden"></div>
   </div>
 
-  <button id="profileButton" class="profileButton" aria-label="Abrir mi espacio" title="Mi espacio">
-    ER
-  </button>
+  <button id="profileButton" class="profileButton" aria-label="Abrir mi espacio" title="Mi espacio"><i class="fa-solid fa-user"></i></button>
 </header>
 
 <section id="hero" class="hero">
@@ -1225,11 +1730,11 @@ body::before{
 
     <div class="heroActions">
       <button id="heroPlay" class="primaryBtn">
-        ▶ Ver destacado
+        <i class="fa-solid fa-play"></i> Reproducir
       </button>
 
       <button id="heroExplore" class="secondaryBtn">
-        Explorar catálogo
+        <i class="fa-solid fa-circle-info"></i> Más información
       </button>
     </div>
   </div>
@@ -1249,7 +1754,7 @@ body::before{
       </div>
 
       <button id="clearHistory" class="ghostBtn">
-        Borrar historial
+        <i class="fa-solid fa-trash-can"></i> Borrar historial
       </button>
     </div>
 
@@ -1313,7 +1818,7 @@ body::before{
           <option value="6">6 o más</option>
         </select>
       </label>
-      <button id="clearFilters" class="ghostBtn">Limpiar filtros</button>
+      <button id="clearFilters" class="ghostBtn"><i class="fa-solid fa-xmark"></i> Limpiar filtros</button>
     </div>
 
     <div id="libraryTools" class="libraryTools hidden">
@@ -1324,8 +1829,8 @@ body::before{
         <button class="libraryTab" data-library-filter="watched">Terminados</button>
       </div>
       <div class="libraryActions">
-        <button id="exportHistory" class="secondaryBtn">Exportar</button>
-        <label class="secondaryBtn importButton">Importar<input id="importHistory" type="file" accept="application/json"></label>
+        <button id="exportHistory" class="secondaryBtn"><i class="fa-solid fa-download"></i> Exportar</button>
+        <label class="secondaryBtn importButton"><i class="fa-solid fa-upload"></i> Importar<input id="importHistory" type="file" accept="application/json"></label>
       </div>
     </div>
 
@@ -1333,7 +1838,7 @@ body::before{
 
     <div id="pagination" class="pagination">
       <button id="previousPage" class="secondaryBtn">
-        ← Anterior
+        <i class="fa-solid fa-chevron-left"></i> Anterior
       </button>
 
       <span id="pageLabel" class="pageLabel">
@@ -1341,7 +1846,7 @@ body::before{
       </span>
 
       <button id="nextPage" class="secondaryBtn">
-        Siguiente →
+        Siguiente <i class="fa-solid fa-chevron-right"></i>
       </button>
     </div>
   </section>
@@ -1360,7 +1865,7 @@ body::before{
         class="closeDetail"
         aria-label="Cerrar"
       >
-        ✕
+        <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
 
@@ -1377,18 +1882,18 @@ body::before{
           class="primaryBtn"
           disabled
         >
-          ▶ Reproducir
+          <i class="fa-solid fa-play"></i> Reproducir
         </button>
 
         <button
           id="toggleWatched"
           class="secondaryBtn"
         >
-          ✓ Marcar como vista
+          <i class="fa-solid fa-check"></i> Marcar como vista
         </button>
 
-        <button id="toggleFavorite" class="secondaryBtn">♡ Favorito</button>
-        <button id="playTrailer" class="secondaryBtn hidden">▷ Tráiler</button>
+        <button id="toggleFavorite" class="secondaryBtn"><i class="fa-regular fa-heart"></i> Favorito</button>
+        <button id="playTrailer" class="secondaryBtn hidden"><i class="fa-solid fa-clapperboard"></i> Tráiler</button>
       </div>
 
       <div id="detailStatus" class="statusLine">
@@ -1425,7 +1930,7 @@ body::before{
 </div>
 
 <div id="trailerModal" class="trailerModal hidden" role="dialog" aria-modal="true">
-  <button id="closeTrailer" class="closeDetail" aria-label="Cerrar tráiler">✕</button>
+  <button id="closeTrailer" class="closeDetail" aria-label="Cerrar tráiler"><i class="fa-solid fa-xmark"></i></button>
   <div class="trailerShell"><iframe id="trailerFrame" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
 </div>
 
@@ -1437,25 +1942,39 @@ body::before{
         class="playerBack"
         aria-label="Volver"
       >
-        ←
+        <i class="fa-solid fa-chevron-left"></i>
       </button>
 
       <div id="playingTitle" class="playingTitle">
         Reproduciendo
       </div>
 
+      <div class="playerServerTools" aria-label="Opciones del reproductor">
+        <span class="playerServerLabel">Servidor</span>
+        <select id="playerSourceSelect" class="playerSourceSelect" aria-label="Elegir servidor">
+          <option value="tmdb">Automático · TMDB</option>
+        </select>
+        <button id="focusPlayer" class="ghostBtn playerControlBtn" title="Mover el control al reproductor">
+          <i class="fa-solid fa-gamepad"></i> Controlar
+        </button>
+      </div>
+
       <div class="playerActions">
         <button id="finishedButton" class="ghostBtn">
-          Terminó
+          <i class="fa-solid fa-circle-check"></i> Terminó
         </button>
 
         <button id="retryPlayer" class="ghostBtn">
-          Reintentar
+          <i class="fa-solid fa-rotate"></i> Cambiar servidor
         </button>
 
         <button id="playerFullscreen" class="ghostBtn">
-          Pantalla completa
+          <i class="fa-solid fa-expand"></i> Pantalla completa
         </button>
+      </div>
+
+      <div class="playerHint">
+        Fire TV: elige una ruta arriba y pulsa “Controlar” para manejar los servidores e idioma que aparecen dentro del reproductor.
       </div>
     </div>
 
@@ -1485,7 +2004,7 @@ body::before{
           <p id="nextName" class="nextName"></p>
 
           <button id="cancelNext" class="secondaryBtn">
-            Cancelar
+            <i class="fa-solid fa-xmark"></i> Cancelar
           </button>
         </div>
       </div>
@@ -1551,6 +2070,8 @@ let yearValue = "";
 let ratingValue = "";
 let libraryFilter = "all";
 let trailerKey = "";
+let currentPlayerSource = "tmdb";
+let playerFrameFocusTimer = null;
 const discoveryCache = new Map();
 const itemCache = new Map();
 
@@ -1717,8 +2238,9 @@ function cardTemplate(item){
   const name =
     mediaName(item);
 
-  const poster =
-    item.poster_path
+  const poster = item.backdrop_path
+    ? `https://image.tmdb.org/t/p/w780${item.backdrop_path}`
+    : item.poster_path
       ? `${IMG}${item.poster_path}`
       : null;
 
@@ -1727,9 +2249,7 @@ function cardTemplate(item){
 
   const badge = saved.watched
     ? `
-      <span class="cardBadge watched">
-        ✓ VISTA
-      </span>
+      <span class="cardBadge watched"><i class="fa-solid fa-check"></i> VISTA</span>
       `
     : saved.progress
       ? `
@@ -1777,8 +2297,9 @@ function cardTemplate(item){
       aria-label="${escapeHTML(name)}"
     >
       ${badge}
+      <span class="typePill">${type === "tv" ? "Serie" : "Película"}</span>
       <button class="favoriteQuick ${saved.favorite ? "active" : ""}" data-favorite="${item.id}" aria-label="${saved.favorite ? "Quitar de favoritos" : "Agregar a favoritos"}" title="Favorito">
-        ${saved.favorite ? "♥" : "♡"}
+        <i class="${saved.favorite ? "fa-solid" : "fa-regular"} fa-heart"></i>
       </button>
       ${posterHTML}
 
@@ -1795,7 +2316,7 @@ function cardTemplate(item){
           <span>${date}</span>
 
           <span>
-            ★ ${Number(
+            <i class="fa-solid fa-star"></i> ${Number(
               item.vote_average || 0
             ).toFixed(1)}
           </span>
@@ -1819,7 +2340,7 @@ function bindCards(root){
       const favorite = !savedEntry(item).favorite;
       remember(item,null,{favorite});
       button.classList.toggle("active",favorite);
-      button.textContent = favorite ? "♥" : "♡";
+      button.innerHTML = `<i class="${favorite ? "fa-solid" : "fa-regular"} fa-heart"></i>`;
       showToast(favorite ? "Agregado a favoritos" : "Eliminado de favoritos");
       updateStats();
     };
@@ -1954,12 +2475,12 @@ function renderLibrary(){
 async function loadCatalog(){
   closePlayer(false);
 
-  if(section === "library"){
+  if(section === "library" && !query){
     renderLibrary();
     return;
   }
 
-  $("#filterBar").classList.remove("hidden");
+  $("#filterBar").classList.toggle("hidden",Boolean(query));
   $("#libraryTools").classList.add("hidden");
   $("#discoverySection").classList.toggle("hidden",Boolean(query));
 
@@ -1978,9 +2499,10 @@ async function loadCatalog(){
   try{
     const endpoint = query
       ? (
-        `/search/${section}` +
+        `/search/multi` +
         `?query=${encodeURIComponent(query)}` +
-        `&page=${page}`
+        `&page=${page}` +
+        `&include_adult=false`
       )
       : (
         `/discover/${section}` +
@@ -2001,13 +2523,15 @@ async function loadCatalog(){
       500
     );
 
-    renderCatalog(
-      result.results || []
-    );
+    const visibleResults = query
+      ? (result.results || []).filter(item => item.media_type === "movie" || item.media_type === "tv")
+      : (result.results || []).map(item => ({...item,media_type:section}));
+
+    renderCatalog(visibleResults);
 
     $("#catalogTitle").textContent =
       query
-        ? `Resultados para “${query}”`
+        ? `Películas y series para “${query}”`
         : section === "tv"
           ? "Series populares"
           : "Películas populares";
@@ -2027,7 +2551,7 @@ async function loadCatalog(){
       page >= maxPages;
 
     setFeatured(
-      result.results?.[0] || null
+      visibleResults[0] || null
     );
     loadDiscovery();
   }catch(error){
@@ -2051,8 +2575,10 @@ function setFeatured(item){
       ? `url("${BACKDROP}${item.backdrop_path}")`
       : "none";
 
+  const featuredType = mediaType(item);
+
   $("#heroKicker").textContent =
-    section === "tv"
+    featuredType === "tv"
       ? "Serie destacada"
       : "Película destacada";
 
@@ -2061,7 +2587,7 @@ function setFeatured(item){
 
   $("#heroMeta").innerHTML = `
     <span class="score">
-      ★ ${Number(
+      <i class="fa-solid fa-star"></i> ${Number(
         item.vote_average || 0
       ).toFixed(1)}
     </span>
@@ -2072,7 +2598,7 @@ function setFeatured(item){
     </span>
 
     <span>
-      ${section === "tv"
+      ${featuredType === "tv"
         ? "Serie"
         : "Película"}
     </span>
@@ -2085,7 +2611,7 @@ function setFeatured(item){
   $("#heroPlay").onclick = () => {
     openDetails(
       item.id,
-      section
+      featuredType
     );
   };
 }
@@ -2136,7 +2662,7 @@ async function openDetails(id,type,preferredSeason = null){
       </span>
 
       <span class="score">
-        ★ ${Number(
+        <i class="fa-solid fa-star"></i> ${Number(
           currentItem.vote_average || 0
         ).toFixed(1)}
       </span>
@@ -2188,8 +2714,8 @@ async function openDetails(id,type,preferredSeason = null){
       $("#detailStatus")
         .classList.add("ok");
 
-      $("#detailStatus").textContent =
-        "✓ Reproductor preparado";
+      $("#detailStatus").innerHTML =
+        '<i class="fa-solid fa-circle-check"></i> Reproductor preparado';
     }
   }catch(error){
     $("#detailStatus")
@@ -2203,7 +2729,9 @@ async function openDetails(id,type,preferredSeason = null){
 function updateFavoriteButton(){
   if(!currentItem) return;
   const favorite = Boolean(savedEntry(currentItem).favorite);
-  $("#toggleFavorite").textContent = favorite ? "♥ En favoritos" : "♡ Favorito";
+  $("#toggleFavorite").innerHTML = favorite
+    ? '<i class="fa-solid fa-heart"></i> En favoritos'
+    : '<i class="fa-regular fa-heart"></i> Favorito';
   $("#toggleFavorite").classList.toggle("active",favorite);
 }
 
@@ -2343,7 +2871,7 @@ async function loadSeason(number){
               </span>
 
               <span class="episodeCheck">
-                ${watched ? "✓" : ""}
+                ${watched ? '<i class="fa-solid fa-circle-check"></i>' : ""}
               </span>
             </button>
           `;
@@ -2384,10 +2912,9 @@ function updateWatchedButton(){
       currentEpisode
     ).watched;
 
-  $("#toggleWatched").textContent =
-    watched
-      ? "↶ Marcar como no vista"
-      : "✓ Marcar como vista";
+  $("#toggleWatched").innerHTML = watched
+    ? '<i class="fa-solid fa-rotate-left"></i> Marcar como no vista'
+    : '<i class="fa-solid fa-check"></i> Marcar como vista';
 }
 
 function toggleWatched(){
@@ -2427,26 +2954,145 @@ function toggleWatched(){
   );
 }
 
-function playMedia(episode = null){
-  currentEpisode = episode;
+function getPlayerSources(){
+  const sources = [
+    {
+      id:"tmdb",
+      label:"Automático · TMDB",
+      externalId:String(currentItem?.id || "")
+    }
+  ];
 
-  cancelNextPlayback();
+  const imdbId = currentItem?.external_ids?.imdb_id;
 
-  // UnlimPlay resuelve este catálogo de forma más fiable con el ID numérico
-  // de TMDB. currentItem.id ya corresponde al ID de TMDB.
-  const externalId = currentItem.id;
+  if(imdbId){
+    sources.push({
+      id:"imdb",
+      label:"Alterno · IMDb",
+      externalId:imdbId
+    });
+  }
 
-  const playerURL = episode
+  return sources;
+}
+
+function syncPlayerSourceSelect(preferred = currentPlayerSource){
+  const select = $("#playerSourceSelect");
+  const sources = getPlayerSources();
+
+  select.innerHTML = sources
+    .map(source => `<option value="${source.id}">${escapeHTML(source.label)}</option>`)
+    .join("");
+
+  currentPlayerSource = sources.some(source => source.id === preferred)
+    ? preferred
+    : sources[0]?.id || "tmdb";
+
+  select.value = currentPlayerSource;
+  select.disabled = sources.length < 2;
+  select.title = sources.length < 2
+    ? "Este título solo tiene una ruta de identificación disponible"
+    : "Prueba otra ruta si la automática falla";
+}
+
+function buildPlayerURL(episode = currentEpisode, sourceId = currentPlayerSource){
+  const source = getPlayerSources().find(item => item.id === sourceId) || getPlayerSources()[0];
+  const externalId = source?.externalId || currentItem.id;
+
+  return episode
     ? (
       `https://unlimplay.com/f/embed/tv/` +
-      `${externalId}/` +
+      `${encodeURIComponent(externalId)}/` +
       `${episode.season_number}/` +
       `${episode.episode_number}`
     )
     : (
       `https://unlimplay.com/f/embed/movie/` +
-      `${externalId}`
+      `${encodeURIComponent(externalId)}`
     );
+}
+
+function savePlayerSession(playerURL){
+  localStorage.setItem(
+    PLAYER_SESSION_KEY,
+    JSON.stringify({
+      active:true,
+      itemId:currentItem.id,
+      type:currentItem.media_type,
+      season:currentEpisode?.season_number || null,
+      episode:currentEpisode?.episode_number || null,
+      source:currentPlayerSource,
+      playerURL,
+      savedAt:Date.now()
+    })
+  );
+}
+
+function loadPlayerSource(sourceId = currentPlayerSource,{announce=true} = {}){
+  if(!currentItem){
+    return;
+  }
+
+  syncPlayerSourceSelect(sourceId);
+
+  const playerURL = buildPlayerURL(currentEpisode,currentPlayerSource);
+  const frame = $("#playerFrame");
+
+  $("#playerLoading").classList.remove("hidden");
+  frame.classList.remove("playerFrameFocused");
+  frame.src = "about:blank";
+
+  setTimeout(() => {
+    frame.src = playerURL;
+    savePlayerSession(playerURL);
+  },80);
+
+  if(announce){
+    const label = $("#playerSourceSelect").selectedOptions?.[0]?.textContent || "Servidor";
+    showToast(`Cargando ${label}`);
+  }
+}
+
+function focusPlayerFrame(){
+  const frame = $("#playerFrame");
+
+  clearTimeout(playerFrameFocusTimer);
+  frame.classList.add("playerFrameFocused");
+
+  try{
+    frame.focus({preventScroll:true});
+    frame.contentWindow?.focus();
+  }catch{
+    frame.focus();
+  }
+
+  playerFrameFocusTimer = setTimeout(() => {
+    frame.classList.remove("playerFrameFocused");
+  },1600);
+}
+
+function cyclePlayerSource(){
+  const sources = getPlayerSources();
+
+  if(sources.length < 2){
+    loadPlayerSource(currentPlayerSource);
+    showToast("Reintentando servidor automático");
+    return;
+  }
+
+  const currentIndex = Math.max(0,sources.findIndex(source => source.id === currentPlayerSource));
+  const next = sources[(currentIndex + 1) % sources.length];
+  currentPlayerSource = next.id;
+  $("#playerSourceSelect").value = currentPlayerSource;
+  loadPlayerSource(currentPlayerSource);
+}
+
+function playMedia(episode = null,preferredSource = "tmdb"){
+  currentEpisode = episode;
+  currentPlayerSource = preferredSource || "tmdb";
+
+  cancelNextPlayback();
+  syncPlayerSourceSelect(currentPlayerSource);
 
   $("#playingTitle").textContent =
     episode
@@ -2458,53 +3104,29 @@ function playMedia(episode = null){
       )
       : mediaName(currentItem);
 
-  $("#playerLoading")
-    .classList.remove("hidden");
-
-  $("#playerFrame").src =
-    playerURL;
-
-  localStorage.setItem(
-    PLAYER_SESSION_KEY,
-    JSON.stringify({
-      active:true,
-      itemId:currentItem.id,
-      type:currentItem.media_type,
-      season:episode?.season_number || null,
-      episode:episode?.episode_number || null,
-      playerURL,
-      savedAt:Date.now()
-    })
-  );
-
-  $("#playerOverlay")
-    .classList.add("show");
-
-  document.body
-    .classList.add("player-open");
+  $("#playerOverlay").classList.add("show");
+  document.body.classList.add("player-open");
 
   remember(
     currentItem,
     episode,
     {
-      progress:Math.max(
-        savedEntry(
-          currentItem,
-          episode
-        ).progress || 0,
-        4
-      ),
+      progress:Math.max(savedEntry(currentItem,episode).progress || 0,4),
       watched:false
     }
   );
 
+  loadPlayerSource(currentPlayerSource,{announce:false});
+
   setTimeout(() => {
-    $("#playerBack").focus();
+    $("#playerSourceSelect").focus();
   },150);
 }
 
 function closePlayer(clear = true){
   cancelNextPlayback();
+  clearTimeout(playerFrameFocusTimer);
+  $("#playerFrame").classList.remove("playerFrameFocused");
 
   document.body
     .classList.remove("player-open");
@@ -2591,9 +3213,9 @@ async function restorePlayerSession(){
         );
       }
 
-      playMedia(episode);
+      playMedia(episode,saved.source || "tmdb");
     }else{
-      playMedia();
+      playMedia(null,saved.source || "tmdb");
     }
 
     showToast(
@@ -2614,24 +3236,12 @@ async function restorePlayerSession(){
 }
 
 function retryCurrentPlayer(){
-  const saved = readPlayerSession();
-  const frame = $("#playerFrame");
-
-  if(!saved?.playerURL){
-    showToast(
-      "No hay reproducción para reintentar"
-    );
+  if(!currentItem){
+    showToast("No hay reproducción para reintentar");
     return;
   }
 
-  $("#playerLoading")
-    .classList.remove("hidden");
-
-  frame.src = "about:blank";
-
-  setTimeout(() => {
-    frame.src = saved.playerURL;
-  },120);
+  cyclePlayerSource();
 }
 
 function findNext(){
@@ -2720,7 +3330,7 @@ function playbackEnded(){
       cancelNextPlayback();
 
       if(currentEpisode){
-        playMedia(next);
+        playMedia(next,currentPlayerSource);
       }else{
         closePlayer();
 
@@ -2758,9 +3368,7 @@ function changeSection(nextSection){
     });
 
   $("#searchInput").placeholder =
-    nextSection === "tv"
-      ? "Buscar series…"
-      : "Buscar películas…";
+    "Buscar películas y series…";
 
   $("#sortSelect").classList.toggle(
     "hidden",
@@ -2779,10 +3387,6 @@ function searchCatalog(){
 
   if(!text){
     return;
-  }
-
-  if(section === "library"){
-    section = "movie";
   }
 
   query = text;
@@ -2819,10 +3423,11 @@ function updateStats(){
 
 async function initializeFilters(){
   const currentYear = new Date().getFullYear();
-  $("#yearFilter").innerHTML += Array.from({length:35},(_,index) => {
+  $("#yearFilter").innerHTML = `<option value="">Cualquier año</option>` + Array.from({length:35},(_,index) => {
     const value = currentYear - index;
     return `<option value="${value}">${value}</option>`;
   }).join("");
+  $("#yearFilter").value = yearValue;
   try{
     const data = await getJSON(`/genre/${section === "tv" ? "tv" : "movie"}/list`);
     $("#genreFilter").innerHTML = `<option value="">Todos</option>` + (data.genres || []).map(genre => `<option value="${genre.id}">${escapeHTML(genre.name)}</option>`).join("");
@@ -2853,12 +3458,11 @@ async function showSearchSuggestions(){
   if(value.length < 2){ $("#searchSuggestions").classList.add("hidden"); return; }
   suggestionTimer = setTimeout(async () => {
     try{
-      const type = section === "library" ? "multi" : section;
-      const data = await getJSON(`/search/${type}?query=${encodeURIComponent(value)}&page=1`);
-      const items = (data.results || []).filter(item => item.media_type !== "person").slice(0,6);
+      const data = await getJSON(`/search/multi?query=${encodeURIComponent(value)}&page=1&include_adult=false`);
+      const items = (data.results || []).filter(item => item.media_type === "movie" || item.media_type === "tv").slice(0,8);
       $("#searchSuggestions").innerHTML = items.map(item => {
         const itemType = item.media_type || section;
-        return `<button class="suggestionItem" data-id="${item.id}" data-type="${itemType}">${item.poster_path ? `<img src="${IMG}${item.poster_path}" alt="">` : `<span class="suggestionPoster"></span>`}<span><b>${escapeHTML(mediaName(item))}</b><small>${mediaDate(item).slice(0,4) || "—"} · ${itemType === "tv" ? "Serie" : "Película"}</small></span></button>`;
+        return `<button class="suggestionItem" data-id="${item.id}" data-type="${itemType}">${item.poster_path ? `<img src="${IMG}${item.poster_path}" alt="">` : `<span class="suggestionPoster"></span>`}<span><b>${escapeHTML(mediaName(item))}</b><small>${mediaDate(item).slice(0,4) || "—"} · ${itemType === "tv" ? "Serie" : "Película"}</small></span><span class="suggestionType">${itemType === "tv" ? "Serie" : "Peli"}</span></button>`;
       }).join("") || `<div class="emptyState">Sin coincidencias</div>`;
       $("#searchSuggestions").classList.remove("hidden");
       $("#searchSuggestions").querySelectorAll(".suggestionItem").forEach(button => button.onclick = () => {
@@ -3021,6 +3625,16 @@ $("#finishedButton").onclick =
 $("#retryPlayer").onclick =
   retryCurrentPlayer;
 
+$("#playerSourceSelect").onchange = event => {
+  currentPlayerSource = event.target.value;
+  loadPlayerSource(currentPlayerSource);
+};
+
+$("#focusPlayer").onclick = () => {
+  focusPlayerFrame();
+  showToast("Control dentro del reproductor");
+};
+
 $("#cancelNext").onclick =
   cancelNextPlayback;
 
@@ -3046,12 +3660,8 @@ $("#playerFrame").addEventListener(
       $("#playerLoading")
         .classList.add("hidden");
 
-      try{
-        $("#playerFrame")
-          .contentWindow
-          .focus();
-      }catch{
-        $("#playerFrame").focus();
+      if(IS_FIRE_TV){
+        focusPlayerFrame();
       }
     },450);
   }
@@ -3089,8 +3699,7 @@ window.addEventListener(
   "message",
   event => {
     if(
-      event.origin !==
-      "https://unlimplay.com"
+      !/^https:\/\/(?:www\.)?unlimplay\.com$/i.test(event.origin)
     ){
       return;
     }
