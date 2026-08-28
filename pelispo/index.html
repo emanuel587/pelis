@@ -2756,6 +2756,29 @@ body.netflixLuxe::before{
   .firetv .playerStageMinimal{min-height:calc(100vh - 88px)!important}
 }
 
+
+
+/* Auto siguiente · estado visible y discreto */
+.autoEndStatus{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:42px;
+  margin-top:12px;
+  padding:10px 12px;
+  border:1px solid #ffffff10;
+  border-radius:13px;
+  background:#ffffff06;
+  color:#aeb8c8;
+  font-size:12px;
+  font-weight:700;
+}
+.autoEndStatus i{width:18px;text-align:center}
+.autoEndStatus.active{color:#bbf7d0;border-color:#22c55e33;background:#22c55e0d}
+.autoEndStatus.signal{color:#bfdbfe;border-color:#60a5fa33;background:#60a5fa0d}
+.autoEndStatus.unavailable{color:#fde68a;border-color:#f59e0b33;background:#f59e0b0d}
+.firetv .autoEndStatus{min-height:50px;font-size:13px;border-radius:14px}
+
 </style>
 </head>
 <body class="netflixLuxe">
@@ -3100,7 +3123,12 @@ body.netflixLuxe::before{
         </button>
       </div>
 
-      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> El final se detecta automáticamente. “Forzar siguiente” queda solo como respaldo si el servidor no comunica el final.</p>
+      <div id="autoEndStatus" class="autoEndStatus waiting" aria-live="polite">
+        <i class="fa-solid fa-clock"></i>
+        <span>Auto siguiente: esperando reproductor…</span>
+      </div>
+
+      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> El final intenta detectarse por evento del reproductor. Si el servidor no lo comunica, se usa la duración del título como respaldo.</p>
     </div>
 
     <div id="playerStage" class="playerStage playerStageMinimal">
@@ -3199,11 +3227,16 @@ let trailerKey = "";
 let currentPlayerSource = "tmdb";
 let playerFrameFocusTimer = null;
 let autoEndTimer = null;
-let autoEndElapsedMs = 0;
 let autoEndTargetMs = 0;
+let autoEndStartedAt = 0;
+let autoEndDeadline = 0;
+let autoEndResolvedRuntime = 0;
+let autoEndWatchToken = 0;
+let autoEndPausedAt = 0;
 let playbackEndHandled = false;
-const AUTO_END_TICK_MS = 5000;
-const AUTO_END_GRACE_MS = 90 * 1000;
+const AUTO_END_TICK_MS = 10000;
+const AUTO_END_GRACE_MS = 2 * 60 * 1000;
+const AUTO_END_MIN_SIGNAL_MS = 2 * 60 * 1000;
 const discoveryCache = new Map();
 const itemCache = new Map();
 
@@ -4490,6 +4523,9 @@ function loadPlayerSource(sourceId = currentPlayerSource,{announce=true} = {}){
     return;
   }
 
+  playbackEndHandled = false;
+  stopAutoEndWatch();
+  setAutoEndStatus("waiting","Auto siguiente: cargando servidor…");
   syncPlayerSourceSelect(sourceId);
 
   const playerURL = buildPlayerURL(currentEpisode,currentPlayerSource);
@@ -4576,7 +4612,7 @@ function playMedia(episode = null,preferredSource = "tmdb"){
   );
 
   loadPlayerSource(currentPlayerSource,{announce:false});
-  startAutoEndWatch();
+  setAutoEndStatus("waiting","Auto siguiente: esperando que cargue el video…");
 
   setTimeout(() => {
     safeFocus(IS_FIRE_TV ? "#playerMenuButton" : "#playerFullscreen");
@@ -4585,6 +4621,7 @@ function playMedia(episode = null,preferredSource = "tmdb"){
 
 function closePlayer(clear = true){
   cancelNextPlayback();
+  stopAutoEndWatch();
   $("#playerOptionsPanel")?.classList.add("hidden");
   $("#playerMenuButton")?.setAttribute("aria-expanded","false");
   clearTimeout(playerFrameFocusTimer);
@@ -4744,7 +4781,25 @@ function findNext(){
   return null;
 }
 
-function getAutoEndRuntimeMinutes(){
+function setAutoEndStatus(state,message){
+  const status = $("#autoEndStatus");
+  if(!status) return;
+
+  status.classList.remove("waiting","active","signal","unavailable");
+  status.classList.add(state || "waiting");
+
+  const icon = state === "active"
+    ? "fa-circle-play"
+    : state === "signal"
+      ? "fa-circle-check"
+      : state === "unavailable"
+        ? "fa-triangle-exclamation"
+        : "fa-clock";
+
+  status.innerHTML = `<i class="fa-solid ${icon}"></i><span>${escapeHTML(message)}</span>`;
+}
+
+function getKnownAutoEndRuntimeMinutes(){
   const episodeRuntime = Number(currentEpisode?.runtime || 0);
   const movieRuntime = Number(currentItem?.runtime || 0);
   const seriesRuntime = Number((currentItem?.episode_run_time || [])[0] || 0);
@@ -4757,36 +4812,110 @@ function getAutoEndRuntimeMinutes(){
     : 0;
 }
 
-function stopAutoEndWatch(){
-  clearInterval(autoEndTimer);
-  autoEndTimer = null;
-  autoEndElapsedMs = 0;
-  autoEndTargetMs = 0;
+async function resolveAutoEndRuntimeMinutes(){
+  let runtime = getKnownAutoEndRuntimeMinutes();
+  if(runtime){
+    return runtime;
+  }
+
+  if(currentEpisode && currentItem?.id){
+    try{
+      const details = await getJSON(
+        `/tv/${currentItem.id}/season/${currentEpisode.season_number}/episode/${currentEpisode.episode_number}`
+      );
+
+      const exactRuntime = Number(details.runtime || 0);
+      if(Number.isFinite(exactRuntime) && exactRuntime >= 5 && exactRuntime <= 500){
+        currentEpisode.runtime = exactRuntime;
+        return exactRuntime;
+      }
+    }catch{}
+  }
+
+  return 0;
 }
 
-function startAutoEndWatch(){
-  stopAutoEndWatch();
+function stopAutoEndWatch({keepStatus=false} = {}){
+  clearInterval(autoEndTimer);
+  autoEndTimer = null;
+  autoEndWatchToken++;
+  autoEndTargetMs = 0;
+  autoEndStartedAt = 0;
+  autoEndDeadline = 0;
+  autoEndResolvedRuntime = 0;
+  autoEndPausedAt = 0;
 
-  const runtimeMinutes = getAutoEndRuntimeMinutes();
+  if(!keepStatus){
+    setAutoEndStatus("waiting","Auto siguiente: detenido");
+  }
+}
+
+async function startAutoEndWatch(){
+  clearInterval(autoEndTimer);
+  autoEndTimer = null;
+
+  const token = ++autoEndWatchToken;
+  autoEndStartedAt = Date.now();
+  autoEndPausedAt = 0;
+  autoEndResolvedRuntime = 0;
+
+  setAutoEndStatus("waiting","Auto siguiente: sincronizando duración…");
+
+  const runtimeMinutes = await resolveAutoEndRuntimeMinutes();
+
+  if(
+    token !== autoEndWatchToken ||
+    !currentItem ||
+    !$("#playerOverlay").classList.contains("show") ||
+    playbackEndHandled
+  ){
+    return;
+  }
+
+  autoEndResolvedRuntime = runtimeMinutes;
+
   if(!runtimeMinutes){
+    setAutoEndStatus(
+      "unavailable",
+      "Auto siguiente: esperando señal del servidor (TMDB no informa duración)"
+    );
     return;
   }
 
   autoEndTargetMs = runtimeMinutes * 60 * 1000 + AUTO_END_GRACE_MS;
-  autoEndElapsedMs = 0;
+  autoEndDeadline = Date.now() + autoEndTargetMs;
+
+  setAutoEndStatus(
+    "active",
+    `Auto siguiente activo · respaldo aproximado ${runtimeMinutes} min`
+  );
 
   autoEndTimer = setInterval(() => {
-    const playerVisible = $("#playerOverlay").classList.contains("show");
-    const pageVisible = document.visibilityState === "visible";
-
-    if(!playerVisible || !pageVisible || playbackEndHandled){
+    if(playbackEndHandled || !currentItem){
       return;
     }
 
-    autoEndElapsedMs += AUTO_END_TICK_MS;
+    const playerVisible = $("#playerOverlay").classList.contains("show");
+    if(!playerVisible){
+      return;
+    }
 
-    if(autoEndElapsedMs >= autoEndTargetMs){
-      stopAutoEndWatch();
+    if(document.visibilityState !== "visible"){
+      if(!autoEndPausedAt){
+        autoEndPausedAt = Date.now();
+      }
+      return;
+    }
+
+    if(autoEndPausedAt){
+      const pausedFor = Date.now() - autoEndPausedAt;
+      autoEndDeadline += pausedFor;
+      autoEndPausedAt = 0;
+    }
+
+    if(Date.now() >= autoEndDeadline){
+      clearInterval(autoEndTimer);
+      autoEndTimer = null;
       playbackEnded("runtime");
     }
   },AUTO_END_TICK_MS);
@@ -4800,13 +4929,96 @@ function restartAutoEndWatch(){
   startAutoEndWatch();
 }
 
+function normalizePlayerMessage(data){
+  if(typeof data === "string"){
+    const trimmed = data.trim();
+    if(!trimmed) return {text:"",structured:false};
+
+    if((trimmed.startsWith("{") && trimmed.endsWith("}")) || (trimmed.startsWith("[") && trimmed.endsWith("]"))){
+      try{
+        return normalizePlayerMessage(JSON.parse(trimmed));
+      }catch{}
+    }
+
+    return {text:trimmed.toLowerCase(),structured:false};
+  }
+
+  if(data && typeof data === "object"){
+    const candidateKeys = [
+      "event","type","status","state","action","name","method",
+      "playerEvent","player_event","message","eventName","event_name"
+    ];
+    const values = [];
+
+    candidateKeys.forEach(key => {
+      const value = data[key];
+      if(typeof value === "string") values.push(value);
+    });
+
+    if(data.detail && typeof data.detail === "object"){
+      candidateKeys.forEach(key => {
+        const value = data.detail[key];
+        if(typeof value === "string") values.push(value);
+      });
+    }
+
+    return {
+      text:values.join(" ").trim().toLowerCase(),
+      structured:values.length > 0
+    };
+  }
+
+  return {text:"",structured:false};
+}
+
+function isStrongEndedMessage(data){
+  const normalized = normalizePlayerMessage(data);
+  const text = normalized.text;
+  if(!text) return false;
+
+  const strongTokens = [
+    "ended","videoended","video-ended","video_ended",
+    "playbackended","playback-ended","playback_ended",
+    "mediaended","media-ended","media_ended",
+    "finished","video finished","playback finished"
+  ];
+
+  return strongTokens.some(token => text === token || text.includes(token));
+}
+
+function isGenericCompleteMessage(data){
+  const normalized = normalizePlayerMessage(data);
+  const text = normalized.text;
+  if(!text) return false;
+
+  return /(^|\s)(complete|completed|finish|finished)($|\s)/i.test(text);
+}
+
+function canAcceptExternalEndSignal(){
+  if(!autoEndStartedAt){
+    return false;
+  }
+
+  const elapsed = Date.now() - autoEndStartedAt;
+  const runtimeMs = autoEndResolvedRuntime > 0
+    ? autoEndResolvedRuntime * 60 * 1000
+    : 0;
+
+  const minimum = runtimeMs
+    ? Math.min(Math.max(AUTO_END_MIN_SIGNAL_MS,runtimeMs * 0.08),8 * 60 * 1000)
+    : AUTO_END_MIN_SIGNAL_MS;
+
+  return elapsed >= minimum;
+}
+
 function playbackEnded(source = "player"){
   if(!currentItem || playbackEndHandled){
     return;
   }
 
   playbackEndHandled = true;
-  stopAutoEndWatch();
+  clearInterval(autoEndTimer);
+  autoEndTimer = null;
 
   remember(
     currentItem,
@@ -4820,7 +5032,10 @@ function playbackEnded(source = "player"){
   updateWatchedButton();
 
   if(source === "runtime"){
-    showToast("Final detectado automáticamente");
+    setAutoEndStatus("signal","Final estimado por duración alcanzado");
+    showToast("Final estimado automáticamente");
+  }else if(source === "postMessage"){
+    showToast("Final detectado por el reproductor");
   }
 
   const next =
@@ -5307,9 +5522,18 @@ $("#playerFullscreen").onclick = () => {
 $("#playerFrame").addEventListener(
   "load",
   () => {
+    const frame = $("#playerFrame");
+    const source = String(frame.getAttribute("src") || "");
+    const isRealPlayer = source && source !== "about:blank";
+
     setTimeout(() => {
       $("#playerLoading")
         .classList.add("hidden");
+
+      if(isRealPlayer){
+        playbackEndHandled = false;
+        startAutoEndWatch();
+      }
 
       if(IS_FIRE_TV){
         focusPlayerFrame();
@@ -5350,25 +5574,37 @@ window.addEventListener(
   "message",
   event => {
     if(
-      !/^https:\/\/(?:www\.)?unlimplay\.com$/i.test(event.origin)
+      !currentItem ||
+      playbackEndHandled ||
+      !$("#playerOverlay").classList.contains("show")
     ){
       return;
     }
 
-    const message =
-      typeof event.data === "string"
-        ? event.data
-        : JSON.stringify(
-            event.data || {}
-          );
+    const origin = String(event.origin || "").toLowerCase();
+    const fromUnlimPlay = /^https:\/\/(?:www\.)?unlimplay\.com$/i.test(origin);
+    const strongEnded = isStrongEndedMessage(event.data);
+    const genericComplete = isGenericCompleteMessage(event.data);
 
-    if(
-      /ended|finish|complete/i.test(
-        message
-      )
-    ){
-      playbackEnded("postMessage");
+    if(!strongEnded && !genericComplete){
+      return;
     }
+
+    /*
+      UnlimPlay puede contener reproductores anidados de otros dominios.
+      No se acepta un "complete" genérico de terceros al inicio porque
+      podría corresponder al final de un anuncio preroll.
+    */
+    if(!fromUnlimPlay && !canAcceptExternalEndSignal()){
+      return;
+    }
+
+    if(!fromUnlimPlay && genericComplete && !strongEnded){
+      return;
+    }
+
+    setAutoEndStatus("signal","Final recibido desde el reproductor");
+    playbackEnded("postMessage");
   }
 );
 
