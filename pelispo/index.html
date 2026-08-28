@@ -2504,6 +2504,258 @@ body.netflixLuxe::before{
   .firetv .playerFooterNote{padding:0 2px}
 }
 
+
+
+/* ==========================================================
+   FIRE TV IMAGE FIT FIX 2026.6 · evita portadas recortadas
+   ========================================================== */
+.firetv .hero{
+  width:100%;
+  height:auto;
+  min-height:0;
+  max-height:none;
+  aspect-ratio:16/9;
+  margin-top:10px;
+  background-size:contain!important;
+  background-position:center center!important;
+  background-repeat:no-repeat!important;
+  background-color:#050607;
+}
+.firetv .hero::before{
+  background:
+    linear-gradient(90deg,#050607f2 0,#050607d7 24%,#05060772 48%,transparent 76%),
+    linear-gradient(0deg,#050607 0,#050607c7 13%,transparent 48%),
+    linear-gradient(180deg,#0005 0,transparent 20%);
+}
+.firetv .hero::after{
+  height:28%;
+  background:linear-gradient(180deg,transparent,#06070b 92%);
+}
+.firetv .heroContent{
+  padding-top:clamp(100px,12vw,156px);
+  padding-bottom:clamp(90px,11vw,138px);
+}
+.firetv .heroRotationControls{
+  bottom:clamp(54px,7vw,90px);
+}
+
+.firetv .poster,
+.firetv .posterEmpty{
+  width:100%;
+  aspect-ratio:16/9;
+  object-fit:contain!important;
+  object-position:center center!important;
+  background:#0a0d13;
+}
+.firetv .mediaCard{
+  background:#0a0d13;
+}
+.firetv .mediaCard .poster{
+  transform:none!important;
+  filter:none!important;
+}
+
+.firetv .detailBackdrop{
+  width:100%;
+  height:auto;
+  min-height:0;
+  aspect-ratio:16/9;
+  max-height:68vh;
+  background-size:contain!important;
+  background-position:center top!important;
+  background-repeat:no-repeat!important;
+  background-color:#090b10;
+}
+.firetv .detailBackdrop::after{
+  background:
+    linear-gradient(0deg,#090c13 0,#090c13e8 14%,transparent 42%),
+    linear-gradient(90deg,#080b128f 0,transparent 55%);
+}
+.firetv .detailContent{
+  margin-top:-8vh;
+}
+
+.firetv .episodeStill,
+.firetv .episodeStillEmpty{
+  object-fit:contain!important;
+  background:#0b0e14;
+}
+
+.firetv .suggestionItem img,
+.firetv .suggestionPoster{
+  object-fit:contain!important;
+  background:#0b0e14;
+}
+
+@media(max-width:980px){
+  .firetv .hero{
+    aspect-ratio:16/9;
+    min-height:0;
+    height:auto;
+    background-size:contain!important;
+  }
+  .firetv .heroContent{
+    padding-top:96px;
+    padding-bottom:92px;
+  }
+  .firetv .detailBackdrop{
+    aspect-ratio:16/9;
+    max-height:none;
+  }
+  .firetv .detailContent{
+    margin-top:-46px;
+  }
+}
+
+@media(max-width:760px){
+  .firetv .hero{
+    aspect-ratio:16/9;
+    min-height:420px;
+    background-size:cover!important;
+    background-position:center 22%!important;
+  }
+  .firetv .heroContent{
+    padding:120px 16px 88px;
+  }
+  .firetv .detailBackdrop{
+    min-height:300px;
+    aspect-ratio:auto;
+    background-size:cover!important;
+    background-position:center 18%!important;
+  }
+}
+
+
+
+/* ==========================================================
+   PLAYER MINIMAL 2026.6 · limpio para TV / Fire Stick
+   ========================================================== */
+.playerShellMinimal{
+  position:relative;
+  grid-template-rows:auto 1fr!important;
+  gap:12px!important;
+}
+.playerBarMinimal{
+  display:grid!important;
+  grid-template-columns:auto minmax(0,1fr) auto!important;
+  align-items:center!important;
+  gap:14px!important;
+  min-height:68px!important;
+  padding:10px 12px!important;
+  border:1px solid #ffffff10!important;
+  border-radius:18px!important;
+  background:rgba(8,11,16,.82)!important;
+  backdrop-filter:blur(16px)!important;
+  box-shadow:0 16px 40px #0007!important;
+}
+.playingInfo{min-width:0;display:grid;gap:2px}
+.playingEyebrow{color:#788396;font-size:9px;font-weight:900;letter-spacing:.14em}
+.playerBarMinimal .playingTitle{font-size:15px!important;font-weight:800!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.playerQuickActions{display:flex;align-items:center;gap:7px}
+.playerIconBtn,
+.playerOptionClose{
+  display:grid;place-items:center;
+  width:44px;height:44px;
+  border:1px solid #ffffff14;
+  border-radius:13px;
+  background:#ffffff09;
+  color:#fff;
+  font-size:17px;
+}
+.playerIconBtn:hover,.playerOptionClose:hover{background:#ffffff15}
+.playerOptionsPanel{
+  position:absolute;
+  z-index:40;
+  top:82px;
+  right:0;
+  width:min(390px,calc(100vw - 36px));
+  padding:16px;
+  border:1px solid #ffffff14;
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(17,21,30,.97),rgba(8,11,17,.97));
+  box-shadow:0 28px 80px #000c;
+  backdrop-filter:blur(20px);
+}
+.playerOptionHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
+.playerOptionHead div{display:grid;gap:2px}
+.playerOptionHead small{color:#7f899b;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
+.playerOptionHead strong{font-size:19px}
+.playerOptionClose{width:38px;height:38px;border-radius:12px}
+.playerOptionField{display:grid;gap:8px;padding:12px;border:1px solid #ffffff0f;border-radius:16px;background:#ffffff05}
+.playerOptionField>span{display:flex;align-items:center;gap:8px;color:#bfc7d5;font-size:12px;font-weight:800}
+.playerOptionField .playerSourceSelect{width:100%;min-width:0;height:48px}
+.playerOptionGrid{display:grid;gap:8px;margin-top:10px}
+.playerOptionBtn{
+  display:grid;
+  grid-template-columns:42px 1fr;
+  align-items:center;
+  gap:11px;
+  width:100%;
+  min-height:60px;
+  padding:9px 11px;
+  border:1px solid #ffffff0f;
+  border-radius:15px;
+  background:#ffffff05;
+  color:#fff;
+  text-align:left;
+}
+.playerOptionBtn>i{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#ffffff0b;color:#dce3ef;font-size:16px}
+.playerOptionBtn span{display:grid;gap:2px}
+.playerOptionBtn b{font-size:14px}
+.playerOptionBtn small{color:#8f99aa;font-size:11px}
+.playerOptionBtn:hover{background:#ffffff0b;border-color:#ffffff1b}
+.playerOptionTip{display:flex;gap:8px;margin:12px 2px 0;color:#8791a3;font-size:11px;line-height:1.45}
+.playerStageMinimal{border-radius:20px!important;min-height:min(78vh,850px)!important}
+
+.firetv .playerShellMinimal{width:100%;min-height:100%;gap:10px!important}
+.firetv .playerBarMinimal{
+  min-height:64px!important;
+  padding:8px 10px!important;
+  border-radius:16px!important;
+  backdrop-filter:none!important;
+  background:#0b0e14!important;
+}
+.firetv .playerBarMinimal .playerBack,
+.firetv .playerIconBtn{
+  width:48px!important;height:48px!important;min-height:48px!important;border-radius:13px!important;
+}
+.firetv .playingEyebrow{display:none}
+.firetv .playerBarMinimal .playingTitle{font-size:16px!important}
+.firetv .playerOptionsPanel{
+  top:72px;
+  right:0;
+  width:min(430px,46vw);
+  padding:16px;
+  border-radius:18px;
+  backdrop-filter:none;
+  background:#0d1119;
+}
+.firetv .playerOptionBtn{min-height:66px}
+.firetv .playerOptionBtn b{font-size:15px}
+.firetv .playerOptionBtn small{font-size:12px}
+.firetv .playerOptionField .playerSourceSelect{height:54px}
+.firetv .playerStageMinimal{min-height:calc(100vh - 100px)!important;border-radius:14px!important}
+.firetv .playerFooterNote,.firetv .playerHint{display:none!important}
+.firetv .playerQuickActions{gap:8px}
+.firetv .playerIconBtn:focus-visible,
+.firetv .playerOptionBtn:focus-visible,
+.firetv .playerOptionClose:focus-visible{
+  color:#07090d;
+  background:#fff;
+  outline:4px solid #60a5fa;
+  outline-offset:2px;
+  box-shadow:none;
+}
+.firetv .playerOptionBtn:focus-visible>i{background:#0c111a;color:#fff}
+
+@media(max-width:760px){
+  .playerBarMinimal{grid-template-columns:auto minmax(0,1fr) auto!important}
+  .playerOptionsPanel{top:70px;right:0;left:0;margin:auto;width:calc(100% - 14px)}
+  .playerStageMinimal{min-height:45vh!important}
+  .firetv .playerOptionsPanel{width:calc(100% - 14px)}
+  .firetv .playerStageMinimal{min-height:calc(100vh - 88px)!important}
+}
+
 </style>
 </head>
 <body class="netflixLuxe">
@@ -2794,51 +3046,65 @@ body.netflixLuxe::before{
 
 <div id="playerOverlay" class="playerOverlay">
   <div class="playerBackdropGlow" aria-hidden="true"></div>
-  <div class="playerShell">
-    <div class="playerBar">
-      <button
-        id="playerBack"
-        class="playerBack"
-        aria-label="Volver"
-      >
+  <div class="playerShell playerShellMinimal">
+    <div class="playerBar playerBarMinimal">
+      <button id="playerBack" class="playerBack" aria-label="Volver" title="Volver">
         <i class="fa-solid fa-chevron-left"></i>
       </button>
 
-      <div id="playingTitle" class="playingTitle">
-        Reproduciendo
+      <div class="playingInfo">
+        <span class="playingEyebrow">REPRODUCIENDO</span>
+        <div id="playingTitle" class="playingTitle">Reproduciendo</div>
       </div>
 
-      <div class="playerServerTools" aria-label="Opciones del reproductor">
-        <span class="playerServerLabel">Servidor</span>
-        <select id="playerSourceSelect" class="playerSourceSelect" aria-label="Elegir servidor">
-          <option value="tmdb">Automático · TMDB</option>
-        </select>
-        <button id="focusPlayer" class="ghostBtn playerControlBtn" title="Mover el control al reproductor">
-          <i class="fa-solid fa-gamepad"></i> Controlar
+      <div class="playerQuickActions">
+        <button id="playerFullscreen" class="playerIconBtn" aria-label="Pantalla completa" title="Pantalla completa">
+          <i class="fa-solid fa-expand"></i>
         </button>
-      </div>
-
-      <div class="playerActions">
-        <button id="finishedButton" class="ghostBtn">
-          <i class="fa-solid fa-circle-check"></i> Terminó
+        <button id="playerMenuButton" class="playerIconBtn" aria-label="Opciones del reproductor" title="Opciones">
+          <i class="fa-solid fa-sliders"></i>
         </button>
-
-        <button id="retryPlayer" class="ghostBtn">
-          <i class="fa-solid fa-rotate"></i> Cambiar servidor
-        </button>
-
-        <button id="playerFullscreen" class="ghostBtn">
-          <i class="fa-solid fa-expand"></i> Pantalla completa
-        </button>
-      </div>
-
-      <div class="playerHint">
-        Fire TV: elige una ruta arriba y pulsa “Controlar” para manejar los servidores e idioma que aparecen dentro del reproductor.
       </div>
     </div>
 
-    <div id="playerStage" class="playerStage">
-        <div class="playerCinemaFrame" aria-hidden="true"></div>
+    <div id="playerOptionsPanel" class="playerOptionsPanel hidden" aria-label="Opciones del reproductor">
+      <div class="playerOptionHead">
+        <div>
+          <small>Opciones</small>
+          <strong>Reproductor</strong>
+        </div>
+        <button id="closePlayerOptions" class="playerOptionClose" aria-label="Cerrar opciones">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <label class="playerOptionField">
+        <span><i class="fa-solid fa-server"></i> Servidor</span>
+        <select id="playerSourceSelect" class="playerSourceSelect" aria-label="Elegir servidor">
+          <option value="tmdb">Automático · TMDB</option>
+        </select>
+      </label>
+
+      <div class="playerOptionGrid">
+        <button id="focusPlayer" class="playerOptionBtn">
+          <i class="fa-solid fa-gamepad"></i>
+          <span><b>Controlar video</b><small>Entrar al reproductor</small></span>
+        </button>
+        <button id="retryPlayer" class="playerOptionBtn">
+          <i class="fa-solid fa-rotate"></i>
+          <span><b>Cambiar servidor</b><small>Probar otra ruta</small></span>
+        </button>
+        <button id="finishedButton" class="playerOptionBtn">
+          <i class="fa-solid fa-circle-check"></i>
+          <span><b>Marcar terminado</b><small>Pasar al siguiente</small></span>
+        </button>
+      </div>
+
+      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> En Fire TV, pulsa “Controlar video” para manejar los controles que aparecen dentro del reproductor.</p>
+    </div>
+
+    <div id="playerStage" class="playerStage playerStageMinimal">
+      <div class="playerCinemaFrame" aria-hidden="true"></div>
       <iframe
         id="playerFrame"
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
@@ -2858,21 +3124,13 @@ body.netflixLuxe::before{
       <div id="nextOverlay" class="nextOverlay">
         <div>
           <small>Reproduciendo a continuación</small>
-
           <strong id="nextCounter">5</strong>
-
           <p id="nextName" class="nextName"></p>
-
           <button id="cancelNext" class="secondaryBtn">
             <i class="fa-solid fa-xmark"></i> Cancelar
           </button>
         </div>
       </div>
-    </div>
-
-    <div class="playerFooterNote">
-      <span><i class="fa-solid fa-circle-info"></i> Si un servidor falla, usa “Cambiar servidor”.</span>
-      <span><i class="fa-solid fa-wand-magic-sparkles"></i> Tu progreso y preferencias se guardan automáticamente.</span>
     </div>
   </div>
 </div>
@@ -3094,7 +3352,7 @@ function revealFocusedElement(element){
 function focusBestLanding(){
   if(!IS_FIRE_TV) return;
   if($("#playerOverlay").classList.contains("show")){
-    safeFocus("#playerSourceSelect",{delay:120});
+    safeFocus("#playerMenuButton",{delay:120});
     return;
   }
   if($("#detailModal").classList.contains("show")){
@@ -4312,12 +4570,14 @@ function playMedia(episode = null,preferredSource = "tmdb"){
   loadPlayerSource(currentPlayerSource,{announce:false});
 
   setTimeout(() => {
-    $("#playerSourceSelect").focus();
+    safeFocus(IS_FIRE_TV ? "#playerMenuButton" : "#playerFullscreen");
   },150);
 }
 
 function closePlayer(clear = true){
   cancelNextPlayback();
+  $("#playerOptionsPanel")?.classList.add("hidden");
+  $("#playerMenuButton")?.setAttribute("aria-expanded","false");
   clearTimeout(playerFrameFocusTimer);
   $("#playerFrame").classList.remove("playerFrameFocused");
 
@@ -4902,15 +5162,46 @@ $("#detailModal").onclick = event => {
 $("#toggleWatched").onclick =
   toggleWatched;
 
+function openPlayerOptions(){
+  const panel = $("#playerOptionsPanel");
+  panel.classList.remove("hidden");
+  $("#playerMenuButton").setAttribute("aria-expanded","true");
+  safeFocus("#playerSourceSelect",{delay:50});
+}
+
+function closePlayerOptions({restoreFocus=true} = {}){
+  const panel = $("#playerOptionsPanel");
+  panel.classList.add("hidden");
+  $("#playerMenuButton").setAttribute("aria-expanded","false");
+  if(restoreFocus){
+    safeFocus("#playerMenuButton",{delay:30});
+  }
+}
+
 $("#playerBack").onclick = () => {
+  closePlayerOptions({restoreFocus:false});
   closePlayer();
 };
 
-$("#finishedButton").onclick =
-  playbackEnded;
+$("#playerMenuButton").onclick = () => {
+  if($("#playerOptionsPanel").classList.contains("hidden")){
+    openPlayerOptions();
+  }else{
+    closePlayerOptions();
+  }
+};
 
-$("#retryPlayer").onclick =
-  retryCurrentPlayer;
+$("#closePlayerOptions").onclick = () => closePlayerOptions();
+
+$("#finishedButton").onclick = () => {
+  closePlayerOptions({restoreFocus:false});
+  playbackEnded();
+};
+
+$("#retryPlayer").onclick = () => {
+  retryCurrentPlayer();
+  closePlayerOptions({restoreFocus:false});
+};
 
 $("#playerSourceSelect").onchange = event => {
   currentPlayerSource = event.target.value;
@@ -4918,6 +5209,7 @@ $("#playerSourceSelect").onchange = event => {
 };
 
 $("#focusPlayer").onclick = () => {
+  closePlayerOptions({restoreFocus:false});
   focusPlayerFrame();
   showToast("Control dentro del reproductor");
 };
@@ -5023,6 +5315,12 @@ document.addEventListener(
     }
 
     if(
+      $("#playerOverlay").classList.contains("show") &&
+      !$("#playerOptionsPanel").classList.contains("hidden")
+    ){
+      event.preventDefault();
+      closePlayerOptions();
+    }else if(
       $("#playerOverlay")
         .classList.contains("show")
     ){
