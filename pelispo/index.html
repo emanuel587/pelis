@@ -1666,9 +1666,847 @@ body::before{display:none!important}
   .playerBar{align-items:center!important}.playerServerTools{width:100%!important;margin:0!important}.playerActions{width:100%!important}
 }
 
+
+
+/* ==========================================================
+   PERSONAL HOME 2026.4 · Netflix-inspired, más limpio y adaptable
+   ========================================================== */
+.topbar{transition:background .25s ease,box-shadow .25s ease!important}
+.topbar.scrolled{background:#090909f7!important;box-shadow:0 8px 24px #0008!important}
+
+.hero{min-height:min(88vh,900px)!important;transition:filter .18s ease!important}
+.hero.heroChanging{filter:brightness(.72)!important}
+.heroContent{padding-top:190px!important;padding-bottom:180px!important;transition:opacity .18s ease,transform .18s ease!important}
+.hero.heroChanging .heroContent{opacity:.35!important;transform:translateY(6px)!important}
+.heroTitle{max-width:850px!important;font-size:clamp(50px,6.4vw,92px)!important;letter-spacing:-.055em!important}
+.heroDescription{max-width:650px!important;font-size:clamp(16px,1.35vw,19px)!important}
+.kicker{gap:9px!important;color:#f3f3f3!important}
+.kicker::before{display:none!important}
+.kicker i{color:var(--nf-red)!important;font-size:12px!important}
+.heroMeta .matchScore{color:#46d369!important;font-weight:700!important}
+
+.heroRotationControls{
+  position:absolute;z-index:8;right:clamp(22px,4vw,62px);bottom:150px;
+  display:flex;align-items:center;gap:10px
+}
+.heroRoundButton{
+  display:grid;place-items:center;width:42px;height:42px;border:1px solid #ffffff75;border-radius:50%;
+  background:#181818a8;color:#fff;backdrop-filter:blur(7px);font-size:13px;transition:.16s ease
+}
+.heroRoundButton:hover,.heroRoundButton:focus-visible{background:#fff;color:#000;transform:scale(1.06)}
+.heroRoundButton:disabled{opacity:.3;cursor:default;transform:none}
+.heroPosition{min-width:48px;text-align:center;color:#ddd;font-size:12px;font-weight:700;text-shadow:0 1px 5px #000}
+.heroAutoTrack{position:absolute;z-index:8;left:0;right:0;bottom:0;height:3px;background:#ffffff13;overflow:hidden}
+.heroAutoTrack span{display:block;width:0;height:100%;background:var(--nf-red)}
+.heroAutoTrack span.running{animation:heroProgress linear forwards}
+@keyframes heroProgress{from{width:0}to{width:100%}}
+
+.appMain{margin-top:-128px!important}
+.section{margin-bottom:48px!important}
+.discoverySection{margin-bottom:30px!important}
+.discoveryGroup{margin-bottom:30px!important}
+.discoveryGroupHead{margin-bottom:9px!important}
+.discoveryGroupHead h3{display:flex;align-items:center;gap:8px;font-size:clamp(19px,1.65vw,25px)!important}
+.discoveryGroupHead h3 i{color:var(--nf-red);font-size:14px}
+.discoveryGroupHead small{display:block;margin-top:4px;color:#9b9b9b;font-size:12px}
+.personalizedGroup .discoveryGroupHead h3{color:#fff}
+.personalizedGroup .rail{padding-top:10px!important}
+
+.rail{grid-auto-columns:clamp(250px,21.5vw,350px)!important;gap:8px!important}
+.grid{grid-template-columns:repeat(auto-fill,minmax(255px,1fr))!important;gap:12px 8px!important}
+.mediaCard{background:#202020!important}
+.mediaCard:hover,.mediaCard:focus-visible{transform:scale(1.095)!important}
+.poster,.posterEmpty{box-shadow:inset 0 0 0 1px #ffffff08!important}
+.cardInfo{padding:48px 13px 11px!important}
+.cardTitle{font-size:14px!important}
+.cardMeta{font-size:11px!important}
+.typePill{background:#090909d9!important}
+.favoriteQuick{bottom:10px!important;right:10px!important}
+
+.detailPanel{border-radius:10px!important}
+.detailActions{align-items:center!important;flex-wrap:wrap!important}
+.detailActions .secondaryBtn{border-color:#777!important;background:#252525!important}
+.detailActions .secondaryBtn.active{border-color:#fff!important;background:#fff!important;color:#000!important}
+.detailActions .secondaryBtn.active i{color:#000!important}
+.tasteBtn{min-width:130px!important}
+
+.searchSuggestions{background:#111!important;border-color:#333!important;box-shadow:0 18px 50px #000d!important}
+.suggestionItem{border-bottom:1px solid #242424!important;border-radius:0!important}
+.suggestionItem:last-child{border-bottom:0!important}
+.suggestionItem:hover,.suggestionItem:focus-visible{background:#252525!important}
+
+@media(max-width:1000px){
+  .heroRotationControls{bottom:135px}
+  .heroTitle{font-size:clamp(46px,7vw,74px)!important}
+  .rail{grid-auto-columns:minmax(235px,310px)!important}
+}
+
+@media(max-width:760px){
+  .hero{min-height:680px!important}
+  .heroContent{padding:270px 20px 145px!important}
+  .heroTitle{font-size:44px!important;max-width:94%!important}
+  .heroDescription{font-size:15px!important}
+  .heroRotationControls{right:16px;bottom:112px;gap:7px}
+  .heroRoundButton{width:38px;height:38px}
+  .heroPosition{font-size:11px;min-width:42px}
+  .appMain{margin-top:-110px!important}
+  .rail{grid-auto-columns:76vw!important}
+  .grid{grid-template-columns:1fr 1fr!important}
+  .mediaCard:hover,.mediaCard:focus-visible{transform:scale(1.025)!important}
+  .detailActions{display:flex!important}
+  .detailActions>*{flex:1 1 145px!important}
+}
+
+.firetv .heroRoundButton:focus-visible{outline:3px solid #fff!important;outline-offset:3px!important}
+.firetv .tasteBtn:focus-visible{outline:3px solid #fff!important;outline-offset:3px!important}
+
+
+
+/* ==========================================================
+   VISUAL OVERHAUL 2026.4 · apariencia realmente nueva
+   ========================================================== */
+body.netflixLuxe{
+  --bg:#050507;
+  --panel:#0b0c10;
+  --panel2:#12141a;
+  --line:#ffffff14;
+  --text:#f5f7fb;
+  --muted:#a8afbd;
+  --red:#e50914;
+  --red2:#ff3341;
+  --heroH:82vh;
+  background:
+    radial-gradient(60rem 38rem at 10% -8%,#7d0d172c 0,transparent 46%),
+    radial-gradient(52rem 32rem at 100% 8%,#19386724 0,transparent 44%),
+    linear-gradient(180deg,#040404 0,#07080d 28%,#06070b 100%);
+}
+body.netflixLuxe::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:-1;
+  opacity:.08;
+  background-image:
+    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1px),
+    radial-gradient(circle at 70% 60%,#fff 0 1px,transparent 1px);
+  background-size: 3px 3px, 4px 4px;
+  mix-blend-mode:soft-light;
+}
+
+.netflixLuxe .topbar{
+  position:fixed;
+  inset:0 0 auto 0;
+  width:100%;
+  max-width:none;
+  margin:0;
+  padding:18px clamp(18px,4.2vw,64px);
+  gap:26px;
+  border:0;
+  border-radius:0;
+  background:linear-gradient(180deg,#050608f2 0,#050608d2 58%,transparent 100%);
+  box-shadow:none;
+  transition:background .25s ease,padding .25s ease,backdrop-filter .25s ease;
+}
+.netflixLuxe .topbar.scrolled{
+  padding-top:12px;
+  padding-bottom:12px;
+  background:rgba(7,8,12,.92);
+  backdrop-filter:blur(18px) saturate(1.2);
+  border-bottom:1px solid #ffffff12;
+}
+.netflixLuxe .brand{
+  gap:12px;
+  font-size:26px;
+  letter-spacing:-.06em;
+}
+.netflixLuxe .brandMark{
+  width:42px;height:42px;border-radius:14px;
+  background:linear-gradient(135deg,#ff4f5f,#c70012 58%,#77000b 100%);
+  box-shadow:0 10px 30px #e5091440;
+}
+.netflixLuxe .brandText{display:flex;align-items:baseline;gap:7px}
+.netflixLuxe .brandText span{color:#fff}
+.netflixLuxe .brandText::after{
+  content:"premium";
+  font-size:10px;
+  font-weight:800;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:#8f98aa;
+}
+.netflixLuxe .nav{
+  gap:18px;
+  padding:0;
+  border:0;
+  border-radius:0;
+  background:none;
+}
+.netflixLuxe .navBtn{
+  position:relative;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 0;
+  border-radius:0;
+  background:none!important;
+  color:#c2c6d0;
+  font-size:15px;
+  font-weight:700;
+}
+.netflixLuxe .navBtn i{font-size:13px;opacity:.9}
+.netflixLuxe .navBtn::after{
+  content:"";
+  position:absolute;left:0;right:0;bottom:-6px;
+  height:3px;border-radius:999px;
+  transform:scaleX(0);transform-origin:left;
+  background:#fff;transition:transform .22s ease;
+}
+.netflixLuxe .navBtn.active{color:#fff}
+.netflixLuxe .navBtn.active::after,.netflixLuxe .navBtn:hover::after{transform:scaleX(1)}
+
+.netflixLuxe .searchBox{
+  max-width:430px;
+  margin-left:auto;
+}
+.netflixLuxe .searchScope{
+  display:none;
+}
+.netflixLuxe .searchBox::before{left:16px}
+.netflixLuxe .searchBox input{
+  height:44px;
+  padding-left:44px;
+  padding-right:50px;
+  border:1px solid #ffffff18;
+  border-radius:999px;
+  background:rgba(17,19,26,.72);
+  backdrop-filter:blur(14px);
+}
+.netflixLuxe .searchBox button{
+  right:5px;
+  width:34px;height:34px;
+  border-radius:50%;
+  background:#ffffff12;
+}
+.netflixLuxe .profileButton{
+  width:40px;height:40px;border-radius:50%;
+  background:#ffffff10;border:1px solid #ffffff16;box-shadow:none;
+}
+
+.netflixLuxe .hero{
+  width:100%;
+  min-height:var(--heroH);
+  margin:0 0 -88px;
+  border:0;
+  border-radius:0;
+  box-shadow:none;
+  overflow:visible;
+  background-color:#090a0f;
+}
+.netflixLuxe .hero::before{
+  background:
+    linear-gradient(90deg,#050607 0,#050607e8 26%,#050607a2 46%,transparent 72%),
+    linear-gradient(0deg,#050607 3%,#050607f0 13%,#05060778 38%,transparent 70%),
+    linear-gradient(180deg,#0006 0,transparent 18%);
+}
+.netflixLuxe .hero::after{
+  content:"";
+  position:absolute;inset:auto 0 -1px 0;height:180px;
+  background:linear-gradient(180deg,transparent 0,#06070b 75%);
+  pointer-events:none;
+}
+.netflixLuxe .heroContent{
+  width:min(720px,92%);
+  padding:150px clamp(20px,5vw,64px) 160px;
+}
+.netflixLuxe .kicker{
+  display:inline-flex;align-items:center;gap:8px;
+  border:0;border-radius:999px;
+  padding:0;background:none;color:#d8dbe3;
+  font-size:13px;font-weight:700;letter-spacing:.08em;
+}
+.netflixLuxe .kicker::before{width:8px;height:8px;border-radius:50%;background:#e50914;box-shadow:0 0 16px #e50914}
+.netflixLuxe .heroTitle{
+  margin:14px 0 14px;
+  font-size:clamp(54px,7vw,94px);
+  line-height:.92;
+  letter-spacing:-.06em;
+  text-shadow:0 18px 40px #000;
+}
+.netflixLuxe .heroMeta{gap:10px}
+.netflixLuxe .heroMeta>span{
+  padding:7px 12px;
+  border:1px solid #ffffff10;
+  border-radius:999px;
+  background:#ffffff10;
+  backdrop-filter:blur(8px);
+}
+.netflixLuxe .heroMeta .score{
+  color:#fff;
+  background:#e5091422;
+  border-color:#e5091436;
+}
+.netflixLuxe .heroDescription{
+  max-width:620px;
+  margin-top:18px;
+  font-size:18px;
+  line-height:1.65;
+  color:#dde2eb;
+}
+.netflixLuxe .heroActions{margin-top:26px;gap:12px}
+.netflixLuxe .primaryBtn,
+.netflixLuxe .secondaryBtn{
+  min-height:50px;
+  padding:0 22px;
+  border-radius:12px;
+  font-size:15px;
+  font-weight:800;
+}
+.netflixLuxe .primaryBtn{
+  color:#0a0b0e;
+  background:#fff;
+  box-shadow:0 12px 28px #00000040;
+}
+.netflixLuxe .primaryBtn:hover{filter:none;background:#f0f2f7}
+.netflixLuxe .secondaryBtn{
+  border:1px solid #ffffff18;
+  background:rgba(109,109,110,.46);
+  backdrop-filter:blur(12px);
+}
+.netflixLuxe .secondaryBtn:hover{background:rgba(109,109,110,.64)}
+.netflixLuxe .heroRotationControls{
+  position:absolute;
+  right:clamp(18px,4vw,46px);
+  bottom:128px;
+  display:flex;align-items:center;gap:10px;
+  z-index:4;
+  padding:10px 12px;
+  border:1px solid #ffffff14;
+  border-radius:999px;
+  background:rgba(7,8,11,.42);
+  backdrop-filter:blur(12px);
+}
+.netflixLuxe .heroRoundButton{
+  width:42px;height:42px;border-radius:50%;border:1px solid #ffffff18;
+  background:#ffffff08;color:#fff;
+}
+.netflixLuxe .heroPosition{
+  min-width:68px;text-align:center;
+  color:#dee2eb;font-size:12px;font-weight:800;
+}
+
+.netflixLuxe .appMain{
+  position:relative;
+  z-index:3;
+  width:100%;
+  padding:0 0 90px;
+}
+.netflixLuxe .section{
+  width:min(100%,1540px);
+  margin:0 auto 38px;
+  padding:0 clamp(18px,4vw,52px);
+  border:0;
+  border-radius:0;
+  background:none;
+  box-shadow:none;
+}
+.netflixLuxe .discoverySection{padding-top:0}
+.netflixLuxe .sectionHead{margin-bottom:16px}
+.netflixLuxe .sectionTitle{
+  font-size:clamp(24px,2.5vw,36px);
+  letter-spacing:-.04em;
+}
+.netflixLuxe .sectionSub{color:#95a0b2}
+.netflixLuxe .filterBar,
+.netflixLuxe .libraryTools,
+.netflixLuxe .pagination{
+  background:rgba(255,255,255,.04);
+  border:1px solid #ffffff10;
+  box-shadow:0 12px 30px #00000022;
+  backdrop-filter:blur(12px);
+}
+.netflixLuxe .filterBar,
+.netflixLuxe .libraryTools{
+  border-radius:18px;
+}
+.netflixLuxe .filterBar{margin-bottom:22px}
+.netflixLuxe .select,
+.netflixLuxe .playerSourceSelect{
+  background:#111521;
+  border-color:#ffffff18;
+  color:#fff;
+}
+.netflixLuxe .grid{
+  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
+  gap:22px 18px;
+}
+.netflixLuxe .rail{
+  display:grid;
+  grid-auto-flow:column;
+  grid-auto-columns:minmax(290px,23vw);
+  gap:18px;
+  overflow-x:auto;
+  overflow-y:visible;
+  padding:10px 6px 26px;
+  scrollbar-width:none;
+  mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%);
+}
+.netflixLuxe .rail::-webkit-scrollbar{display:none}
+.netflixLuxe .mediaCard{
+  border:0;
+  border-radius:18px;
+  background:linear-gradient(180deg,#141823,#0b0f17);
+  box-shadow:0 14px 34px #0000004d;
+  overflow:hidden;
+}
+.netflixLuxe .poster,
+.netflixLuxe .posterEmpty{
+  aspect-ratio:16/9;
+  border-radius:0;
+}
+.netflixLuxe .cardShade{inset:48% 0 0;background:linear-gradient(0deg,#07090d 0,#07090de0 20%,transparent 70%)}
+.netflixLuxe .cardInfo{
+  position:absolute;
+  inset:auto 0 0 0;
+  padding:16px;
+  background:linear-gradient(180deg,transparent 0,#06080dee 35%,#06080d 100%);
+}
+.netflixLuxe .cardTitle{font-size:16px;font-weight:800;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.netflixLuxe .cardMeta{margin-top:8px;color:#c1c8d5;font-size:12px}
+.netflixLuxe .typePill{bottom:94px}
+.netflixLuxe .favoriteQuick{top:12px;right:12px;width:38px;height:38px;border:1px solid #ffffff18;background:#05070cb8}
+.netflixLuxe .cardBadge{
+  top:12px;left:12px;
+  background:rgba(6,7,10,.72);
+  border:1px solid #ffffff14;
+}
+.netflixLuxe .progressTrack{height:5px;background:#ffffff1a}
+.netflixLuxe .progressFill{background:linear-gradient(90deg,#ff4b59,#e50914)}
+.netflixLuxe .mediaCard:hover,.netflixLuxe .mediaCard:focus-visible{
+  transform:translateY(-8px) scale(1.028);
+  box-shadow:0 28px 54px #00000080;
+}
+.netflixLuxe .mediaCard:hover .poster{transform:scale(1.045);filter:saturate(1.05)}
+
+.netflixLuxe .detailModal{
+  background:rgba(2,4,9,.72);
+  backdrop-filter:blur(24px) saturate(1.1);
+}
+.netflixLuxe .detailPanel{
+  width:min(1180px,100%);
+  border:1px solid #ffffff12;
+  border-radius:26px;
+  background:linear-gradient(180deg,#0b0e14,#0a0d14 55%,#080b12 100%);
+  box-shadow:0 40px 120px #000c;
+}
+.netflixLuxe .detailBackdrop{min-height:460px}
+.netflixLuxe .detailBackdrop::after{
+  background:
+    linear-gradient(0deg,#090c13 0,#090c13f2 20%,#090c1387 42%,transparent 76%),
+    linear-gradient(90deg,#080b12b8 0,transparent 66%);
+}
+.netflixLuxe .closeDetail{
+  width:46px;height:46px;border-radius:50%;
+  border:1px solid #ffffff18;background:rgba(9,11,16,.7)
+}
+.netflixLuxe .detailContent{margin-top:-118px;padding:0 clamp(24px,4vw,52px) 52px}
+.netflixLuxe .detailTitle{font-size:clamp(42px,4.8vw,68px)}
+.netflixLuxe .detailMeta span,
+.netflixLuxe .statusLine,
+.netflixLuxe .episodeCard,
+.netflixLuxe .libraryTabs,
+.netflixLuxe .nextOverlay{
+  background:rgba(255,255,255,.06);
+  border-color:#ffffff12;
+}
+.netflixLuxe .episodeCard{border-radius:16px}
+.netflixLuxe .episodeCard:hover,.netflixLuxe .episodeCard:focus-visible{transform:translateX(6px)}
+
+.netflixLuxe .playerOverlay{
+  padding:28px;
+  background:
+    radial-gradient(circle at 50% 50%,#192232 0,#0b0f17 35%,#020307 100%);
+  overflow:auto;
+}
+.netflixLuxe .playerBackdropGlow{
+  position:fixed;inset:0;pointer-events:none;
+  background:
+    radial-gradient(40rem 22rem at 50% 55%,#ff334114 0,transparent 54%),
+    radial-gradient(38rem 20rem at 50% 55%,#5b90ff14 0,transparent 58%);
+}
+.netflixLuxe .playerShell{
+  position:relative;
+  width:min(1520px,100%);
+  height:auto;
+  min-height:min(92vh,980px);
+  margin:0 auto;
+  grid-template-rows:auto auto auto;
+  gap:14px;
+  background:transparent;
+}
+.netflixLuxe .playerBar{
+  position:relative;
+  min-height:74px;
+  padding:14px 18px;
+  border:1px solid #ffffff10;
+  border-radius:22px;
+  background:linear-gradient(180deg,rgba(16,20,29,.92),rgba(8,11,17,.88));
+  box-shadow:0 18px 46px #0007;
+}
+.netflixLuxe .playerBack{
+  width:48px;height:48px;border-radius:14px;
+  background:#ffffff0e;border:1px solid #ffffff14;
+}
+.netflixLuxe .playingTitle{
+  font-size:17px;
+  font-weight:800;
+}
+.netflixLuxe .playerServerTools{
+  padding:8px 10px;
+  border:1px solid #ffffff10;
+  border-radius:16px;
+  background:#ffffff05;
+}
+.netflixLuxe .playerServerLabel{color:#97a3b6}
+.netflixLuxe .playerControlBtn,
+.netflixLuxe .playerActions .ghostBtn{
+  min-height:42px;
+  border:1px solid #ffffff14!important;
+  border-radius:12px;
+  background:#ffffff08!important;
+  color:#fff!important;
+}
+.netflixLuxe .playerActions{gap:8px}
+.netflixLuxe .playerHint{
+  display:block;
+  margin:0;
+  padding:12px 14px;
+  border:1px solid #ffffff10;
+  border-radius:16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));
+  color:#c4cbd8;
+}
+.netflixLuxe .playerStage{
+  position:relative;
+  min-height:min(72vh,820px);
+  border:1px solid #ffffff12;
+  border-radius:28px;
+  overflow:hidden;
+  background:#000;
+  box-shadow:0 28px 80px #000a;
+}
+.netflixLuxe .playerCinemaFrame{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  box-shadow:inset 0 0 0 1px #ffffff09,inset 0 60px 90px #0008,inset 0 -90px 120px #0008;
+}
+.netflixLuxe .playerStage iframe,
+.netflixLuxe .playerStage video{
+  position:relative;
+  z-index:0;
+}
+.netflixLuxe .playerLoading{
+  background:radial-gradient(circle at center,#11151e,#000);
+}
+.netflixLuxe .nextOverlay{
+  inset:auto 20px 20px 20px;
+  display:none;
+  place-items:center;
+  border:1px solid #ffffff12;
+  border-radius:22px;
+  background:rgba(6,8,12,.84);
+  backdrop-filter:blur(20px);
+}
+.netflixLuxe .nextOverlay.show{display:grid}
+.netflixLuxe .nextOverlay strong{font-size:78px}
+.netflixLuxe .playerFooterNote{
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  flex-wrap:wrap;
+  padding:0 6px;
+  color:#98a3b5;
+  font-size:12px;
+}
+.netflixLuxe .playerFooterNote span{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:9px 12px;
+  border:1px solid #ffffff10;
+  border-radius:999px;
+  background:#ffffff05;
+}
+
+.netflixLuxe .toast{
+  border-radius:999px;
+  background:#10141de6;
+  border:1px solid #ffffff12;
+  backdrop-filter:blur(16px);
+}
+
+@media(max-width:980px){
+  .netflixLuxe .topbar{gap:14px;padding-inline:14px}
+  .netflixLuxe .heroContent{padding-top:128px;padding-bottom:148px}
+  .netflixLuxe .playerOverlay{padding:16px}
+  .netflixLuxe .playerShell{min-height:auto}
+  .netflixLuxe .playerBar{gap:12px}
+  .netflixLuxe .playerServerTools{order:4;width:100%;margin-left:0}
+}
+@media(max-width:760px){
+  body.netflixLuxe{--heroH:76vh}
+  .netflixLuxe .topbar{padding:10px 12px 18px;background:linear-gradient(180deg,#050608f0 0,#050608db 56%,transparent)}
+  .netflixLuxe .topbar.scrolled{padding-bottom:10px}
+  .netflixLuxe .brand{font-size:22px}
+  .netflixLuxe .nav{order:3;width:100%;overflow:auto;gap:16px}
+  .netflixLuxe .navBtn{font-size:14px}
+  .netflixLuxe .navBtn::after{bottom:-2px}
+  .netflixLuxe .searchBox{max-width:none}
+  .netflixLuxe .hero{margin-bottom:-44px}
+  .netflixLuxe .heroContent{width:100%;padding:138px 18px 110px}
+  .netflixLuxe .heroTitle{font-size:clamp(40px,13vw,60px)}
+  .netflixLuxe .heroDescription{font-size:15px}
+  .netflixLuxe .heroRotationControls{right:16px;bottom:56px;padding:8px 10px}
+  .netflixLuxe .heroRoundButton{width:38px;height:38px}
+  .netflixLuxe .section{padding-inline:14px;margin-bottom:30px}
+  .netflixLuxe .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
+  .netflixLuxe .rail{grid-auto-columns:minmax(210px,78vw);gap:12px;padding-inline:2px;mask-image:none}
+  .netflixLuxe .mediaCard{border-radius:14px}
+  .netflixLuxe .cardInfo{padding:12px}
+  .netflixLuxe .cardTitle{font-size:14px}
+  .netflixLuxe .detailPanel{border-radius:0;max-height:100vh}
+  .netflixLuxe .detailBackdrop{min-height:340px}
+  .netflixLuxe .detailContent{margin-top:-60px;padding:0 16px 24px}
+  .netflixLuxe .playerOverlay{padding:10px;background:#020306}
+  .netflixLuxe .playerBar{padding:12px;border-radius:18px}
+  .netflixLuxe .playerStage{min-height:42vh;border-radius:18px}
+  .netflixLuxe .playerActions{width:100%;justify-content:stretch}
+  .netflixLuxe .playerActions .ghostBtn{flex:1}
+  .netflixLuxe .playerFooterNote{font-size:11px;padding:0}
+}
+
+
+
+/* ==========================================================
+   FIRE TV COMFORT MODE 2026.5 · más cómodo con control remoto
+   ========================================================== */
+.remoteDock{display:none}
+
+.firetv body,
+.firetv button,
+.firetv input,
+.firetv select{
+  letter-spacing:.01em;
+}
+.firetv .topbar{
+  gap:18px;
+}
+.firetv .nav{gap:10px}
+.firetv .navBtn,
+.firetv .remoteDockBtn,
+.firetv .ghostBtn,
+.firetv .secondaryBtn,
+.firetv .primaryBtn,
+.firetv .libraryTab,
+.firetv .playerBack,
+.firetv .playerSourceSelect,
+.firetv .select,
+.firetv .suggestionItem,
+.firetv .episodeCard,
+.firetv .favoriteQuick,
+.firetv .heroRoundButton{
+  min-height:54px;
+}
+.firetv .navBtn,
+.firetv .libraryTab{
+  padding:12px 16px;
+  border-radius:14px;
+  background:#ffffff10;
+  border:1px solid #ffffff10;
+}
+.firetv .navBtn.active{
+  background:#ffffff1c;
+}
+.firetv .navBtn::after{display:none}
+.firetv .searchBox{max-width:520px}
+.firetv .searchBox input{
+  height:52px;
+  font-size:16px;
+}
+.firetv .searchSuggestions{
+  max-height:55vh;
+  border-radius:18px;
+}
+.firetv .suggestionItem{
+  min-height:78px;
+  padding:10px;
+  border-radius:14px;
+}
+.firetv .suggestionItem img,
+.firetv .suggestionPoster{
+  width:52px;height:72px;border-radius:9px;
+}
+.firetv .suggestionItem b{font-size:15px}
+.firetv .suggestionItem small{font-size:12px}
+.firetv .profileButton{
+  width:48px;height:48px;
+}
+.firetv .remoteDock{
+  position:relative;
+  z-index:90;
+  display:flex;
+  gap:10px;
+  overflow-x:auto;
+  width:min(100%,1460px);
+  margin:88px auto 0;
+  padding:0 22px;
+  scrollbar-width:none;
+}
+.firetv .remoteDock::-webkit-scrollbar{display:none}
+.firetv .remoteDockBtn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  padding:0 16px;
+  border:1px solid #ffffff14;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:#edf2ff;
+  font-weight:800;
+  white-space:nowrap;
+}
+.firetv .remoteDockBtn i{font-size:15px;color:#cfd7e5}
+.firetv .hero{
+  min-height:68vh;
+  margin-top:10px;
+}
+.firetv .heroContent{
+  width:min(760px,95%);
+  padding-top:138px;
+  padding-bottom:126px;
+}
+.firetv .heroTitle{font-size:clamp(50px,6vw,82px)}
+.firetv .heroDescription{font-size:17px;max-width:700px}
+.firetv .heroActions{gap:14px}
+.firetv .heroRotationControls{bottom:82px}
+.firetv .appMain{padding-bottom:110px}
+.firetv .section{padding-inline:22px;margin-bottom:34px}
+.firetv .sectionTitle{font-size:28px}
+.firetv .sectionSub{font-size:14px}
+.firetv .filterBar,
+.firetv .libraryTools,
+.firetv .pagination{border-radius:20px}
+.firetv .select,
+.firetv .playerSourceSelect{
+  min-height:54px;
+  font-size:15px;
+  border-radius:14px;
+}
+.firetv .filterBar{gap:12px}
+.firetv .filterBar label{min-width:180px}
+.firetv .grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px 18px}
+.firetv .rail{grid-auto-columns:minmax(360px,28vw);gap:18px;padding:12px 4px 24px;mask-image:none}
+.firetv .compactRail{grid-auto-columns:minmax(230px,20vw)}
+.firetv .mediaCard{border-radius:20px}
+.firetv .cardInfo{padding:18px}
+.firetv .cardTitle{font-size:18px;-webkit-line-clamp:2}
+.firetv .cardMeta{font-size:13px}
+.firetv .typePill{bottom:104px;font-size:10px;padding:6px 9px}
+.firetv .favoriteQuick{width:42px;height:42px}
+.firetv .cardBadge{font-size:11px;padding:7px 10px}
+.firetv .detailModal{background:#000c;backdrop-filter:none}
+.firetv .detailPanel{max-width:100%;height:100vh;max-height:100vh;border-radius:0;border:0}
+.firetv .detailBackdrop{min-height:390px}
+.firetv .detailContent{padding:0 22px 28px;margin-top:-72px}
+.firetv .detailTitle{font-size:46px}
+.firetv .detailOverview{font-size:16px;max-width:920px}
+.firetv .detailActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.firetv .episodeHeader h3{font-size:25px}
+.firetv .episodeCard{grid-template-columns:52px 176px 1fr auto;min-height:100px;padding:10px 12px;border-radius:16px}
+.firetv .episodeStill,
+.firetv .episodeStillEmpty{width:176px;border-radius:12px}
+.firetv .episodeName{font-size:16px}
+.firetv .episodeOverview{display:block;font-size:13px}
+.firetv .castRail{grid-auto-columns:116px}
+.firetv .castCard b{font-size:13px}
+.firetv .castCard span{font-size:11px}
+.firetv .playerOverlay{padding:14px;background:#020307}
+.firetv .playerShell{width:100%;min-height:100%}
+.firetv .playerBar{padding:14px;border-radius:18px;gap:12px}
+.firetv .playerHint{display:block;font-size:12px}
+.firetv .playerServerTools{padding:10px;border-radius:16px}
+.firetv .playerActions .ghostBtn,
+.firetv .playerControlBtn,
+.firetv .playerBack{
+  min-height:56px;
+  border-radius:14px;
+  font-size:15px;
+}
+.firetv .playerStage{min-height:56vh;border-radius:20px}
+.firetv .playerFooterNote{gap:10px;font-size:12px}
+.firetv .playerFooterNote span{padding:10px 14px}
+.firetv .nextOverlay{inset:auto 16px 16px 16px}
+.firetv .toast{font-size:14px}
+
+.firetv :focus-visible{
+  outline:4px solid #ffffff;
+  outline-offset:3px;
+  box-shadow:0 0 0 6px #1d4ed8aa,0 16px 36px #0008;
+}
+.firetv .mediaCard:focus-visible,
+.firetv .episodeCard:focus-visible,
+.firetv .suggestionItem:focus-visible,
+.firetv .remoteDockBtn:focus-visible,
+.firetv .navBtn:focus-visible,
+.firetv .libraryTab:focus-visible{
+  transform:scale(1.03);
+  border-color:#fff;
+}
+.firetv .mediaCard,
+.firetv .episodeCard,
+.firetv .remoteDockBtn,
+.firetv .navBtn,
+.firetv .ghostBtn,
+.firetv .secondaryBtn,
+.firetv .primaryBtn,
+.firetv .libraryTab,
+.firetv .playerBack,
+.firetv .heroRoundButton,
+.firetv .suggestionItem,
+.firetv .select,
+.firetv .playerSourceSelect,
+.firetv .searchBox input{
+  scroll-margin-top:130px;
+  scroll-margin-bottom:40px;
+}
+
+@media(max-width:980px){
+  .firetv .topbar{position:sticky}
+  .firetv .remoteDock{margin-top:10px;padding-inline:14px}
+  .firetv .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .firetv .rail{grid-auto-columns:minmax(280px,72vw)}
+}
+@media(max-width:760px){
+  .firetv .topbar{padding:10px 12px}
+  .firetv .remoteDock{padding-inline:12px}
+  .firetv .hero{min-height:62vh}
+  .firetv .heroContent{padding:128px 16px 106px}
+  .firetv .heroTitle{font-size:clamp(40px,12vw,58px)}
+  .firetv .section{padding-inline:12px}
+  .firetv .filterBar{display:grid;grid-template-columns:1fr 1fr}
+  .firetv .filterBar .ghostBtn{grid-column:1/-1}
+  .firetv .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .firetv .rail{grid-auto-columns:minmax(235px,82vw);gap:12px}
+  .firetv .detailActions{grid-template-columns:1fr}
+  .firetv .episodeCard{grid-template-columns:40px 112px 1fr;min-height:88px}
+  .firetv .episodeStill,.firetv .episodeStillEmpty{width:112px}
+  .firetv .episodeOverview,.firetv .episodeCheck{display:none}
+  .firetv .playerBar{border-radius:16px}
+  .firetv .playerStage{border-radius:16px;min-height:42vh}
+  .firetv .playerFooterNote{padding:0 2px}
+}
+
 </style>
 </head>
-<body>
+<body class="netflixLuxe">
 
 <header class="topbar">
   <div class="brand">
@@ -1707,6 +2545,13 @@ body::before{display:none!important}
   <button id="profileButton" class="profileButton" aria-label="Abrir mi espacio" title="Mi espacio"><i class="fa-solid fa-user"></i></button>
 </header>
 
+<div id="remoteDock" class="remoteDock" aria-label="Atajos Fire TV">
+  <button id="quickHome" class="remoteDockBtn"><i class="fa-solid fa-house"></i><span>Inicio</span></button>
+  <button id="quickSearch" class="remoteDockBtn"><i class="fa-solid fa-magnifying-glass"></i><span>Buscar</span></button>
+  <button id="quickContinue" class="remoteDockBtn"><i class="fa-solid fa-clock-rotate-left"></i><span>Seguir viendo</span></button>
+  <button id="quickLibrary" class="remoteDockBtn"><i class="fa-solid fa-bookmark"></i><span>Mi espacio</span></button>
+</div>
+
 <section id="hero" class="hero">
   <div class="heroContent">
     <span id="heroKicker" class="kicker">
@@ -1738,6 +2583,17 @@ body::before{display:none!important}
       </button>
     </div>
   </div>
+
+  <div class="heroRotationControls" aria-label="Cambiar contenido destacado">
+    <button id="heroPrevious" class="heroRoundButton" aria-label="Destacado anterior" title="Anterior">
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <span id="heroPosition" class="heroPosition">1 / 1</span>
+    <button id="heroNext" class="heroRoundButton" aria-label="Siguiente destacado" title="Siguiente">
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+  </div>
+  <div class="heroAutoTrack" aria-hidden="true"><span id="heroAutoProgress"></span></div>
 </section>
 
 <main class="appMain">
@@ -1893,6 +2749,8 @@ body::before{display:none!important}
         </button>
 
         <button id="toggleFavorite" class="secondaryBtn"><i class="fa-regular fa-heart"></i> Favorito</button>
+        <button id="likeTitle" class="secondaryBtn tasteBtn" title="Usar como señal para tus recomendaciones"><i class="fa-regular fa-thumbs-up"></i> Me gusta</button>
+        <button id="dislikeTitle" class="secondaryBtn tasteBtn" title="Ocultar de tus recomendaciones"><i class="fa-regular fa-thumbs-down"></i> No me interesa</button>
         <button id="playTrailer" class="secondaryBtn hidden"><i class="fa-solid fa-clapperboard"></i> Tráiler</button>
       </div>
 
@@ -1935,6 +2793,7 @@ body::before{display:none!important}
 </div>
 
 <div id="playerOverlay" class="playerOverlay">
+  <div class="playerBackdropGlow" aria-hidden="true"></div>
   <div class="playerShell">
     <div class="playerBar">
       <button
@@ -1979,6 +2838,7 @@ body::before{display:none!important}
     </div>
 
     <div id="playerStage" class="playerStage">
+        <div class="playerCinemaFrame" aria-hidden="true"></div>
       <iframe
         id="playerFrame"
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
@@ -2008,6 +2868,11 @@ body::before{display:none!important}
           </button>
         </div>
       </div>
+    </div>
+
+    <div class="playerFooterNote">
+      <span><i class="fa-solid fa-circle-info"></i> Si un servidor falla, usa “Cambiar servidor”.</span>
+      <span><i class="fa-solid fa-wand-magic-sparkles"></i> Tu progreso y preferencias se guardan automáticamente.</span>
     </div>
   </div>
 </div>
@@ -2042,6 +2907,9 @@ const PLAYER_SESSION_MAX_AGE =
 const $ = selector =>
   document.querySelector(selector);
 
+const $$ = selector =>
+  [...document.querySelectorAll(selector)];
+
 const IS_FIRE_TV =
   /AFT|Fire TV|Silk\/|Vega/i.test(
     navigator.userAgent
@@ -2074,6 +2942,12 @@ let currentPlayerSource = "tmdb";
 let playerFrameFocusTimer = null;
 const discoveryCache = new Map();
 const itemCache = new Map();
+
+const FEATURED_ROTATION_MS = 12000;
+let featuredPool = [];
+let featuredIndex = 0;
+let featuredRotationTimer = null;
+let tasteRefreshTimer = null;
 
 let historyData = {};
 
@@ -2170,6 +3044,72 @@ function showToast(message){
   toastTimer = setTimeout(() => {
     $("#toast").classList.remove("show");
   },1900);
+}
+
+function safeFocus(target,{delay=0,preventScroll=false} = {}){
+  const action = () => {
+    const element = typeof target === "string" ? $(target) : target;
+    if(!element || element.disabled || element.offsetParent === null){
+      return;
+    }
+    try{
+      element.focus({preventScroll});
+    }catch{
+      element.focus();
+    }
+  };
+
+  if(delay > 0){
+    setTimeout(action,delay);
+  }else{
+    action();
+  }
+}
+
+function scrollParentRail(element){
+  const rail = element?.closest?.(".rail, .remoteDock");
+  if(!rail) return;
+  const railRect = rail.getBoundingClientRect();
+  const elementRect = element.getBoundingClientRect();
+  const current = rail.scrollLeft;
+  const delta = (elementRect.left - railRect.left) - (railRect.width / 2 - elementRect.width / 2);
+  rail.scrollTo({
+    left: current + delta,
+    behavior: IS_FIRE_TV ? "auto" : "smooth"
+  });
+}
+
+function revealFocusedElement(element){
+  if(!element || element.offsetParent === null) return;
+  scrollParentRail(element);
+  try{
+    element.scrollIntoView({
+      block:"nearest",
+      inline:"nearest",
+      behavior:IS_FIRE_TV ? "auto" : "smooth"
+    });
+  }catch{}
+}
+
+function focusBestLanding(){
+  if(!IS_FIRE_TV) return;
+  if($("#playerOverlay").classList.contains("show")){
+    safeFocus("#playerSourceSelect",{delay:120});
+    return;
+  }
+  if($("#detailModal").classList.contains("show")){
+    safeFocus(currentItem?.media_type === "tv" ? "#seasonSelect" : "#playTitle",{delay:120});
+    return;
+  }
+  if(section === "library"){
+    safeFocus(document.querySelector("#catalog .mediaCard, #continueRail .mediaCard, #quickLibrary"),{delay:140});
+    return;
+  }
+  if(query){
+    safeFocus(document.querySelector("#catalog .mediaCard") || "#searchInput",{delay:150});
+    return;
+  }
+  safeFocus("#heroPlay",{delay:150});
 }
 
 function savedEntry(item,episode = null){
@@ -2343,6 +3283,7 @@ function bindCards(root){
       button.innerHTML = `<i class="${favorite ? "fa-solid" : "fa-regular"} fa-heart"></i>`;
       showToast(favorite ? "Agregado a favoritos" : "Eliminado de favoritos");
       updateStats();
+      scheduleTasteRefresh();
     };
   });
 
@@ -2379,6 +3320,10 @@ function renderCatalog(items){
         `;
 
   bindCards($("#catalog"));
+
+  if(IS_FIRE_TV && query){
+    safeFocus(document.querySelector("#catalog .mediaCard"),{delay:120});
+  }
 }
 
 function historyTitles(){
@@ -2414,8 +3359,12 @@ function historyTitles(){
 }
 
 function renderContinue(){
-  const items =
-    historyTitles();
+  const items = historyTitles().filter(item => {
+    const saved = savedEntry(item);
+    const progress = Number(item.progress || saved.progress || 0);
+    const watched = Boolean(item.watched || saved.watched);
+    return progress > 0 && !watched && !saved.disliked;
+  });
 
   $("#continueSection")
     .classList.toggle(
@@ -2470,6 +3419,10 @@ function renderLibrary(){
   $("#filterBar").classList.add("hidden");
   $("#libraryTools").classList.remove("hidden");
   $("#discoverySection").classList.add("hidden");
+
+  if(IS_FIRE_TV){
+    safeFocus(document.querySelector("#catalog .mediaCard, .libraryTab.active, #quickLibrary"),{delay:160});
+  }
 }
 
 async function loadCatalog(){
@@ -2550,10 +3503,12 @@ async function loadCatalog(){
     $("#nextPage").disabled =
       page >= maxPages;
 
-    setFeatured(
-      visibleResults[0] || null
+    setFeaturedPool(
+      visibleResults.slice(0,8),
+      {randomStart:true}
     );
     loadDiscovery();
+    focusBestLanding();
   }catch(error){
     $("#catalog").innerHTML = `
       <div class="emptyState">
@@ -2563,6 +3518,24 @@ async function loadCatalog(){
   }
 }
 
+function resetHeroProgress(){
+  const progress = $("#heroAutoProgress");
+  if(!progress) return;
+  progress.classList.remove("running");
+  void progress.offsetWidth;
+  progress.style.animationDuration = `${FEATURED_ROTATION_MS}ms`;
+  progress.classList.add("running");
+}
+
+function updateHeroPosition(){
+  const position = $("#heroPosition");
+  if(!position) return;
+  const total = Math.max(featuredPool.length,1);
+  position.textContent = `${Math.min(featuredIndex + 1,total)} / ${total}`;
+  $("#heroPrevious").disabled = total < 2;
+  $("#heroNext").disabled = total < 2;
+}
+
 function setFeatured(item){
   featured = item;
 
@@ -2570,50 +3543,229 @@ function setFeatured(item){
     return;
   }
 
-  $("#hero").style.backgroundImage =
-    item.backdrop_path
-      ? `url("${BACKDROP}${item.backdrop_path}")`
-      : "none";
+  const hero = $("#hero");
+  hero.classList.add("heroChanging");
 
-  const featuredType = mediaType(item);
+  window.setTimeout(() => {
+    hero.style.backgroundImage =
+      item.backdrop_path
+        ? `url("${BACKDROP}${item.backdrop_path}")`
+        : "none";
 
-  $("#heroKicker").textContent =
-    featuredType === "tv"
-      ? "Serie destacada"
-      : "Película destacada";
+    const featuredType = mediaType(item);
+    const customLabel = item.__featuredLabel;
 
-  $("#heroTitle").textContent =
-    mediaName(item);
+    $("#heroKicker").innerHTML = customLabel
+      ? `<i class="fa-solid fa-sparkles"></i> ${escapeHTML(customLabel)}`
+      : featuredType === "tv"
+        ? '<i class="fa-solid fa-tv"></i> Serie destacada'
+        : '<i class="fa-solid fa-film"></i> Película destacada';
 
-  $("#heroMeta").innerHTML = `
-    <span class="score">
-      <i class="fa-solid fa-star"></i> ${Number(
-        item.vote_average || 0
-      ).toFixed(1)}
-    </span>
+    $("#heroTitle").textContent = mediaName(item);
 
-    <span>
-      ${mediaDate(item).slice(0,4) ||
-        "Próximamente"}
-    </span>
+    const matchValue = item.__matchScore
+      ? `<span class="matchScore"><i class="fa-solid fa-thumbs-up"></i> ${Math.max(80,Math.min(99,Math.round(item.__matchScore)))}% para ti</span>`
+      : "";
 
-    <span>
-      ${featuredType === "tv"
-        ? "Serie"
-        : "Película"}
-    </span>
-  `;
+    $("#heroMeta").innerHTML = `
+      ${matchValue}
+      <span class="score">
+        <i class="fa-solid fa-star"></i> ${Number(
+          item.vote_average || 0
+        ).toFixed(1)}
+      </span>
 
-  $("#heroDescription").textContent =
-    item.overview ||
-    "Descubre este título destacado.";
+      <span>
+        ${mediaDate(item).slice(0,4) ||
+          "Próximamente"}
+      </span>
 
-  $("#heroPlay").onclick = () => {
-    openDetails(
-      item.id,
-      featuredType
-    );
-  };
+      <span>
+        ${featuredType === "tv"
+          ? "Serie"
+          : "Película"}
+      </span>
+    `;
+
+    $("#heroDescription").textContent =
+      item.overview ||
+      "Descubre este título destacado.";
+
+    $("#heroPlay").onclick = () => {
+      openDetails(
+        item.id,
+        featuredType
+      );
+    };
+
+    $("#heroExplore").onclick = () => {
+      openDetails(item.id,featuredType);
+    };
+
+    hero.classList.remove("heroChanging");
+    updateHeroPosition();
+    resetHeroProgress();
+  },150);
+}
+
+function uniqueMedia(items){
+  const seen = new Set();
+  return (items || []).filter(item => {
+    const type = mediaType(item);
+    const key = `${type}:${item.id}`;
+    if(!item?.id || seen.has(key)) return false;
+    seen.add(key);
+    return Boolean(item.backdrop_path || item.poster_path);
+  });
+}
+
+function stopFeaturedRotation(){
+  clearInterval(featuredRotationTimer);
+  featuredRotationTimer = null;
+}
+
+function startFeaturedRotation(){
+  stopFeaturedRotation();
+  if(featuredPool.length < 2 || section === "library") return;
+  featuredRotationTimer = setInterval(() => {
+    showFeaturedAt(featuredIndex + 1);
+  },FEATURED_ROTATION_MS);
+}
+
+function showFeaturedAt(index){
+  if(!featuredPool.length) return;
+  featuredIndex = (index + featuredPool.length) % featuredPool.length;
+  setFeatured(featuredPool[featuredIndex]);
+}
+
+function setFeaturedPool(items,{randomStart = false} = {}){
+  const clean = uniqueMedia(items).slice(0,8);
+  if(!clean.length) return;
+
+  const previousKey = featured ? `${mediaType(featured)}:${featured.id}` : "";
+  featuredPool = clean;
+
+  const previousIndex = featuredPool.findIndex(item => `${mediaType(item)}:${item.id}` === previousKey);
+  if(previousIndex >= 0){
+    featuredIndex = previousIndex;
+  }else if(randomStart && featuredPool.length > 1){
+    featuredIndex = Math.floor(Math.random() * featuredPool.length);
+  }else{
+    featuredIndex = 0;
+  }
+
+  showFeaturedAt(featuredIndex);
+  startFeaturedRotation();
+}
+
+function scheduleTasteRefresh(){
+  clearTimeout(tasteRefreshTimer);
+  tasteRefreshTimer = setTimeout(() => {
+    if(section !== "library" && !query) loadDiscovery(true);
+  },350);
+}
+
+function tasteSeeds(type){
+  const now = Date.now();
+  return historyTitles()
+    .filter(item => mediaType(item) === type)
+    .map(item => {
+      const direct = savedEntry(item);
+      const related = Object.values(historyData).filter(entry =>
+        entry.type === type && Number(entry.id) === Number(item.id)
+      );
+      const disliked = Boolean(direct.disliked || related.some(entry => entry.disliked));
+      if(disliked) return null;
+
+      const liked = Boolean(direct.liked || related.some(entry => entry.liked));
+      const favorite = Boolean(direct.favorite || related.some(entry => entry.favorite));
+      const watched = Boolean(direct.watched || item.watched || related.some(entry => entry.watched));
+      const progress = Math.max(
+        Number(direct.progress || 0),
+        Number(item.progress || 0),
+        ...related.map(entry => Number(entry.progress || 0))
+      );
+      const updated = Math.max(
+        Number(direct.updated || 0),
+        Number(item.updated || 0),
+        ...related.map(entry => Number(entry.updated || 0))
+      ) || now;
+      const ageDays = Math.max(0,(now - updated) / 86400000);
+      const recency = Math.max(0,30 - ageDays);
+      const weight =
+        (liked ? 220 : 0) +
+        (favorite ? 150 : 0) +
+        (watched ? 60 : 0) +
+        (progress > 0 ? 30 : 0) +
+        recency;
+
+      return weight > 0 ? {...item,__tasteWeight:weight} : null;
+    })
+    .filter(Boolean)
+    .sort((a,b) => b.__tasteWeight - a.__tasteWeight)
+    .slice(0,4);
+}
+
+async function buildTasteRecommendations(type){
+  const seeds = tasteSeeds(type);
+  if(!seeds.length){
+    return {items:[],because:[],seed:null};
+  }
+
+  const known = new Set(
+    historyTitles()
+      .filter(item => mediaType(item) === type)
+      .map(item => `${type}:${item.id}`)
+  );
+
+  const blocked = new Set(
+    Object.values(historyData)
+      .filter(entry => entry.type === type && entry.disliked)
+      .map(entry => `${type}:${entry.id}`)
+  );
+
+  const settled = await Promise.allSettled(
+    seeds.map(seed => getJSON(`/${type}/${seed.id}/recommendations?page=1`))
+  );
+
+  const scoreMap = new Map();
+  let because = [];
+
+  settled.forEach((result,seedIndex) => {
+    if(result.status !== "fulfilled") return;
+    const seed = seeds[seedIndex];
+    const rows = (result.value.results || [])
+      .filter(item => item.backdrop_path || item.poster_path)
+      .map(item => ({...item,media_type:type}));
+
+    if(seedIndex === 0){
+      because = rows
+        .filter(item => !known.has(`${type}:${item.id}`) && !blocked.has(`${type}:${item.id}`))
+        .slice(0,16);
+    }
+
+    rows.slice(0,18).forEach((item,rank) => {
+      const key = `${type}:${item.id}`;
+      if(known.has(key) || blocked.has(key)) return;
+      const previous = scoreMap.get(key) || {item,score:0,hits:0};
+      previous.score += seed.__tasteWeight * 0.45 + Math.max(0,24-rank) + Number(item.vote_average || 0) * 2 + Math.min(Number(item.popularity || 0),100) * .08;
+      previous.hits += 1;
+      scoreMap.set(key,previous);
+    });
+  });
+
+  const becauseKeys = new Set(because.slice(0,10).map(item => `${type}:${item.id}`));
+  const items = [...scoreMap.values()]
+    .sort((a,b) => (b.hits-a.hits) * 80 + (b.score-a.score))
+    .map(({item,score,hits}) => ({
+      ...item,
+      __featuredLabel:"Elegida para ti",
+      __matchScore:Math.min(99,82 + hits * 4 + Math.min(8,score / 120))
+    }))
+    .filter(item => !becauseKeys.has(`${type}:${item.id}`))
+    .slice(0,18);
+
+  return {items,because,seed:seeds[0]};
 }
 
 async function openDetails(id,type,preferredSeason = null){
@@ -2691,6 +3843,7 @@ async function openDetails(id,type,preferredSeason = null){
 
     updateWatchedButton();
     updateFavoriteButton();
+    updateTasteButtons();
     renderDetailExtras();
 
     if(type === "tv"){
@@ -2701,6 +3854,10 @@ async function openDetails(id,type,preferredSeason = null){
 
       $("#detailStatus").textContent =
         "Elige un episodio para comenzar.";
+
+      if(IS_FIRE_TV){
+        safeFocus("#seasonSelect",{delay:120});
+      }
     }else{
       $("#playTitle")
         .classList.remove("hidden");
@@ -2738,10 +3895,44 @@ function updateFavoriteButton(){
 function toggleFavorite(){
   if(!currentItem) return;
   const favorite = !savedEntry(currentItem).favorite;
-  remember(currentItem,null,{favorite});
+  remember(currentItem,null,{favorite,disliked:false});
   updateFavoriteButton();
+  updateTasteButtons();
   updateStats();
+  scheduleTasteRefresh();
   showToast(favorite ? "Agregado a favoritos" : "Eliminado de favoritos");
+}
+
+function updateTasteButtons(){
+  if(!currentItem) return;
+  const saved = savedEntry(currentItem);
+  $("#likeTitle").innerHTML = saved.liked
+    ? '<i class="fa-solid fa-thumbs-up"></i> Te gusta'
+    : '<i class="fa-regular fa-thumbs-up"></i> Me gusta';
+  $("#dislikeTitle").innerHTML = saved.disliked
+    ? '<i class="fa-solid fa-thumbs-down"></i> No te interesa'
+    : '<i class="fa-regular fa-thumbs-down"></i> No me interesa';
+  $("#likeTitle").classList.toggle("active",Boolean(saved.liked));
+  $("#dislikeTitle").classList.toggle("active",Boolean(saved.disliked));
+}
+
+function toggleLike(){
+  if(!currentItem) return;
+  const liked = !savedEntry(currentItem).liked;
+  remember(currentItem,null,{liked,disliked:false});
+  updateTasteButtons();
+  scheduleTasteRefresh();
+  showToast(liked ? "Lo tendré en cuenta para recomendarte" : "Preferencia eliminada");
+}
+
+function toggleDislike(){
+  if(!currentItem) return;
+  const disliked = !savedEntry(currentItem).disliked;
+  remember(currentItem,null,{disliked,liked:false,favorite:disliked ? false : savedEntry(currentItem).favorite});
+  updateTasteButtons();
+  updateFavoriteButton();
+  scheduleTasteRefresh();
+  showToast(disliked ? "Lo ocultaré de tus recomendaciones" : "Volverá a entrar en tus recomendaciones");
 }
 
 function renderDetailExtras(){
@@ -2947,6 +4138,8 @@ function toggleWatched(){
     renderCatalog(catalogItems);
   }
 
+  scheduleTasteRefresh();
+
   showToast(
     watched
       ? "Marcada como vista"
@@ -3142,6 +4335,13 @@ function closePlayer(clear = true){
   }
 
   renderContinue();
+
+  if(IS_FIRE_TV){
+    const fallback = $("#detailModal").classList.contains("show")
+      ? (currentItem?.media_type === "tv" ? document.querySelector("#episodeList .episodeCard") || $("#seasonSelect") : $("#playTitle"))
+      : document.querySelector("#continueRail .mediaCard") || $("#heroPlay");
+    safeFocus(fallback,{delay:120});
+  }
 }
 
 function readPlayerSession(){
@@ -3353,6 +4553,7 @@ function cancelNextPlayback(){
 
 function changeSection(nextSection){
   section = nextSection;
+  if(section === "library") stopFeaturedRotation();
   page = 1;
   query = "";
 
@@ -3408,6 +4609,10 @@ function closeDetails(){
   if(section !== "library"){
     renderCatalog(catalogItems);
   }
+
+  if(IS_FIRE_TV){
+    focusBestLanding();
+  }
 }
 
 function updateStats(){
@@ -3435,21 +4640,85 @@ async function initializeFilters(){
   }catch{}
 }
 
-async function loadDiscovery(){
+async function loadDiscovery(force = false){
   if(section === "library" || query) return;
   const type = section;
+
+  if(force){
+    [...discoveryCache.keys()]
+      .filter(key => key.startsWith(`taste:${type}:`))
+      .forEach(key => discoveryCache.delete(key));
+  }
+
   const groups = type === "tv"
-    ? [["Tendencias","/trending/tv/week"],["Mejor valoradas","/tv/top_rated"],["Al aire hoy","/tv/airing_today"]]
-    : [["Tendencias","/trending/movie/week"],["En cartelera","/movie/now_playing"],["Mejor valoradas","/movie/top_rated"]];
-  $("#discoveryRows").innerHTML = groups.map(([title]) => `<div class="discoveryGroup"><div class="discoveryGroupHead"><h3>${title}</h3></div><div class="rail"><div class="mediaCard skeleton" style="min-height:260px"></div></div></div>`).join("");
-  const results = await Promise.all(groups.map(async ([title,path]) => {
-    const key = `${type}:${path}`;
-    if(!discoveryCache.has(key)) discoveryCache.set(key,getJSON(path));
-    const data = await discoveryCache.get(key);
-    return [title,(data.results || []).slice(0,14).map(item => ({...item,media_type:type}))];
-  })).catch(() => []);
-  $("#discoveryRows").innerHTML = results.map(([title,items]) => `<div class="discoveryGroup"><div class="discoveryGroupHead"><h3>${title}</h3></div><div class="rail">${items.map(cardTemplate).join("")}</div></div>`).join("");
+    ? [["Tendencias esta semana","/trending/tv/week"],["Mejor valoradas","/tv/top_rated"],["Al aire hoy","/tv/airing_today"]]
+    : [["Tendencias esta semana","/trending/movie/week"],["Recién llegadas","/movie/now_playing"],["Mejor valoradas","/movie/top_rated"]];
+
+  const skeletonTitles = ["Elegidas para ti",...groups.map(group => group[0])];
+  $("#discoveryRows").innerHTML = skeletonTitles.map(title => `
+    <div class="discoveryGroup">
+      <div class="discoveryGroupHead"><h3>${title}</h3></div>
+      <div class="rail">
+        ${Array.from({length:5},() => '<div class="mediaCard skeleton" style="min-height:170px"></div>').join("")}
+      </div>
+    </div>
+  `).join("");
+
+  const [taste,baseResults] = await Promise.all([
+    buildTasteRecommendations(type).catch(() => ({items:[],because:[],seed:null})),
+    Promise.all(groups.map(async ([title,path]) => {
+      const key = `${type}:${path}`;
+      if(!discoveryCache.has(key)) discoveryCache.set(key,getJSON(path));
+      const data = await discoveryCache.get(key);
+      return [title,(data.results || []).slice(0,18).map(item => ({...item,media_type:type}))];
+    })).catch(() => [])
+  ]);
+
+  const rows = [];
+
+  if(taste.items.length){
+    rows.push({
+      title:"Elegidas para ti",
+      subtitle:"Basado en tus favoritos, Me gusta y lo que has visto",
+      items:taste.items,
+      personalized:true
+    });
+  }
+
+  if(taste.seed && taste.because.length){
+    rows.push({
+      title:`Porque te gustó ${mediaName(taste.seed)}`,
+      subtitle:"Títulos relacionados con una de tus preferencias más fuertes",
+      items:taste.because,
+      personalized:true
+    });
+  }
+
+  baseResults.forEach(([title,items]) => rows.push({title,items,personalized:false}));
+
+  $("#discoveryRows").innerHTML = rows.map(row => `
+    <div class="discoveryGroup ${row.personalized ? "personalizedGroup" : ""}">
+      <div class="discoveryGroupHead">
+        <div>
+          <h3>${row.personalized ? '<i class="fa-solid fa-wand-magic-sparkles"></i> ' : ""}${escapeHTML(row.title)}</h3>
+          ${row.subtitle ? `<small>${escapeHTML(row.subtitle)}</small>` : ""}
+        </div>
+      </div>
+      <div class="rail">${row.items.map(cardTemplate).join("")}</div>
+    </div>
+  `).join("");
+
   $("#discoveryRows").querySelectorAll(".rail").forEach(bindCards);
+
+  const fallbackHero = baseResults[0]?.[1] || catalogItems;
+  const personalHero = taste.items.slice(0,6);
+  const heroCandidates = personalHero.length
+    ? personalHero
+    : (fallbackHero || []).slice(0,8);
+
+  if(heroCandidates.length){
+    setFeaturedPool(heroCandidates,{randomStart:true});
+  }
 }
 
 async function showSearchSuggestions(){
@@ -3540,7 +4809,31 @@ document.querySelectorAll(".libraryTab").forEach(button => button.onclick = () =
 });
 
 $("#profileButton").onclick = () => changeSection("library");
+$("#quickHome")?.addEventListener("click",() => {
+  if(section !== "movie") changeSection("movie");
+  window.scrollTo({top:0,behavior:IS_FIRE_TV ? "auto" : "smooth"});
+  safeFocus("#heroPlay",{delay:160});
+});
+$("#quickSearch")?.addEventListener("click",() => {
+  safeFocus("#searchInput",{delay:60});
+});
+$("#quickContinue")?.addEventListener("click",() => {
+  const target = document.querySelector("#continueRail .mediaCard") || document.querySelector("#catalog .mediaCard");
+  if(target){
+    revealFocusedElement(target);
+    safeFocus(target,{delay:60});
+  }
+});
+$("#quickLibrary")?.addEventListener("click",() => changeSection("library"));
 $("#toggleFavorite").onclick = toggleFavorite;
+$("#likeTitle").onclick = toggleLike;
+$("#dislikeTitle").onclick = toggleDislike;
+$("#heroPrevious").onclick = () => { showFeaturedAt(featuredIndex - 1); startFeaturedRotation(); };
+$("#heroNext").onclick = () => { showFeaturedAt(featuredIndex + 1); startFeaturedRotation(); };
+
+window.addEventListener("scroll",() => {
+  $(".topbar").classList.toggle("scrolled",window.scrollY > 28);
+},{passive:true});
 $("#playTrailer").onclick = () => {
   if(!trailerKey) return;
   $("#trailerFrame").src = `https://www.youtube.com/embed/${encodeURIComponent(trailerKey)}?autoplay=1&rel=0`;
@@ -3595,13 +4888,7 @@ $("#nextPage").onclick = () => {
   }
 };
 
-$("#heroExplore").onclick = () => {
-  $(".appMain").scrollIntoView({
-    behavior:IS_FIRE_TV
-      ? "auto"
-      : "smooth"
-  });
-};
+// El botón "Más información" se enlaza al título destacado dentro de setFeatured().
 
 $("#closeDetail").onclick =
   closeDetails;
@@ -3754,6 +5041,18 @@ document.addEventListener(
 renderContinue();
 initializeFilters();
 setupSpatialNavigation();
+
+document.addEventListener("focusin",event => {
+  const element = event.target?.closest?.(".mediaCard, .episodeCard, .suggestionItem, .remoteDockBtn, .navBtn, .libraryTab, .primaryBtn, .secondaryBtn, .ghostBtn, .select, .playerSourceSelect, #searchInput, .heroRoundButton");
+  if(element){
+    revealFocusedElement(element);
+  }
+});
+
+if(IS_FIRE_TV){
+  window.addEventListener("load",() => focusBestLanding(),{once:true});
+}
+
 window.addEventListener("offline",() => {
   if($("#offlineNotice")) return;
   const notice = document.createElement("div"); notice.id = "offlineNotice"; notice.className = "offlineBadge"; notice.textContent = "Sin conexión"; document.body.append(notice);
@@ -3788,6 +5087,18 @@ window.addEventListener(
   await loadCatalog();
   await restorePlayerSession();
 })();
+
+
+(function setupScrollVisuals(){
+  const topbar = document.querySelector('.topbar');
+  if(!topbar) return;
+  const sync = () => {
+    topbar.classList.toggle('scrolled', window.scrollY > 18);
+  };
+  sync();
+  window.addEventListener('scroll', sync, { passive:true });
+})();
+
 </script>
 
 </body>
