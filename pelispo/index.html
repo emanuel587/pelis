@@ -3096,11 +3096,11 @@ body.netflixLuxe::before{
         </button>
         <button id="finishedButton" class="playerOptionBtn">
           <i class="fa-solid fa-circle-check"></i>
-          <span><b>Marcar terminado</b><small>Pasar al siguiente</small></span>
+          <span><b>Forzar siguiente</b><small>Solo si falla la detección automática</small></span>
         </button>
       </div>
 
-      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> En Fire TV, pulsa “Controlar video” para manejar los controles que aparecen dentro del reproductor.</p>
+      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> El final se detecta automáticamente. “Forzar siguiente” queda solo como respaldo si el servidor no comunica el final.</p>
     </div>
 
     <div id="playerStage" class="playerStage playerStageMinimal">
@@ -3198,6 +3198,12 @@ let libraryFilter = "all";
 let trailerKey = "";
 let currentPlayerSource = "tmdb";
 let playerFrameFocusTimer = null;
+let autoEndTimer = null;
+let autoEndElapsedMs = 0;
+let autoEndTargetMs = 0;
+let playbackEndHandled = false;
+const AUTO_END_TICK_MS = 5000;
+const AUTO_END_GRACE_MS = 90 * 1000;
 const discoveryCache = new Map();
 const itemCache = new Map();
 
@@ -4541,8 +4547,10 @@ function cyclePlayerSource(){
 function playMedia(episode = null,preferredSource = "tmdb"){
   currentEpisode = episode;
   currentPlayerSource = preferredSource || "tmdb";
+  playbackEndHandled = false;
 
   cancelNextPlayback();
+  stopAutoEndWatch();
   syncPlayerSourceSelect(currentPlayerSource);
 
   $("#playingTitle").textContent =
@@ -4568,6 +4576,7 @@ function playMedia(episode = null,preferredSource = "tmdb"){
   );
 
   loadPlayerSource(currentPlayerSource,{announce:false});
+  startAutoEndWatch();
 
   setTimeout(() => {
     safeFocus(IS_FIRE_TV ? "#playerMenuButton" : "#playerFullscreen");
@@ -4735,10 +4744,69 @@ function findNext(){
   return null;
 }
 
-function playbackEnded(){
-  if(!currentItem){
+function getAutoEndRuntimeMinutes(){
+  const episodeRuntime = Number(currentEpisode?.runtime || 0);
+  const movieRuntime = Number(currentItem?.runtime || 0);
+  const seriesRuntime = Number((currentItem?.episode_run_time || [])[0] || 0);
+  const runtime = currentEpisode
+    ? (episodeRuntime || seriesRuntime)
+    : movieRuntime;
+
+  return Number.isFinite(runtime) && runtime >= 5 && runtime <= 500
+    ? runtime
+    : 0;
+}
+
+function stopAutoEndWatch(){
+  clearInterval(autoEndTimer);
+  autoEndTimer = null;
+  autoEndElapsedMs = 0;
+  autoEndTargetMs = 0;
+}
+
+function startAutoEndWatch(){
+  stopAutoEndWatch();
+
+  const runtimeMinutes = getAutoEndRuntimeMinutes();
+  if(!runtimeMinutes){
     return;
   }
+
+  autoEndTargetMs = runtimeMinutes * 60 * 1000 + AUTO_END_GRACE_MS;
+  autoEndElapsedMs = 0;
+
+  autoEndTimer = setInterval(() => {
+    const playerVisible = $("#playerOverlay").classList.contains("show");
+    const pageVisible = document.visibilityState === "visible";
+
+    if(!playerVisible || !pageVisible || playbackEndHandled){
+      return;
+    }
+
+    autoEndElapsedMs += AUTO_END_TICK_MS;
+
+    if(autoEndElapsedMs >= autoEndTargetMs){
+      stopAutoEndWatch();
+      playbackEnded("runtime");
+    }
+  },AUTO_END_TICK_MS);
+}
+
+function restartAutoEndWatch(){
+  if(!currentItem || !$("#playerOverlay").classList.contains("show")){
+    return;
+  }
+  playbackEndHandled = false;
+  startAutoEndWatch();
+}
+
+function playbackEnded(source = "player"){
+  if(!currentItem || playbackEndHandled){
+    return;
+  }
+
+  playbackEndHandled = true;
+  stopAutoEndWatch();
 
   remember(
     currentItem,
@@ -4750,6 +4818,10 @@ function playbackEnded(){
   );
 
   updateWatchedButton();
+
+  if(source === "runtime"){
+    showToast("Final detectado automáticamente");
+  }
 
   const next =
     findNext();
@@ -5272,7 +5344,7 @@ UnlimPlay está dentro de un iframe externo.
 Si el reproductor comunica que terminó mediante
 postMessage, comenzará la cuenta regresiva.
 
-Si no comunica el final, usa el botón "Terminó".
+Si no comunica el final, se usa una estimación por duración de TMDB con margen adicional. El botón manual queda solo como respaldo.
 */
 window.addEventListener(
   "message",
@@ -5295,7 +5367,7 @@ window.addEventListener(
         message
       )
     ){
-      playbackEnded();
+      playbackEnded("postMessage");
     }
   }
 );
