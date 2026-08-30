@@ -2704,6 +2704,18 @@ body.netflixLuxe::before{
 .playerOptionBtn b{font-size:14px}
 .playerOptionBtn small{color:#8f99aa;font-size:11px}
 .playerOptionBtn:hover{background:#ffffff0b;border-color:#ffffff1b}
+.wrongEpisodeBtn{
+  border-color:#ffb0202f;
+  background:linear-gradient(180deg,#ffb0200d,#ff8a0010);
+}
+.wrongEpisodeBtn>i{
+  color:#ffd07a;
+  background:#ff9f0018;
+}
+.wrongEpisodeBtn:hover,.wrongEpisodeBtn:focus-visible{
+  border-color:#ffca6b88;
+  background:#ff9d001c;
+}
 .playerOptionTip{display:flex;gap:8px;margin:12px 2px 0;color:#8791a3;font-size:11px;line-height:1.45}
 .playerStageMinimal{border-radius:20px!important;min-height:min(78vh,850px)!important}
 
@@ -3104,7 +3116,7 @@ body.netflixLuxe::before{
       <label class="playerOptionField">
         <span><i class="fa-solid fa-server"></i> Servidor</span>
         <select id="playerSourceSelect" class="playerSourceSelect" aria-label="Elegir servidor">
-          <option value="tmdb">Automático · TMDB</option>
+          <option value="tmdb">Ruta TMDB</option>
         </select>
       </label>
 
@@ -3116,6 +3128,10 @@ body.netflixLuxe::before{
         <button id="retryPlayer" class="playerOptionBtn">
           <i class="fa-solid fa-rotate"></i>
           <span><b>Cambiar servidor</b><small>Probar otra ruta</small></span>
+        </button>
+        <button id="wrongEpisodeButton" class="playerOptionBtn wrongEpisodeBtn hidden">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span><b>Este capítulo está mal</b><small>Mantener temporada/episodio y probar otra ruta</small></span>
         </button>
         <button id="finishedButton" class="playerOptionBtn">
           <i class="fa-solid fa-circle-check"></i>
@@ -4445,25 +4461,49 @@ function toggleWatched(){
 }
 
 function getPlayerSources(){
-  const sources = [
-    {
-      id:"tmdb",
-      label:"Automático · TMDB",
-      externalId:String(currentItem?.id || "")
-    }
-  ];
+  const tmdbSource = {
+    id:"tmdb",
+    label:currentItem?.media_type === "tv" ? "Alterno · TMDB" : "Principal · TMDB",
+    externalId:String(currentItem?.id || "")
+  };
 
   const imdbId = currentItem?.external_ids?.imdb_id;
+  const imdbSource = imdbId
+    ? {
+        id:"imdb",
+        label:currentItem?.media_type === "tv" ? "Principal · IMDb" : "Alterno · IMDb",
+        externalId:imdbId
+      }
+    : null;
 
-  if(imdbId){
-    sources.push({
-      id:"imdb",
-      label:"Alterno · IMDb",
-      externalId:imdbId
-    });
+  if(currentItem?.media_type === "tv"){
+    return imdbSource ? [imdbSource,tmdbSource] : [tmdbSource];
   }
 
-  return sources;
+  return imdbSource ? [tmdbSource,imdbSource] : [tmdbSource];
+}
+
+function preferredInitialPlayerSource(){
+  return getPlayerSources()[0]?.id || "tmdb";
+}
+
+function updateWrongEpisodeButton(){
+  const button = $("#wrongEpisodeButton");
+  if(!button) return;
+
+  const isEpisode = currentItem?.media_type === "tv" && Boolean(currentEpisode);
+  const sources = getPlayerSources();
+  const hasAlternative = sources.length > 1;
+
+  button.classList.toggle("hidden",!isEpisode);
+  button.disabled = !hasAlternative;
+
+  const description = button.querySelector("small");
+  if(description && isEpisode){
+    description.textContent = hasAlternative
+      ? `Mantener T${currentEpisode.season_number}E${currentEpisode.episode_number} y probar ${currentPlayerSource === "imdb" ? "TMDB" : "IMDb"}`
+      : "No hay una segunda ruta disponible";
+  }
 }
 
 function syncPlayerSourceSelect(preferred = currentPlayerSource){
@@ -4476,10 +4516,11 @@ function syncPlayerSourceSelect(preferred = currentPlayerSource){
 
   currentPlayerSource = sources.some(source => source.id === preferred)
     ? preferred
-    : sources[0]?.id || "tmdb";
+    : preferredInitialPlayerSource();
 
   select.value = currentPlayerSource;
   select.disabled = sources.length < 2;
+  updateWrongEpisodeButton();
   select.title = sources.length < 2
     ? "Este título solo tiene una ruta de identificación disponible"
     : "Prueba otra ruta si la automática falla";
@@ -4580,14 +4621,45 @@ function cyclePlayerSource(){
   loadPlayerSource(currentPlayerSource);
 }
 
-function playMedia(episode = null,preferredSource = "tmdb"){
+function tryAlternateEpisodeRoute(){
+  if(currentItem?.media_type !== "tv" || !currentEpisode){
+    showToast("Esta opción solo aplica a episodios");
+    return;
+  }
+
+  const sources = getPlayerSources();
+  if(sources.length < 2){
+    showToast("No hay otra ruta disponible para este capítulo");
+    return;
+  }
+
+  const currentIndex = Math.max(0,sources.findIndex(source => source.id === currentPlayerSource));
+  const next = sources[(currentIndex + 1) % sources.length];
+  const season = currentEpisode.season_number;
+  const episode = currentEpisode.episode_number;
+
+  currentPlayerSource = next.id;
+  $("#playerSourceSelect").value = currentPlayerSource;
+  loadPlayerSource(currentPlayerSource,{announce:false});
+  updateWrongEpisodeButton();
+
+  showToast(`T${season}E${episode} · probando ruta ${next.id.toUpperCase()}`);
+  closePlayerOptions({restoreFocus:false});
+
+  if(IS_FIRE_TV){
+    safeFocus("#playerMenuButton",{delay:140});
+  }
+}
+
+function playMedia(episode = null,preferredSource = null){
   currentEpisode = episode;
-  currentPlayerSource = preferredSource || "tmdb";
+  currentPlayerSource = preferredSource || preferredInitialPlayerSource();
   playbackEndHandled = false;
 
   cancelNextPlayback();
   stopAutoEndWatch();
   syncPlayerSourceSelect(currentPlayerSource);
+  updateWrongEpisodeButton();
 
   $("#playingTitle").textContent =
     episode
@@ -4624,6 +4696,7 @@ function closePlayer(clear = true){
   stopAutoEndWatch();
   $("#playerOptionsPanel")?.classList.add("hidden");
   $("#playerMenuButton")?.setAttribute("aria-expanded","false");
+  $("#wrongEpisodeButton")?.classList.add("hidden");
   clearTimeout(playerFrameFocusTimer);
   $("#playerFrame").classList.remove("playerFrameFocused");
 
@@ -4719,9 +4792,9 @@ async function restorePlayerSession(){
         );
       }
 
-      playMedia(episode,saved.source || "tmdb");
+      playMedia(episode,saved.source || preferredInitialPlayerSource());
     }else{
-      playMedia(null,saved.source || "tmdb");
+      playMedia(null,saved.source || preferredInitialPlayerSource());
     }
 
     showToast(
@@ -5490,9 +5563,14 @@ $("#retryPlayer").onclick = () => {
   closePlayerOptions({restoreFocus:false});
 };
 
+$("#wrongEpisodeButton").onclick = () => {
+  tryAlternateEpisodeRoute();
+};
+
 $("#playerSourceSelect").onchange = event => {
   currentPlayerSource = event.target.value;
   loadPlayerSource(currentPlayerSource);
+  updateWrongEpisodeButton();
 };
 
 $("#focusPlayer").onclick = () => {
