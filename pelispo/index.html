@@ -1,4 +1,4 @@
-
+<!DOCTYPE html>
 <html lang="es-MX">
 <head>
 <meta charset="utf-8">
@@ -8,2792 +8,24 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" referrerpolicy="no-referrer">
 
 <style>
-:root{
-  --bg:#07080b;
-  --panel:#111319;
-  --panel2:#181b23;
-  --line:#292e39;
-  --text:#f7f7f8;
-  --muted:#a5aab5;
-  --red:#ef1826;
-  --red2:#ff3a46;
-  --green:#45d483;
-  --amber:#ffbd45;
-  --radius:16px;
-  --shadow:0 22px 65px #000a;
-}
-
-*{
-  box-sizing:border-box;
-}
-
-html{
-  scroll-behavior:smooth;
-  background:var(--bg);
-}
-
-body{
-  margin:0;
-  min-height:100vh;
-  background:var(--bg);
-  color:var(--text);
-  font:15px/1.5 Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
-  overflow-x:hidden;
-}
-
-button,
-input,
-select{
-  font:inherit;
-}
-
-button{
-  cursor:pointer;
-}
-
-img{
-  max-width:100%;
-}
-
-.hidden{
-  display:none!important;
-}
-
-:focus-visible{
-  outline:3px solid #fff;
-  outline-offset:3px;
-}
-
-/* Barra superior */
-
-.topbar{
-  position:sticky;
-  top:0;
-  z-index:100;
-  display:flex;
-  align-items:center;
-  gap:22px;
-  padding:13px clamp(16px,4vw,64px);
-  background:#07080bdc;
-  border-bottom:1px solid #ffffff10;
-  backdrop-filter:blur(18px);
-}
-
-.brand{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  white-space:nowrap;
-  font-size:clamp(20px,2.4vw,29px);
-  font-weight:950;
-  letter-spacing:-1.5px;
-  color:#fff;
-}
-
-.brandMark{
-  display:grid;
-  place-items:center;
-  width:34px;
-  height:34px;
-  border-radius:10px;
-  background:linear-gradient(140deg,var(--red2),#a9000a);
-  box-shadow:0 7px 22px #ef182650;
-}
-
-.brandText span{
-  color:var(--red2);
-}
-
-.nav{
-  display:flex;
-  gap:4px;
-}
-
-.navBtn,
-.iconBtn,
-.ghostBtn{
-  border:0;
-  border-radius:10px;
-  background:transparent;
-  color:var(--muted);
-  padding:10px 12px;
-  font-weight:780;
-}
-
-.navBtn:hover,
-.navBtn.active,
-.iconBtn:hover,
-.ghostBtn:hover{
-  color:#fff;
-  background:#ffffff10;
-}
-
-.searchBox{
-  position:relative;
-  display:flex;
-  align-items:center;
-  flex:1;
-  max-width:420px;
-  margin-left:auto;
-}
-
-.searchBox input{
-  width:100%;
-  height:43px;
-  border:1px solid #363b47;
-  border-radius:12px;
-  outline:0;
-  background:#171920;
-  color:#fff;
-  padding:0 48px 0 15px;
-}
-
-.searchBox input:focus{
-  border-color:#7a818f;
-  box-shadow:0 0 0 3px #ffffff0c;
-}
-
-.searchBox button{
-  position:absolute;
-  right:4px;
-  width:38px;
-  height:35px;
-  border:0;
-  border-radius:9px;
-  background:transparent;
-  color:#fff;
-  font-size:18px;
-}
-
-/* Portada principal */
-
-.hero{
-  position:relative;
-  min-height:min(70vh,650px);
-  display:flex;
-  align-items:flex-end;
-  isolation:isolate;
-  background:#0d0f14 center/cover no-repeat;
-  transition:background-image .35s;
-}
-
-.hero::before{
-  content:"";
-  position:absolute;
-  z-index:-1;
-  inset:0;
-  background:
-    linear-gradient(90deg,#07080b 4%,#07080bd9 40%,transparent 78%),
-    linear-gradient(0deg,#07080b 0,transparent 58%);
-}
-
-.heroContent{
-  width:min(720px,90%);
-  padding:80px clamp(16px,5vw,80px) 70px;
-}
-
-.kicker{
-  display:inline-flex;
-  gap:7px;
-  align-items:center;
-  color:#ff6a73;
-  font-size:12px;
-  font-weight:900;
-  letter-spacing:2px;
-  text-transform:uppercase;
-}
-
-.kicker::before{
-  content:"";
-  width:21px;
-  height:3px;
-  border-radius:5px;
-  background:var(--red2);
-}
-
-.heroTitle{
-  margin:10px 0 12px;
-  font-size:clamp(40px,6.5vw,76px);
-  line-height:.96;
-  letter-spacing:-3px;
-  text-wrap:balance;
-}
-
-.heroMeta{
-  display:flex;
-  gap:12px;
-  align-items:center;
-  flex-wrap:wrap;
-  color:#e2e3e6;
-  font-weight:650;
-}
-
-.score{
-  color:#72e79d;
-}
-
-.heroDescription{
-  max-width:640px;
-  color:#d2d4da;
-  font-size:clamp(14px,1.5vw,17px);
-  display:-webkit-box;
-  -webkit-line-clamp:3;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-
-.heroActions,
-.detailActions{
-  display:flex;
-  gap:10px;
-  flex-wrap:wrap;
-  margin-top:20px;
-}
-
-.primaryBtn,
-.secondaryBtn{
-  min-height:44px;
-  border:0;
-  border-radius:11px;
-  padding:0 18px;
-  color:#fff;
-  font-weight:880;
-}
-
-.primaryBtn{
-  background:linear-gradient(135deg,var(--red2),#c3000c);
-  box-shadow:0 8px 25px #ef182640;
-}
-
-.primaryBtn:hover{
-  filter:brightness(1.12);
-}
-
-.secondaryBtn{
-  background:#ffffff18;
-}
-
-.secondaryBtn:hover{
-  background:#ffffff25;
-}
-
-.primaryBtn:disabled,
-.secondaryBtn:disabled{
-  opacity:.42;
-  cursor:not-allowed;
-}
-
-/* Catálogo */
-
-.appMain{
-  padding:0 clamp(16px,4vw,64px) 75px;
-}
-
-.section{
-  margin:30px 0 42px;
-}
-
-.sectionHead{
-  display:flex;
-  align-items:flex-end;
-  justify-content:space-between;
-  gap:15px;
-  margin-bottom:15px;
-}
-
-.sectionTitle{
-  margin:0;
-  font-size:clamp(22px,3vw,31px);
-  letter-spacing:-.7px;
-}
-
-.sectionSub{
-  display:block;
-  color:var(--muted);
-  font-size:13px;
-  margin-top:2px;
-}
-
-.headTools{
-  display:flex;
-  align-items:center;
-  gap:8px;
-}
-
-.select{
-  height:42px;
-  border:1px solid var(--line);
-  border-radius:10px;
-  background:var(--panel2);
-  color:#fff;
-  padding:0 12px;
-}
-
-.grid,
-.rail{
-  display:grid;
-  grid-template-columns:repeat(auto-fill,minmax(165px,1fr));
-  gap:clamp(12px,1.6vw,22px);
-}
-
-.rail{
-  grid-auto-flow:column;
-  grid-auto-columns:minmax(165px,210px);
-  grid-template-columns:none;
-  overflow-x:auto;
-  padding:5px 3px 15px;
-  scrollbar-width:thin;
-  scroll-snap-type:x proximity;
-}
-
-.rail .mediaCard{
-  scroll-snap-align:start;
-}
-
-.mediaCard{
-  position:relative;
-  min-width:0;
-  overflow:hidden;
-  border:1px solid #ffffff12;
-  border-radius:var(--radius);
-  background:linear-gradient(145deg,#1a1d25,#101217);
-  box-shadow:0 8px 26px #0005;
-  cursor:pointer;
-  transition:transform .2s,border-color .2s,box-shadow .2s;
-}
-
-.mediaCard:hover,
-.mediaCard:focus-visible{
-  transform:translateY(-7px) scale(1.015);
-  border-color:#ffffff44;
-  box-shadow:0 22px 42px #000a;
-}
-
-.poster,
-.posterEmpty{
-  display:block;
-  width:100%;
-  aspect-ratio:2/3;
-  object-fit:cover;
-  background:#20232b;
-}
-
-.posterEmpty{
-  display:grid;
-  place-items:center;
-  color:#777;
-}
-
-.cardShade{
-  position:absolute;
-  inset:35% 0 0;
-  background:linear-gradient(0deg,#101217 0,transparent 75%);
-  pointer-events:none;
-}
-
-.cardInfo{
-  position:relative;
-  padding:11px 12px 13px;
-}
-
-.cardTitle{
-  font-weight:850;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.cardMeta{
-  display:flex;
-  justify-content:space-between;
-  gap:8px;
-  margin-top:7px;
-  color:var(--muted);
-  font-size:12px;
-}
-
-.cardBadge{
-  position:absolute;
-  z-index:2;
-  top:9px;
-  left:9px;
-  padding:5px 9px;
-  border-radius:999px;
-  background:#08090ce9;
-  color:#fff;
-  font-size:10px;
-  font-weight:950;
-  letter-spacing:.5px;
-}
-
-.cardBadge.watched{
-  background:#087540ed;
-}
-
-.progressTrack{
-  height:4px;
-  background:#ffffff18;
-}
-
-.progressFill{
-  display:block;
-  height:100%;
-  background:var(--red2);
-  border-radius:99px;
-}
-
-.emptyState{
-  grid-column:1/-1;
-  padding:38px;
-  border:1px dashed var(--line);
-  border-radius:var(--radius);
-  text-align:center;
-  color:var(--muted);
-}
-
-.pagination{
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  gap:13px;
-  margin:32px 0;
-}
-
-.pageLabel{
-  color:var(--muted);
-  min-width:130px;
-  text-align:center;
-}
-
-/* Detalles */
-
-.detailModal{
-  position:fixed;
-  z-index:500;
-  inset:0;
-  display:none;
-  place-items:center;
-  padding:clamp(0px,2vw,22px);
-  background:#000d;
-  backdrop-filter:blur(10px);
-}
-
-.detailModal.show{
-  display:grid;
-}
-
-.detailPanel{
-  position:relative;
-  width:min(1100px,100%);
-  max-height:96vh;
-  overflow-y:auto;
-  overscroll-behavior:contain;
-  border:1px solid #ffffff20;
-  border-radius:21px;
-  background:var(--panel);
-  box-shadow:var(--shadow);
-}
-
-.detailBackdrop{
-  position:relative;
-  min-height:385px;
-  background:#151820 center/cover no-repeat;
-}
-
-.detailBackdrop::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg,#111319c7,transparent),
-    linear-gradient(0deg,#111319 0,transparent 78%);
-}
-
-.closeDetail{
-  position:absolute;
-  z-index:5;
-  right:15px;
-  top:15px;
-  width:44px;
-  height:44px;
-  border:1px solid #ffffff2b;
-  border-radius:50%;
-  background:#07080bdc;
-  color:#fff;
-  font-size:18px;
-}
-
-.detailContent{
-  position:relative;
-  z-index:2;
-  margin-top:-140px;
-  padding:25px clamp(18px,4vw,44px) 44px;
-}
-
-.detailTitle{
-  margin:0 0 9px;
-  font-size:clamp(31px,5vw,52px);
-  line-height:1;
-  letter-spacing:-1.7px;
-}
-
-.detailMeta{
-  display:flex;
-  flex-wrap:wrap;
-  gap:10px;
-  color:#d1d4da;
-}
-
-.detailOverview{
-  max-width:820px;
-  color:#d5d7dc;
-  line-height:1.65;
-}
-
-.statusLine{
-  min-height:22px;
-  color:var(--muted);
-  font-size:13px;
-}
-
-.statusLine.ok{
-  color:#6ee59a;
-}
-
-.statusLine.error{
-  color:#ff8b93;
-}
-
-.episodeSection{
-  margin-top:27px;
-  padding-top:22px;
-  border-top:1px solid var(--line);
-}
-
-.episodeHeader{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:12px;
-}
-
-.episodeHeader h3{
-  margin:0;
-  font-size:23px;
-}
-
-.episodeList{
-  display:grid;
-  gap:8px;
-  margin-top:13px;
-}
-
-.episodeCard{
-  display:grid;
-  grid-template-columns:46px 142px 1fr auto;
-  align-items:center;
-  gap:13px;
-  padding:9px;
-  border:1px solid transparent;
-  border-radius:12px;
-  background:#ffffff06;
-  color:#fff;
-  text-align:left;
-}
-
-.episodeCard:hover,
-.episodeCard:focus-visible{
-  background:#ffffff11;
-  border-color:#ffffff20;
-}
-
-.episodeNumber{
-  font-size:18px;
-  color:var(--muted);
-  text-align:center;
-}
-
-.episodeStill,
-.episodeStillEmpty{
-  width:142px;
-  aspect-ratio:16/9;
-  object-fit:cover;
-  border-radius:8px;
-  background:#222;
-}
-
-.episodeStillEmpty{
-  display:block;
-}
-
-.episodeName{
-  display:block;
-  font-weight:850;
-}
-
-.episodeOverview{
-  margin:3px 0 0;
-  color:var(--muted);
-  font-size:12px;
-  display:-webkit-box;
-  -webkit-line-clamp:2;
-  -webkit-box-orient:vertical;
-  overflow:hidden;
-}
-
-.episodeCheck{
-  color:var(--green);
-  font-size:21px;
-  padding:0 8px;
-}
-
-/* Reproductor aislado */
-
-.playerOverlay{
-  position:fixed;
-  z-index:1000;
-  inset:0;
-  display:none;
-  background:#000;
-  color:#fff;
-}
-
-.playerOverlay.show{
-  display:block;
-}
-
-.playerShell{
-  width:100%;
-  height:100%;
-  display:grid;
-  grid-template-rows:auto 1fr;
-  background:#000;
-}
-
-.playerBar{
-  display:flex;
-  align-items:center;
-  gap:12px;
-  min-height:58px;
-  padding:8px 16px;
-  background:#0c0d11;
-  border-bottom:1px solid #ffffff18;
-}
-
-.playerBack{
-  width:42px;
-  height:42px;
-  border:0;
-  border-radius:10px;
-  background:#ffffff12;
-  color:#fff;
-  font-size:21px;
-}
-
-.playingTitle{
-  min-width:0;
-  flex:1;
-  font-weight:850;
-  white-space:nowrap;
-  overflow:hidden;
-  text-overflow:ellipsis;
-}
-
-.playerActions{
-  display:flex;
-  gap:5px;
-}
-
-.playerStage{
-  position:relative;
-  min-height:0;
-  background:#000;
-}
-
-.playerStage iframe,
-.playerStage video{
-  display:block;
-  width:100%;
-  height:100%;
-  border:0;
-  background:#000;
-}
-
-.playerLoading{
-  position:absolute;
-  z-index:3;
-  inset:0;
-  display:grid;
-  place-items:center;
-  background:#000;
-  color:var(--muted);
-  pointer-events:none;
-}
-
-.spinner{
-  width:42px;
-  height:42px;
-  margin:0 auto 12px;
-  border:4px solid #ffffff20;
-  border-top-color:var(--red2);
-  border-radius:50%;
-  animation:spin .8s linear infinite;
-}
-
-@keyframes spin{
-  to{
-    transform:rotate(360deg);
-  }
-}
-
-.nextOverlay{
-  position:absolute;
-  z-index:6;
-  inset:0;
-  display:none;
-  place-items:center;
-  background:#000e;
-  text-align:center;
-}
-
-.nextOverlay.show{
-  display:grid;
-}
-
-.nextOverlay small{
-  color:var(--muted);
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-}
-
-.nextOverlay strong{
-  display:block;
-  font-size:72px;
-  line-height:1;
-  margin:6px;
-}
-
-.nextName{
-  max-width:580px;
-  margin:0 auto 18px;
-  color:#ddd;
-  font-size:18px;
-}
-
-.toast{
-  position:fixed;
-  z-index:1500;
-  left:50%;
-  bottom:25px;
-  transform:translate(-50%,25px);
-  opacity:0;
-  pointer-events:none;
-  padding:11px 16px;
-  border:1px solid #ffffff20;
-  border-radius:11px;
-  background:#1b1e26;
-  color:#fff;
-  box-shadow:var(--shadow);
-  transition:.22s;
-}
-
-.toast.show{
-  opacity:1;
-  transform:translate(-50%,0);
-}
-
-/* Optimización especial para Fire Stick */
-
-.firetv *{
-  scroll-behavior:auto!important;
-}
-
-.firetv .topbar,
-.firetv .detailModal{
-  backdrop-filter:none;
-}
-
-.firetv .topbar{
-  background:#07080b;
-}
-
-.firetv .detailModal{
-  padding:0;
-  background:#000;
-}
-
-.firetv .detailPanel{
-  width:100%;
-  height:100vh;
-  max-height:100vh;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-}
-
-.firetv .mediaCard{
-  transition:none;
-  box-shadow:none;
-}
-
-.firetv .mediaCard:hover,
-.firetv .mediaCard:focus-visible{
-  transform:none;
-  box-shadow:none;
-  border-color:#fff;
-}
-
-.firetv .primaryBtn{
-  box-shadow:none;
-}
-
-.firetv .toast{
-  transition:none;
-  box-shadow:none;
-}
-
-.firetv .spinner{
-  animation:none;
-  border-color:#555;
-  border-top-color:#fff;
-}
-
-.firetv .playerBar{
-  min-height:76px;
-  padding:10px 18px;
-}
-
-.firetv .playerBack{
-  width:54px;
-  height:54px;
-  font-size:27px;
-}
-
-.firetv .playerActions .ghostBtn{
-  min-height:52px;
-  padding:0 20px;
-  border:2px solid #ffffff20;
-  border-radius:12px;
-  font-size:16px;
-  font-weight:850;
-}
-
-.firetv .playerActions .ghostBtn:focus-visible,
-.firetv .playerBack:focus-visible{
-  color:#05060a;
-  background:#fff;
-  outline:4px solid #60a5fa;
-  outline-offset:2px;
-}
-
-.player-open .detailModal{
-  visibility:hidden;
-}
-
-.player-open .topbar,
-.player-open .hero,
-.player-open .appMain{
-  visibility:hidden;
-}
-
-@media(max-width:760px){
-  .topbar{
-    gap:8px;
-    flex-wrap:wrap;
-  }
-
-  .brandText{
-    display:none;
-  }
-
-  .nav{
-    order:3;
-    width:100%;
-  }
-
-  .navBtn{
-    flex:1;
-  }
-
-  .searchBox{
-    min-width:0;
-  }
-
-  .hero{
-    min-height:460px;
-  }
-
-  .heroContent{
-    padding-bottom:45px;
-  }
-
-  .grid{
-    grid-template-columns:repeat(2,minmax(0,1fr));
-    gap:12px;
-  }
-
-  .detailModal{
-    padding:0;
-  }
-
-  .detailPanel{
-    height:100vh;
-    max-height:100vh;
-    border-radius:0;
-  }
-
-  .detailBackdrop{
-    min-height:310px;
-  }
-
-  .episodeCard{
-    grid-template-columns:34px 92px 1fr;
-  }
-
-  .episodeStill,
-  .episodeStillEmpty{
-    width:92px;
-  }
-
-  .episodeOverview,
-  .episodeCheck{
-    display:none;
-  }
-
-  .playerBar{
-    min-height:52px;
-    padding:5px 8px;
-  }
-
-  .playerActions .ghostBtn:first-child{
-    display:none;
-  }
-}
-
-/* ==========================================================
-   REDISEÑO 2026 · capa visual (no altera la lógica existente)
-   ========================================================== */
-
-:root{
-  --bg:#05060a;
-  --panel:#0e1118;
-  --panel2:#151923;
-  --line:#ffffff14;
-  --text:#f8f9fc;
-  --muted:#9ba3b4;
-  --red:#ff253a;
-  --red2:#ff5062;
-  --green:#45e190;
-  --amber:#ffc95c;
-  --radius:22px;
-  --shadow:0 26px 80px #000c;
-  --content:min(1500px,calc(100% - clamp(28px,6vw,96px)));
-}
-
-body{
-  background:
-    radial-gradient(circle at 8% 4%,#43101b66 0,transparent 25rem),
-    radial-gradient(circle at 92% 25%,#17235252 0,transparent 30rem),
-    var(--bg);
-  letter-spacing:.005em;
-}
-
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  z-index:-1;
-  pointer-events:none;
-  opacity:.25;
-  background-image:linear-gradient(#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);
-  background-size:80px 80px;
-  mask-image:linear-gradient(to bottom,#000,transparent 45%);
-}
-
-.topbar{
-  min-height:72px;
-  padding:10px max(20px,calc((100% - 1500px)/2));
-  gap:30px;
-  background:linear-gradient(180deg,#08090ff5,#08090fce);
-  border-bottom-color:#ffffff0d;
-  box-shadow:0 10px 30px #0004;
-}
-
-.brand{font-size:22px;letter-spacing:-.9px}
-.brandMark{
-  width:39px;height:39px;border-radius:13px;
-  background:linear-gradient(145deg,#ff6170 0,#f3132b 48%,#8e0010 100%);
-  box-shadow:0 8px 26px #ff253a55,inset 0 1px #ffffff70;
-  font-size:14px;
-}
-
-.nav{padding:4px;background:#ffffff08;border:1px solid #ffffff0c;border-radius:14px}
-.navBtn{padding:9px 15px;border-radius:10px;font-size:14px}
-.navBtn.active{color:#fff;background:#ffffff14;box-shadow:inset 0 1px #ffffff12}
-
-.searchBox{max-width:390px}
-.searchBox input{
-  height:46px;padding-left:43px;border-color:#ffffff16;border-radius:14px;
-  background:#ffffff0a;transition:border-color .2s,background .2s,box-shadow .2s;
-}
-.searchBox::before{content:"⌕";position:absolute;left:15px;z-index:2;color:#b8bdc9;font-size:22px;line-height:1}
-.searchBox input:focus{background:#11151e;border-color:#ffffff48;box-shadow:0 0 0 4px #ffffff0b}
-
-.hero{
-  min-height:min(78vh,760px);
-  width:var(--content);margin:24px auto 0;border-radius:30px;overflow:hidden;
-  border:1px solid #ffffff13;box-shadow:0 36px 100px #000b;
-}
-.hero::before{
-  background:
-    linear-gradient(90deg,#06070a 0,#06070ae8 28%,#06070a75 58%,transparent 82%),
-    linear-gradient(0deg,#06070af5 0,transparent 48%),
-    linear-gradient(180deg,#0005 0,transparent 25%);
-}
-.hero::after{
-  content:"";position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(120deg,transparent 45%,#ff36421a);pointer-events:none;
-}
-.heroContent{width:min(760px,92%);padding:clamp(100px,15vh,170px) clamp(24px,5vw,78px) clamp(54px,8vh,90px)}
-.kicker{padding:7px 11px;border:1px solid #ff526242;border-radius:99px;background:#ff253a12;color:#ff7d89;font-size:11px;letter-spacing:1.7px}
-.kicker::before{width:7px;height:7px;border-radius:50%;box-shadow:0 0 14px var(--red2)}
-.heroTitle{margin:17px 0 18px;font-size:clamp(44px,6vw,88px);line-height:.92;letter-spacing:-.055em;text-shadow:0 6px 30px #000}
-.heroMeta{gap:9px;color:#e6e8ef}
-.heroMeta>span{padding:5px 9px;border-radius:8px;background:#ffffff0d;border:1px solid #ffffff0e}
-.heroMeta .score{background:#45e19017;border-color:#45e19027;color:#73eeaa}
-.heroDescription{max-width:650px;margin:20px 0 25px;color:#d4d8e2;font-size:clamp(15px,1.4vw,18px);line-height:1.65;text-shadow:0 2px 10px #000}
-
-.primaryBtn,.secondaryBtn{
-  min-height:46px;padding:0 19px;border-radius:13px;font-weight:850;transition:transform .18s,filter .18s,border-color .18s,background .18s;
-}
-.primaryBtn{background:linear-gradient(135deg,#ff5363,#e80e27);box-shadow:0 12px 28px #ef18263d,inset 0 1px #ffffff55}
-.secondaryBtn{background:#ffffff12;border:1px solid #ffffff20;backdrop-filter:blur(10px)}
-.primaryBtn:hover,.secondaryBtn:hover{transform:translateY(-2px);filter:brightness(1.1)}
-
-.appMain{width:var(--content);max-width:none;margin:0 auto;padding:52px 0 90px}
-.section{margin:0 0 58px}
-.sectionHead{align-items:end;margin-bottom:21px}
-.sectionTitle{font-size:clamp(23px,2.3vw,34px);letter-spacing:-.035em}
-.sectionSub{display:block;margin-top:4px;color:#7f8798;font-size:13px}
-.headTools{display:flex;align-items:center;gap:10px}
-.select{height:44px;padding:0 38px 0 14px;border:1px solid #ffffff17;border-radius:12px;background:#11151e;color:#e9ebf1}
-
-.grid{grid-template-columns:repeat(auto-fill,minmax(174px,1fr));gap:27px 18px}
-.mediaCard{border:1px solid #ffffff0c;border-radius:18px;background:#10131a;box-shadow:0 12px 32px #0005;isolation:isolate}
-.mediaCard::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;box-shadow:inset 0 0 0 1px #ffffff00;transition:.22s}
-.mediaCard:hover,.mediaCard:focus-visible{transform:translateY(-8px) scale(1.025);border-color:#ffffff36;box-shadow:0 24px 54px #000c}
-.mediaCard:hover::after,.mediaCard:focus-visible::after{box-shadow:inset 0 0 0 1px #ffffff26}
-.poster{aspect-ratio:2/3;object-fit:cover;transition:transform .45s,filter .3s}
-.mediaCard:hover .poster{transform:scale(1.035);filter:saturate(1.08)}
-.cardShade{background:linear-gradient(0deg,#0a0c12 0,#0a0c12e8 19%,transparent 58%)}
-.cardInfo{padding:14px 14px 15px;background:linear-gradient(180deg,#11141b,#0c0f15)}
-.cardTitle{font-size:15px;letter-spacing:-.01em}
-.cardMeta{margin-top:5px;color:#8f97a7;font-size:12px}
-.cardBadge{top:11px;left:11px;padding:6px 9px;border-radius:9px;box-shadow:0 5px 15px #0008;backdrop-filter:blur(8px)}
-.progressTrack{height:5px;background:#ffffff17}.progressFill{box-shadow:0 0 14px #ff253a}
-
-.rail{gap:16px;padding:8px 3px 18px;scroll-snap-type:x mandatory;scrollbar-color:#ffffff26 transparent}
-.rail .mediaCard{min-width:180px;scroll-snap-align:start}
-.pagination{margin-top:45px;padding:12px;border:1px solid #ffffff0d;border-radius:16px;background:#ffffff06}
-.pageLabel{min-width:105px;text-align:center;color:#cdd1da;font-weight:800}
-
-.detailModal{padding:clamp(12px,3vw,42px);background:#020307db;backdrop-filter:blur(18px) saturate(.7)}
-.detailPanel{width:min(1040px,100%);max-height:min(920px,94vh);border:1px solid #ffffff18;border-radius:28px;background:#0c0f15;box-shadow:0 44px 130px #000}
-.detailBackdrop{min-height:410px}
-.detailBackdrop::after{background:linear-gradient(0deg,#0c0f15 0,transparent 66%),linear-gradient(90deg,#0c0f1599,transparent 65%)}
-.closeDetail{top:18px;right:18px;width:44px;height:44px;border:1px solid #ffffff20;border-radius:50%;background:#080a0dc7;backdrop-filter:blur(10px)}
-.detailContent{position:relative;margin-top:-95px;padding:0 clamp(22px,5vw,62px) 54px}
-.detailTitle{font-size:clamp(34px,5vw,58px);letter-spacing:-.05em;line-height:1}
-.detailMeta{gap:8px;margin:14px 0 18px}.detailMeta span{padding:5px 9px;border:1px solid #ffffff10;border-radius:8px;background:#ffffff08}
-.detailOverview{max-width:780px;color:#b9c0cd;font-size:15px;line-height:1.75}
-.statusLine{margin-top:20px;padding:12px 14px;border:1px solid #ffffff0d;border-radius:12px;background:#ffffff06}
-.episodeSection{margin-top:35px;padding-top:25px;border-top:1px solid #ffffff10}
-.episodeCard{padding:10px;border:1px solid transparent;border-radius:15px;background:#ffffff04;transition:.18s}
-.episodeCard:hover,.episodeCard:focus-visible{background:#ffffff0c;border-color:#ffffff17;transform:translateX(4px)}
-.episodeStill,.episodeStillEmpty{border-radius:11px}
-
-.playerOverlay{background:#000}
-.playerShell{background:#000}
-.playerBar{min-height:68px;padding:9px clamp(10px,3vw,34px);background:linear-gradient(180deg,#11141a,#090b0f);border-bottom:1px solid #ffffff12}
-.playerBack{width:44px;height:44px;border-radius:12px;background:#ffffff0a}
-.playingTitle{font-weight:800;letter-spacing:-.015em}
-.playerStage{background:radial-gradient(circle at center,#171a22,#000 62%)}
-.nextOverlay{border:1px solid #ffffff18;border-radius:24px;background:#080a0eea;box-shadow:0 25px 80px #000;padding:34px}
-.nextOverlay strong{color:var(--red2);text-shadow:0 0 28px #ff253a66}
-.toast{bottom:30px;padding:13px 18px;border-radius:14px;background:#171b24e8;backdrop-filter:blur(16px)}
-.emptyState{border:1px dashed #ffffff20;border-radius:20px;background:#ffffff04;padding:44px 20px;color:#929aaa}
-
-@media(max-width:1000px){
-  .topbar{gap:14px}.navBtn{padding-inline:11px}.hero{width:calc(100% - 28px);margin-top:14px}.appMain{width:calc(100% - 34px)}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
-}
-
-@media(max-width:760px){
-  body::before{display:none}.topbar{padding:9px 12px;min-height:64px}.brandMark{width:38px;height:38px}.searchBox{max-width:none}
-  .nav{order:3;width:100%;overflow:auto}.navBtn{min-width:max-content}
-  .hero{min-height:520px;border-radius:22px}.hero::before{background:linear-gradient(0deg,#06070b 0,#06070bd9 35%,transparent 78%),linear-gradient(90deg,#06070b44,transparent)}
-  .heroContent{align-self:flex-end;width:100%;padding:170px 22px 38px}.heroTitle{font-size:clamp(39px,12vw,58px)}.heroDescription{-webkit-line-clamp:2}
-  .appMain{padding-top:38px}.section{margin-bottom:44px}.sectionHead{align-items:flex-start;gap:12px}.headTools{width:100%}.select{width:100%}
-  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 11px}.mediaCard{border-radius:14px}.cardInfo{padding:11px}.cardTitle{font-size:13px}
-  .detailBackdrop{min-height:330px}.detailContent{margin-top:-65px}.detailTitle{font-size:36px}.detailOverview{font-size:14px}.detailActions{display:grid;grid-template-columns:1fr 1fr}
-}
-
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
-
-/* Funciones ampliadas */
-.profileButton{flex:0 0 auto;width:42px;height:42px;border:1px solid #ffffff20;border-radius:14px;background:linear-gradient(145deg,#ff5363,#a90018);color:#fff;font-weight:950;box-shadow:0 8px 20px #ff253a2e}
-.searchSuggestions{position:absolute;top:54px;right:0;left:0;z-index:150;max-height:430px;overflow:auto;padding:8px;border:1px solid #ffffff18;border-radius:16px;background:#10131bf5;box-shadow:0 24px 70px #000d;backdrop-filter:blur(18px)}
-.suggestionItem{display:grid;grid-template-columns:43px 1fr;gap:10px;align-items:center;width:100%;padding:8px;border:0;border-radius:11px;background:transparent;color:#fff;text-align:left}
-.suggestionItem:hover,.suggestionItem:focus-visible{background:#ffffff10}.suggestionItem img,.suggestionPoster{width:43px;height:59px;border-radius:7px;object-fit:cover;background:#222733}.suggestionItem b,.suggestionItem small{display:block}.suggestionItem small{margin-top:2px;color:var(--muted)}
-.discoveryGroup{margin-bottom:34px}.discoveryGroupHead{display:flex;justify-content:space-between;align-items:center;margin:0 2px 10px}.discoveryGroupHead h3{margin:0;font-size:18px}.discoveryGroupHead button{padding:7px 10px}
-.discoveryGroup .rail .mediaCard{min-width:158px}.compactRail .mediaCard{min-width:145px;max-width:160px}.compactRail .cardInfo{padding:10px}.compactRail .cardTitle{font-size:12px}
-.filterBar{display:flex;align-items:end;gap:10px;flex-wrap:wrap;margin:-3px 0 24px;padding:14px;border:1px solid #ffffff0d;border-radius:17px;background:#ffffff05}.filterBar label{display:grid;gap:5px;min-width:155px}.filterBar label>span{padding-left:3px;color:#858d9d;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.08em}.filterBar .ghostBtn{height:44px;margin-left:auto}
-.libraryTools{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:24px}.libraryTabs{display:flex;gap:5px;padding:4px;border:1px solid #ffffff0d;border-radius:14px;background:#ffffff06}.libraryTab{padding:9px 12px;border:0;border-radius:10px;background:transparent;color:var(--muted);font-weight:800}.libraryTab.active{background:#ffffff14;color:#fff}.libraryActions{display:flex;gap:8px}.importButton{display:grid;place-items:center;cursor:pointer}.importButton input{display:none}
-.favoriteQuick{position:absolute;z-index:4;top:10px;right:10px;display:grid;place-items:center;width:34px;height:34px;border:1px solid #ffffff1c;border-radius:50%;background:#080a0dbd;color:#fff;font-size:18px;backdrop-filter:blur(10px)}.favoriteQuick.active{color:#ff6877;background:#3b0c15db}
-.castRail{display:grid;grid-auto-flow:column;grid-auto-columns:110px;gap:13px;overflow-x:auto;padding:5px 2px 14px}.castCard{text-align:center}.castCard img,.castAvatar{width:84px;height:84px;margin:auto;border-radius:50%;object-fit:cover;background:#242936;border:3px solid #ffffff12}.castCard b{display:block;margin-top:8px;font-size:12px}.castCard span{display:block;color:var(--muted);font-size:11px}.detailExtra{margin-top:32px;padding-top:24px;border-top:1px solid #ffffff10}
-.trailerModal{position:fixed;z-index:3000;inset:0;display:grid;place-items:center;padding:5vw;background:#000e;backdrop-filter:blur(14px)}.trailerModal .closeDetail{position:absolute;z-index:2}.trailerShell{width:min(1100px,100%);aspect-ratio:16/9;border:1px solid #ffffff20;border-radius:20px;overflow:hidden;background:#000;box-shadow:0 30px 100px #000}.trailerShell iframe{width:100%;height:100%;border:0}
-.skeleton{position:relative;overflow:hidden;background:#161b24}.skeleton::after{content:"";position:absolute;inset:0;transform:translateX(-100%);background:linear-gradient(90deg,transparent,#ffffff0c,transparent);animation:shimmer 1.25s infinite}@keyframes shimmer{to{transform:translateX(100%)}}
-.offlineBadge{position:fixed;z-index:1700;right:18px;bottom:18px;padding:9px 12px;border-radius:12px;background:#ffc95c;color:#18120a;font-weight:900;box-shadow:0 10px 30px #0008}
-
-@media(max-width:760px){.profileButton{display:none}.discoveryGroup .rail .mediaCard{min-width:140px}.filterBar{display:grid;grid-template-columns:1fr 1fr}.filterBar label{min-width:0}.filterBar .ghostBtn{grid-column:1/-1;margin:0}.libraryTools{align-items:stretch;flex-direction:column}.libraryTabs{overflow:auto}.libraryActions>*{flex:1}.detailActions{grid-template-columns:1fr 1fr}.castRail{grid-auto-columns:95px}.trailerModal{padding:8px}.trailerShell{border-radius:13px}}
-
-/* ==========================================================
-   AJUSTES 2026.2 · búsqueda global + reproductor TV-friendly
-   ========================================================== */
-.searchBox{max-width:520px}
-.searchScope{
-  position:absolute;left:42px;z-index:3;display:inline-flex;align-items:center;gap:5px;
-  height:26px;padding:0 9px;border:1px solid #ffffff16;border-radius:999px;
-  background:#ffffff0a;color:#cfd4df;font-size:10px;font-weight:900;letter-spacing:.04em;
-  pointer-events:none;white-space:nowrap
-}
-.searchBox input{padding-left:138px}
-.searchSuggestions{top:58px}
-.suggestionItem{grid-template-columns:43px 1fr auto}
-.suggestionType{padding:4px 7px;border:1px solid #ffffff14;border-radius:999px;background:#ffffff08;color:#aeb5c3;font-size:9px;font-weight:900;letter-spacing:.07em;text-transform:uppercase}
-.typePill{position:absolute;z-index:3;right:10px;bottom:67px;padding:5px 8px;border:1px solid #ffffff17;border-radius:999px;background:#06070bcf;color:#e9ebf1;font-size:9px;font-weight:950;letter-spacing:.08em;text-transform:uppercase;backdrop-filter:blur(8px)}
-
-.playerBar{gap:14px;flex-wrap:wrap}
-.playerServerTools{display:flex;align-items:center;gap:8px;margin-left:auto}
-.playerServerLabel{color:#8f97a7;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.08em}
-.playerSourceSelect{height:42px;min-width:178px;border:1px solid #ffffff1c;border-radius:11px;background:#151922;color:#fff;padding:0 34px 0 12px;font-weight:800}
-.playerControlBtn{min-height:42px;border:1px solid #ffffff1b!important;background:#ffffff08!important;color:#fff!important}
-.playerControlBtn:hover,.playerControlBtn:focus-visible{background:#fff!important;color:#08090d!important}
-.playerHint{display:none;width:100%;padding:7px 11px;border:1px solid #ffffff0d;border-radius:10px;background:#ffffff05;color:#9ba3b4;font-size:11px}
-.firetv .playerHint{display:block}
-.firetv .playerServerTools{margin-left:0}
-.firetv .playerSourceSelect{height:52px;min-width:210px;font-size:15px}
-.firetv .playerControlBtn{min-height:52px;padding:0 18px!important}
-.firetv .playerFrameFocused{outline:4px solid #60a5fa;outline-offset:-4px}
-
-@media(max-width:980px){
-  .playerBar{align-items:center}.playerServerTools{order:3;width:100%;margin-left:54px}.playerActions{margin-left:auto}
-}
-@media(max-width:760px){
-  .searchScope{display:none}.searchBox input{padding-left:43px}.searchBox{max-width:none}
-  .playerServerTools{order:4;width:100%;margin:0;display:grid;grid-template-columns:auto 1fr auto}.playerSourceSelect{min-width:0;width:100%}
-  .playerActions{width:100%;justify-content:space-between}.playerActions .ghostBtn{flex:1;padding-inline:8px}
-  .playerHint{order:5}
-}
-
-
-/* ==========================================================
-   INTERFAZ PLUS 2026.3 · look friendly inspirado en Netflix + Apple TV
-   ========================================================== */
-:root{
-  --glass:#ffffff0a;
-  --glass2:#ffffff08;
-  --softBorder:#ffffff12;
-  --softBorder2:#ffffff1e;
-}
-
-body{
-  background:
-    radial-gradient(circle at 5% 0%,#7e152733 0,transparent 22rem),
-    radial-gradient(circle at 90% 10%,#2347a326 0,transparent 28rem),
-    radial-gradient(circle at 50% 100%,#5c17281d 0,transparent 34rem),
-    linear-gradient(180deg,#04050a 0,#070a11 42%,#06070b 100%);
-}
-
-.brandText{
-  display:grid;
-  gap:2px;
-  line-height:1;
-}
-.brandText small{
-  font-size:10px;
-  font-weight:700;
-  letter-spacing:.11em;
-  text-transform:uppercase;
-  color:#96a0b1;
-}
-
-.topbar{
-  width:var(--content);
-  margin:16px auto 0;
-  top:12px;
-  border:1px solid #ffffff10;
-  border-radius:24px;
-  background:linear-gradient(180deg,#0b0d13e8,#090b11d0);
-  box-shadow:0 18px 45px #0007;
-}
-
-.nav{
-  padding:5px;
-  background:linear-gradient(180deg,#ffffff10,#ffffff07);
-}
-.navBtn{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  min-height:40px;
-}
-
-.searchBox{
-  max-width:560px;
-}
-.searchBox input{
-  background:linear-gradient(180deg,#111621,#0e121a);
-  box-shadow:inset 0 1px 0 #ffffff08,0 10px 24px #00000030;
-}
-.searchBox button{
-  right:6px;
-  width:36px;
-  height:36px;
-  border-radius:10px;
-  background:#ffffff10;
-}
-.searchSuggestions{
-  border:1px solid var(--softBorder2);
-  background:linear-gradient(180deg,#121722f7,#0d1119f1);
-}
-.suggestionItem{
-  padding:10px;
-  border:1px solid transparent;
-}
-.suggestionItem:hover,.suggestionItem:focus-visible{
-  border-color:#ffffff14;
-}
-
-.hero{
-  position:relative;
-  min-height:min(82vh,820px);
-  margin-top:20px;
-  border-radius:34px;
-  border:1px solid #ffffff15;
-  box-shadow:0 36px 120px #000c;
-}
-.hero::after{
-  background:
-    radial-gradient(circle at 100% 0%,#ff30401f 0,transparent 28%),
-    linear-gradient(180deg,transparent 20%,#030409 100%);
-}
-.heroContent{
-  padding-bottom:44px;
-}
-.heroDescription{
-  max-width:700px;
-}
-.heroActions{
-  margin-top:24px;
-}
-.heroQuickPanel{
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:14px;
-  margin-top:30px;
-  max-width:860px;
-}
-.heroQuickCard{
-  padding:16px 16px 15px;
-  border:1px solid var(--softBorder);
-  border-radius:18px;
-  background:linear-gradient(180deg,#ffffff14,#ffffff08);
-  backdrop-filter:blur(12px);
-  box-shadow:inset 0 1px 0 #ffffff0c,0 12px 32px #0006;
-}
-.heroQuickCard small{
-  display:block;
-  margin-bottom:8px;
-  color:#ff8a95;
-  font-size:11px;
-  font-weight:900;
-  letter-spacing:.1em;
-  text-transform:uppercase;
-}
-.heroQuickCard strong{
-  display:block;
-  margin-bottom:7px;
-  font-size:15px;
-  line-height:1.25;
-}
-.heroQuickCard span{
-  display:block;
-  color:#c2c7d2;
-  font-size:13px;
-  line-height:1.5;
-}
-
-.appMain{
-  padding-top:34px;
-}
-.section{
-  padding:24px;
-  border:1px solid #ffffff0d;
-  border-radius:28px;
-  background:linear-gradient(180deg,#10141d88,#0b0e15aa);
-  box-shadow:0 24px 70px #0006;
-}
-.section.discoverySection{
-  padding-bottom:10px;
-}
-.section + .section{
-  margin-top:30px;
-}
-.sectionHead{
-  margin-bottom:20px;
-}
-.sectionSub{
-  color:#9ea8bb;
-}
-
-.filterBar,
-.libraryTools,
-.pagination{
-  background:linear-gradient(180deg,#ffffff08,#ffffff05);
-  border:1px solid #ffffff10;
-}
-.filterBar{
-  padding:16px;
-  border-radius:20px;
-}
-.libraryTools{
-  padding:14px;
-  border-radius:18px;
-}
-.pagination{
-  margin-bottom:6px;
-}
-
-.mediaCard{
-  border-radius:20px;
-  background:linear-gradient(180deg,#121722,#0b0f16);
-}
-.poster{
-  border-top-left-radius:inherit;
-  border-top-right-radius:inherit;
-}
-.cardInfo{
-  border-top:1px solid #ffffff0a;
-}
-.favoriteQuick,
-.cardBadge,
-.typePill{
-  box-shadow:0 10px 30px #0008;
-}
-
-.detailPanel{
-  background:
-    linear-gradient(180deg,#0d1118,#0a0d13);
-}
-.statusLine{
-  background:linear-gradient(180deg,#ffffff09,#ffffff05);
-}
-.episodeCard{
-  background:linear-gradient(180deg,#ffffff08,#ffffff04);
-}
-
-.playerBar{
-  background:linear-gradient(180deg,#11151d,#090c12);
-}
-.playerSourceSelect{
-  background:linear-gradient(180deg,#181e2a,#111621);
-}
-.playerHint{
-  background:linear-gradient(180deg,#ffffff08,#ffffff04);
-}
-
-.ghostBtn,.secondaryBtn,.primaryBtn,.playerBack,.playerSourceSelect,.select,.libraryTab,.profileButton{
-  transition:transform .18s ease,filter .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease;
-}
-.ghostBtn:hover,.secondaryBtn:hover,.libraryTab:hover,.playerBack:hover,.profileButton:hover,.select:hover,.playerSourceSelect:hover{
-  transform:translateY(-1px);
-}
-
-@media(max-width:1000px){
-  .topbar{width:calc(100% - 28px)}
-  .heroQuickPanel{grid-template-columns:1fr 1fr}
-}
-
-@media(max-width:760px){
-  .topbar{
-    margin-top:10px;
-    border-radius:18px;
-  }
-  .brandText small{display:none}
-  .hero{
-    min-height:610px;
-    border-radius:24px;
-  }
-  .heroContent{
-    padding:160px 22px 30px;
-  }
-  .heroQuickPanel{
-    grid-template-columns:1fr;
-    gap:10px;
-    margin-top:20px;
-  }
-  .heroQuickCard{
-    padding:14px;
-    border-radius:16px;
-  }
-  .section{
-    padding:16px;
-    border-radius:22px;
-  }
-  
-}
-
-
-
-/* ==========================================================
-   NETFLIX INSPIRED UI · rediseño estructural completo
-   ========================================================== */
-:root{
-  --nf-red:#e50914;
-  --nf-red-hover:#f6121d;
-  --nf-bg:#141414;
-  --nf-card:#181818;
-  --nf-muted:#b3b3b3;
-  --nf-white:#fff;
-  --content:calc(100% - clamp(32px,7vw,110px));
-}
-html,body{background:var(--nf-bg)!important}
-body{background:#141414!important;color:#fff!important;font-family:Arial,Helvetica,sans-serif!important}
-body::before{display:none!important}
-
-/* navegación Netflix */
-.topbar{
-  position:fixed!important;top:0!important;left:0!important;right:0!important;z-index:1000!important;
-  width:100%!important;min-height:68px!important;margin:0!important;padding:0 clamp(20px,4vw,62px)!important;
-  border:0!important;border-radius:0!important;
-  background:linear-gradient(180deg,rgba(0,0,0,.88),rgba(0,0,0,.62) 62%,transparent)!important;
-  box-shadow:none!important;backdrop-filter:none!important;gap:28px!important;
-}
-.brand{gap:10px!important;font-size:25px!important;letter-spacing:-1.3px!important;color:var(--nf-red)!important}
-.brandMark{display:none!important}
-.brandText{display:block!important;font-weight:950!important;color:var(--nf-red)!important;line-height:1!important}
-.brandText span{color:var(--nf-red)!important}
-.brandText small{display:none!important}
-.nav{padding:0!important;gap:22px!important;background:transparent!important;border:0!important;border-radius:0!important}
-.navBtn{
-  position:relative!important;min-height:68px!important;padding:0!important;border-radius:0!important;
-  background:transparent!important;color:#ddd!important;font-size:14px!important;font-weight:500!important;
-}
-.navBtn i{display:none!important}
-.navBtn:hover,.navBtn.active{background:transparent!important;color:#fff!important}
-.navBtn.active::after{content:"";position:absolute;left:0;right:0;bottom:14px;height:2px;background:var(--nf-red);border-radius:2px}
-.searchBox{max-width:410px!important;margin-left:auto!important}
-.searchScope{display:none!important}
-.searchBox input{
-  height:36px!important;padding:0 42px 0 14px!important;border:1px solid #ffffff9a!important;border-radius:2px!important;
-  background:#000a!important;color:#fff!important;box-shadow:none!important;font-size:14px!important;
-}
-.searchBox input::placeholder{color:#aaa!important}
-.searchBox input:focus{border-color:#fff!important;background:#000!important;box-shadow:none!important}
-.searchBox::before{display:none!important}
-.searchBox button{right:0!important;top:0!important;width:38px!important;height:36px!important;border-radius:0!important;background:transparent!important;font-size:16px!important}
-.profileButton{width:34px!important;height:34px!important;border:0!important;border-radius:4px!important;background:#333!important;box-shadow:none!important;font-size:14px!important}
-
-/* hero real de streaming, sin caja ni tarjetas flotantes */
-.hero{
-  width:100%!important;min-height:min(82vh,820px)!important;margin:0!important;border:0!important;border-radius:0!important;
-  box-shadow:none!important;background-position:center top!important;overflow:hidden!important;
-}
-.hero::before{
-  background:
-    linear-gradient(90deg,#141414 0,rgba(20,20,20,.92) 16%,rgba(20,20,20,.62) 44%,rgba(20,20,20,.15) 72%,transparent 100%),
-    linear-gradient(0deg,#141414 0,rgba(20,20,20,.75) 12%,transparent 38%),
-    linear-gradient(180deg,rgba(0,0,0,.28),transparent 30%)!important;
-}
-.hero::after{display:none!important}
-.heroContent{width:min(670px,82%)!important;padding:165px 0 150px clamp(22px,4vw,62px)!important}
-.kicker{padding:0!important;border:0!important;background:transparent!important;color:#fff!important;font-size:13px!important;letter-spacing:.18em!important;font-weight:800!important}
-.kicker::before{width:4px!important;height:17px!important;border-radius:1px!important;background:var(--nf-red)!important;box-shadow:none!important}
-.heroTitle{margin:14px 0 16px!important;font-size:clamp(44px,6vw,78px)!important;line-height:.96!important;letter-spacing:-.045em!important;text-shadow:0 4px 24px #000!important}
-.heroMeta{gap:12px!important;color:#fff!important;font-size:14px!important}
-.heroMeta>span{padding:0!important;border:0!important;background:transparent!important}
-.heroMeta .score{color:#46d369!important;background:transparent!important;border:0!important}
-.heroDescription{max-width:610px!important;margin:18px 0 22px!important;color:#fff!important;font-size:clamp(15px,1.3vw,18px)!important;line-height:1.48!important;text-shadow:0 2px 10px #000!important}
-.heroActions{gap:10px!important;margin-top:22px!important}
-.heroActions .primaryBtn,.detailActions .primaryBtn{
-  min-height:44px!important;padding:0 24px!important;border-radius:4px!important;background:#fff!important;color:#000!important;box-shadow:none!important;font-size:16px!important;font-weight:700!important;
-}
-.heroActions .primaryBtn:hover,.detailActions .primaryBtn:hover{background:#e6e6e6!important;filter:none!important;transform:none!important}
-.heroActions .secondaryBtn{
-  min-height:44px!important;padding:0 24px!important;border:0!important;border-radius:4px!important;background:rgba(109,109,110,.7)!important;color:#fff!important;box-shadow:none!important;font-size:16px!important;font-weight:700!important;
-}
-.heroActions .secondaryBtn:hover{background:rgba(109,109,110,.45)!important;filter:none!important;transform:none!important}
-.primaryBtn i,.secondaryBtn i,.ghostBtn i{margin-right:8px}
-
-/* contenido sobrepuesto como Netflix */
-.appMain{position:relative!important;z-index:4!important;width:var(--content)!important;margin:-105px auto 0!important;padding:0 0 70px!important}
-.section,.section.discoverySection{
-  margin:0 0 42px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
-}
-.section + .section{margin-top:0!important}
-.sectionHead{align-items:end!important;margin-bottom:12px!important}
-.sectionTitle{font-size:clamp(20px,2vw,28px)!important;letter-spacing:-.02em!important;font-weight:700!important}
-.sectionSub{display:none!important}
-.headTools{gap:8px!important}
-
-/* filas y tarjetas horizontales */
-.rail{
-  grid-auto-columns:clamp(230px,20vw,320px)!important;gap:7px!important;padding:8px 2px 34px!important;overflow-x:auto!important;overflow-y:visible!important;scroll-snap-type:x proximity!important;
-}
-.grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr))!important;gap:10px 7px!important}
-.mediaCard{
-  position:relative!important;overflow:visible!important;border:0!important;border-radius:4px!important;background:#181818!important;box-shadow:none!important;
-  transform-origin:center center!important;transition:transform .25s ease,box-shadow .25s ease!important;
-}
-.mediaCard:hover,.mediaCard:focus-visible{z-index:20!important;transform:scale(1.075)!important;border-color:transparent!important;box-shadow:0 15px 35px #000d!important}
-.mediaCard::after{display:none!important}
-.poster,.posterEmpty{width:100%!important;aspect-ratio:16/9!important;border-radius:4px!important;object-fit:cover!important;background:#242424!important}
-.mediaCard:hover .poster{transform:none!important;filter:none!important}
-.cardShade{inset:auto 0 0!important;height:56%!important;background:linear-gradient(0deg,#181818 0,rgba(24,24,24,.96) 40%,transparent 100%)!important;border-radius:0 0 4px 4px!important}
-.cardInfo{
-  position:absolute!important;z-index:3!important;left:0!important;right:0!important;bottom:0!important;padding:34px 12px 10px!important;
-  background:transparent!important;opacity:0!important;transform:translateY(6px)!important;transition:.18s ease!important;pointer-events:none!important;
-}
-.mediaCard:hover .cardInfo,.mediaCard:focus-visible .cardInfo{opacity:1!important;transform:none!important}
-.cardTitle{font-size:13px!important;font-weight:700!important;text-shadow:0 1px 3px #000!important}
-.cardMeta{margin-top:5px!important;color:#ddd!important;font-size:11px!important}
-.cardMeta .fa-star,.cardMeta i{color:#f5c518!important}
-.cardBadge{top:8px!important;left:8px!important;padding:4px 7px!important;border:0!important;border-radius:3px!important;background:#111d!important;font-size:9px!important;box-shadow:none!important}
-.cardBadge.watched{background:#0f7b3acc!important}
-.typePill{right:8px!important;bottom:auto!important;top:8px!important;padding:4px 7px!important;border:0!important;border-radius:3px!important;background:#111d!important;font-size:9px!important;box-shadow:none!important}
-.favoriteQuick{
-  z-index:5!important;top:auto!important;right:8px!important;bottom:8px!important;width:30px!important;height:30px!important;border:1px solid #aaa!important;border-radius:50%!important;background:#2a2a2ad9!important;color:#fff!important;font-size:13px!important;opacity:0!important;transition:.18s!important;
-}
-.mediaCard:hover .favoriteQuick,.mediaCard:focus-visible .favoriteQuick,.favoriteQuick:focus-visible{opacity:1!important}
-.favoriteQuick.active{color:#fff!important;background:var(--nf-red)!important;border-color:var(--nf-red)!important}
-.progressTrack{position:absolute!important;z-index:6!important;left:0!important;right:0!important;bottom:0!important;height:3px!important;background:#555!important}
-.progressFill{background:var(--nf-red)!important;box-shadow:none!important}
-
-/* filtros: simples, discretos */
-.filterBar,.libraryTools,.pagination{
-  border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;
-}
-.filterBar{margin:0 0 18px!important;padding:0!important;gap:8px!important}
-.filterBar label{min-width:145px!important}
-.filterBar label>span{display:none!important}
-.select,.playerSourceSelect{
-  height:36px!important;border:1px solid #555!important;border-radius:2px!important;background:#000!important;color:#fff!important;padding:0 34px 0 10px!important;font-size:13px!important;box-shadow:none!important;
-}
-.ghostBtn,.secondaryBtn{
-  border:1px solid #666!important;border-radius:3px!important;background:#252525!important;color:#fff!important;box-shadow:none!important;
-}
-.ghostBtn:hover,.secondaryBtn:hover{background:#333!important;transform:none!important;filter:none!important}
-.libraryTools{margin-bottom:18px!important;padding:0!important}
-.libraryTabs{padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;gap:14px!important}
-.libraryTab{padding:8px 0!important;border-radius:0!important;color:#aaa!important}
-.libraryTab.active{background:transparent!important;color:#fff!important;border-bottom:2px solid var(--nf-red)!important}
-.pagination{margin:26px 0 0!important;padding:0!important}
-
-/* modal de detalle cinematográfico */
-.detailModal{padding:32px!important;background:#000b!important;backdrop-filter:none!important}
-.detailPanel{width:min(980px,100%)!important;max-height:92vh!important;border:0!important;border-radius:8px!important;background:#181818!important;box-shadow:0 20px 80px #000!important;overflow:hidden auto!important}
-.detailBackdrop{min-height:500px!important;background-position:center top!important}
-.detailBackdrop::after{background:linear-gradient(0deg,#181818 0,rgba(24,24,24,.88) 20%,transparent 58%)!important}
-.closeDetail{top:15px!important;right:15px!important;width:36px!important;height:36px!important;border:0!important;background:#181818!important;border-radius:50%!important;font-size:17px!important}
-.detailContent{margin-top:-150px!important;padding:0 46px 48px!important}
-.detailTitle{font-size:clamp(34px,5vw,56px)!important}
-.detailMeta{margin:12px 0 17px!important;gap:12px!important}
-.detailMeta span{padding:0!important;border:0!important;background:transparent!important}
-.detailMeta .score{color:#46d369!important}
-.detailOverview{max-width:720px!important;color:#e5e5e5!important;font-size:14px!important;line-height:1.55!important}
-.detailActions{gap:9px!important;margin-top:18px!important}
-.detailActions .secondaryBtn{min-height:44px!important;padding:0 16px!important}
-.statusLine{margin-top:18px!important;padding:0!important;border:0!important;background:transparent!important;color:#aaa!important}
-.episodeSection,.detailExtra{border-top:1px solid #333!important}
-.episodeCard{border:0!important;border-radius:4px!important;background:#232323!important;padding:10px!important}
-.episodeCard:hover,.episodeCard:focus-visible{background:#2f2f2f!important;transform:none!important}
-.episodeStill,.episodeStillEmpty{border-radius:3px!important}
-.episodeCheck{color:#46d369!important}
-
-/* reproductor coherente */
-.playerBar{min-height:62px!important;padding:8px 18px!important;background:#080808!important;border-bottom:1px solid #222!important}
-.playerBack{width:38px!important;height:38px!important;border:0!important;border-radius:50%!important;background:#202020!important}
-.playingTitle{font-size:14px!important;font-weight:600!important}
-.playerServerTools{margin-left:auto!important}
-.playerServerLabel{display:none!important}
-.playerControlBtn{background:#222!important;border-color:#444!important}
-.playerActions .ghostBtn{min-height:38px!important;background:#161616!important;border-color:#333!important;font-size:12px!important}
-.playerHint{border:0!important;border-radius:0!important;background:transparent!important;color:#777!important}
-.playerStage{background:#000!important}
-.nextOverlay{border:0!important;border-radius:0!important;background:#000e!important;box-shadow:none!important}
-.nextOverlay strong{color:#fff!important;text-shadow:none!important}
-.toast{border:0!important;border-radius:3px!important;background:#222!important;box-shadow:0 10px 35px #000!important}
-
-/* TV: foco blanco/rojo y menos animación */
-.firetv .mediaCard:hover,.firetv .mediaCard:focus-visible{transform:scale(1.04)!important;outline:3px solid #fff!important;outline-offset:2px!important}
-.firetv .favoriteQuick{opacity:1!important}
-.firetv .navBtn:focus-visible,.firetv .ghostBtn:focus-visible,.firetv .secondaryBtn:focus-visible,.firetv .primaryBtn:focus-visible{outline:3px solid #fff!important;outline-offset:3px!important}
-
-@media(max-width:1000px){
-  .nav{gap:14px!important}.navBtn{font-size:13px!important}
-  .appMain{width:calc(100% - 36px)!important}
-  .grid{grid-template-columns:repeat(auto-fill,minmax(210px,1fr))!important}
-  .rail{grid-auto-columns:minmax(220px,290px)!important}
-}
-@media(max-width:760px){
-  .topbar{min-height:58px!important;padding:0 12px!important;gap:10px!important;flex-wrap:wrap!important;background:#0d0d0df5!important}
-  .brand{font-size:18px!important}.profileButton{display:none!important}
-  .nav{order:3!important;width:100%!important;height:38px!important;justify-content:space-around!important;border-top:1px solid #222!important}
-  .navBtn{min-height:38px!important;font-size:12px!important}.navBtn.active::after{bottom:0!important}
-  .searchBox{max-width:none!important;flex:1!important}.searchBox input{height:34px!important}.searchBox button{height:34px!important}
-  .hero{min-height:610px!important;padding-top:58px!important;background-position:center!important}
-  .hero::before{background:linear-gradient(0deg,#141414 0,rgba(20,20,20,.88) 28%,rgba(20,20,20,.28) 70%,transparent 100%)!important}
-  .heroContent{width:100%!important;padding:250px 20px 120px!important}.heroTitle{font-size:40px!important}.heroDescription{-webkit-line-clamp:3!important}
-  .appMain{width:calc(100% - 24px)!important;margin-top:-90px!important}
-  .section{margin-bottom:32px!important}.sectionTitle{font-size:20px!important}
-  .rail{grid-auto-columns:72vw!important;gap:6px!important;padding-bottom:25px!important}
-  .grid{grid-template-columns:1fr 1fr!important;gap:7px!important}
-  .mediaCard:hover,.mediaCard:focus-visible{transform:scale(1.025)!important}
-  .cardInfo{opacity:1!important;transform:none!important;padding:25px 8px 8px!important}.favoriteQuick{opacity:1!important}
-  .filterBar{display:grid!important;grid-template-columns:1fr 1fr!important}.filterBar .ghostBtn{grid-column:1/-1!important}
-  .detailModal{padding:0!important}.detailPanel{height:100vh!important;max-height:100vh!important;border-radius:0!important}.detailBackdrop{min-height:350px!important}.detailContent{margin-top:-90px!important;padding:0 20px 35px!important}
-  .playerBar{align-items:center!important}.playerServerTools{width:100%!important;margin:0!important}.playerActions{width:100%!important}
-}
-
-
-
-/* ==========================================================
-   PERSONAL HOME 2026.4 · Netflix-inspired, más limpio y adaptable
-   ========================================================== */
-.topbar{transition:background .25s ease,box-shadow .25s ease!important}
-.topbar.scrolled{background:#090909f7!important;box-shadow:0 8px 24px #0008!important}
-
-.hero{min-height:min(88vh,900px)!important;transition:filter .18s ease!important}
-.hero.heroChanging{filter:brightness(.72)!important}
-.heroContent{padding-top:190px!important;padding-bottom:180px!important;transition:opacity .18s ease,transform .18s ease!important}
-.hero.heroChanging .heroContent{opacity:.35!important;transform:translateY(6px)!important}
-.heroTitle{max-width:850px!important;font-size:clamp(50px,6.4vw,92px)!important;letter-spacing:-.055em!important}
-.heroDescription{max-width:650px!important;font-size:clamp(16px,1.35vw,19px)!important}
-.kicker{gap:9px!important;color:#f3f3f3!important}
-.kicker::before{display:none!important}
-.kicker i{color:var(--nf-red)!important;font-size:12px!important}
-.heroMeta .matchScore{color:#46d369!important;font-weight:700!important}
-
-.heroRotationControls{
-  position:absolute;z-index:8;right:clamp(22px,4vw,62px);bottom:150px;
-  display:flex;align-items:center;gap:10px
-}
-.heroRoundButton{
-  display:grid;place-items:center;width:42px;height:42px;border:1px solid #ffffff75;border-radius:50%;
-  background:#181818a8;color:#fff;backdrop-filter:blur(7px);font-size:13px;transition:.16s ease
-}
-.heroRoundButton:hover,.heroRoundButton:focus-visible{background:#fff;color:#000;transform:scale(1.06)}
-.heroRoundButton:disabled{opacity:.3;cursor:default;transform:none}
-.heroPosition{min-width:48px;text-align:center;color:#ddd;font-size:12px;font-weight:700;text-shadow:0 1px 5px #000}
-.heroAutoTrack{position:absolute;z-index:8;left:0;right:0;bottom:0;height:3px;background:#ffffff13;overflow:hidden}
-.heroAutoTrack span{display:block;width:0;height:100%;background:var(--nf-red)}
-.heroAutoTrack span.running{animation:heroProgress linear forwards}
-@keyframes heroProgress{from{width:0}to{width:100%}}
-
-.appMain{margin-top:-128px!important}
-.section{margin-bottom:48px!important}
-.discoverySection{margin-bottom:30px!important}
-.discoveryGroup{margin-bottom:30px!important}
-.discoveryGroupHead{margin-bottom:9px!important}
-.discoveryGroupHead h3{display:flex;align-items:center;gap:8px;font-size:clamp(19px,1.65vw,25px)!important}
-.discoveryGroupHead h3 i{color:var(--nf-red);font-size:14px}
-.discoveryGroupHead small{display:block;margin-top:4px;color:#9b9b9b;font-size:12px}
-.personalizedGroup .discoveryGroupHead h3{color:#fff}
-.personalizedGroup .rail{padding-top:10px!important}
-
-.rail{grid-auto-columns:clamp(250px,21.5vw,350px)!important;gap:8px!important}
-.grid{grid-template-columns:repeat(auto-fill,minmax(255px,1fr))!important;gap:12px 8px!important}
-.mediaCard{background:#202020!important}
-.mediaCard:hover,.mediaCard:focus-visible{transform:scale(1.095)!important}
-.poster,.posterEmpty{box-shadow:inset 0 0 0 1px #ffffff08!important}
-.cardInfo{padding:48px 13px 11px!important}
-.cardTitle{font-size:14px!important}
-.cardMeta{font-size:11px!important}
-.typePill{background:#090909d9!important}
-.favoriteQuick{bottom:10px!important;right:10px!important}
-
-.detailPanel{border-radius:10px!important}
-.detailActions{align-items:center!important;flex-wrap:wrap!important}
-.detailActions .secondaryBtn{border-color:#777!important;background:#252525!important}
-.detailActions .secondaryBtn.active{border-color:#fff!important;background:#fff!important;color:#000!important}
-.detailActions .secondaryBtn.active i{color:#000!important}
-.tasteBtn{min-width:130px!important}
-
-.searchSuggestions{background:#111!important;border-color:#333!important;box-shadow:0 18px 50px #000d!important}
-.suggestionItem{border-bottom:1px solid #242424!important;border-radius:0!important}
-.suggestionItem:last-child{border-bottom:0!important}
-.suggestionItem:hover,.suggestionItem:focus-visible{background:#252525!important}
-
-@media(max-width:1000px){
-  .heroRotationControls{bottom:135px}
-  .heroTitle{font-size:clamp(46px,7vw,74px)!important}
-  .rail{grid-auto-columns:minmax(235px,310px)!important}
-}
-
-@media(max-width:760px){
-  .hero{min-height:680px!important}
-  .heroContent{padding:270px 20px 145px!important}
-  .heroTitle{font-size:44px!important;max-width:94%!important}
-  .heroDescription{font-size:15px!important}
-  .heroRotationControls{right:16px;bottom:112px;gap:7px}
-  .heroRoundButton{width:38px;height:38px}
-  .heroPosition{font-size:11px;min-width:42px}
-  .appMain{margin-top:-110px!important}
-  .rail{grid-auto-columns:76vw!important}
-  .grid{grid-template-columns:1fr 1fr!important}
-  .mediaCard:hover,.mediaCard:focus-visible{transform:scale(1.025)!important}
-  .detailActions{display:flex!important}
-  .detailActions>*{flex:1 1 145px!important}
-}
-
-.firetv .heroRoundButton:focus-visible{outline:3px solid #fff!important;outline-offset:3px!important}
-.firetv .tasteBtn:focus-visible{outline:3px solid #fff!important;outline-offset:3px!important}
-
-
-
-/* ==========================================================
-   VISUAL OVERHAUL 2026.4 · apariencia realmente nueva
-   ========================================================== */
-body.netflixLuxe{
-  --bg:#050507;
-  --panel:#0b0c10;
-  --panel2:#12141a;
-  --line:#ffffff14;
-  --text:#f5f7fb;
-  --muted:#a8afbd;
-  --red:#e50914;
-  --red2:#ff3341;
-  --heroH:82vh;
-  background:
-    radial-gradient(60rem 38rem at 10% -8%,#7d0d172c 0,transparent 46%),
-    radial-gradient(52rem 32rem at 100% 8%,#19386724 0,transparent 44%),
-    linear-gradient(180deg,#040404 0,#07080d 28%,#06070b 100%);
-}
-body.netflixLuxe::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:-1;
-  opacity:.08;
-  background-image:
-    radial-gradient(circle at 20% 20%,#fff 0 1px,transparent 1px),
-    radial-gradient(circle at 70% 60%,#fff 0 1px,transparent 1px);
-  background-size: 3px 3px, 4px 4px;
-  mix-blend-mode:soft-light;
-}
-
-.netflixLuxe .topbar{
-  position:fixed;
-  inset:0 0 auto 0;
-  width:100%;
-  max-width:none;
-  margin:0;
-  padding:18px clamp(18px,4.2vw,64px);
-  gap:26px;
-  border:0;
-  border-radius:0;
-  background:linear-gradient(180deg,#050608f2 0,#050608d2 58%,transparent 100%);
-  box-shadow:none;
-  transition:background .25s ease,padding .25s ease,backdrop-filter .25s ease;
-}
-.netflixLuxe .topbar.scrolled{
-  padding-top:12px;
-  padding-bottom:12px;
-  background:rgba(7,8,12,.92);
-  backdrop-filter:blur(18px) saturate(1.2);
-  border-bottom:1px solid #ffffff12;
-}
-.netflixLuxe .brand{
-  gap:12px;
-  font-size:26px;
-  letter-spacing:-.06em;
-}
-.netflixLuxe .brandMark{
-  width:42px;height:42px;border-radius:14px;
-  background:linear-gradient(135deg,#ff4f5f,#c70012 58%,#77000b 100%);
-  box-shadow:0 10px 30px #e5091440;
-}
-.netflixLuxe .brandText{display:flex;align-items:baseline;gap:7px}
-.netflixLuxe .brandText span{color:#fff}
-.netflixLuxe .brandText::after{
-  content:"premium";
-  font-size:10px;
-  font-weight:800;
-  text-transform:uppercase;
-  letter-spacing:.14em;
-  color:#8f98aa;
-}
-.netflixLuxe .nav{
-  gap:18px;
-  padding:0;
-  border:0;
-  border-radius:0;
-  background:none;
-}
-.netflixLuxe .navBtn{
-  position:relative;
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 0;
-  border-radius:0;
-  background:none!important;
-  color:#c2c6d0;
-  font-size:15px;
-  font-weight:700;
-}
-.netflixLuxe .navBtn i{font-size:13px;opacity:.9}
-.netflixLuxe .navBtn::after{
-  content:"";
-  position:absolute;left:0;right:0;bottom:-6px;
-  height:3px;border-radius:999px;
-  transform:scaleX(0);transform-origin:left;
-  background:#fff;transition:transform .22s ease;
-}
-.netflixLuxe .navBtn.active{color:#fff}
-.netflixLuxe .navBtn.active::after,.netflixLuxe .navBtn:hover::after{transform:scaleX(1)}
-
-.netflixLuxe .searchBox{
-  max-width:430px;
-  margin-left:auto;
-}
-.netflixLuxe .searchScope{
-  display:none;
-}
-.netflixLuxe .searchBox::before{left:16px}
-.netflixLuxe .searchBox input{
-  height:44px;
-  padding-left:44px;
-  padding-right:50px;
-  border:1px solid #ffffff18;
-  border-radius:999px;
-  background:rgba(17,19,26,.72);
-  backdrop-filter:blur(14px);
-}
-.netflixLuxe .searchBox button{
-  right:5px;
-  width:34px;height:34px;
-  border-radius:50%;
-  background:#ffffff12;
-}
-.netflixLuxe .profileButton{
-  width:40px;height:40px;border-radius:50%;
-  background:#ffffff10;border:1px solid #ffffff16;box-shadow:none;
-}
-
-.netflixLuxe .hero{
-  width:100%;
-  min-height:var(--heroH);
-  margin:0 0 -88px;
-  border:0;
-  border-radius:0;
-  box-shadow:none;
-  overflow:visible;
-  background-color:#090a0f;
-}
-.netflixLuxe .hero::before{
-  background:
-    linear-gradient(90deg,#050607 0,#050607e8 26%,#050607a2 46%,transparent 72%),
-    linear-gradient(0deg,#050607 3%,#050607f0 13%,#05060778 38%,transparent 70%),
-    linear-gradient(180deg,#0006 0,transparent 18%);
-}
-.netflixLuxe .hero::after{
-  content:"";
-  position:absolute;inset:auto 0 -1px 0;height:180px;
-  background:linear-gradient(180deg,transparent 0,#06070b 75%);
-  pointer-events:none;
-}
-.netflixLuxe .heroContent{
-  width:min(720px,92%);
-  padding:150px clamp(20px,5vw,64px) 160px;
-}
-.netflixLuxe .kicker{
-  display:inline-flex;align-items:center;gap:8px;
-  border:0;border-radius:999px;
-  padding:0;background:none;color:#d8dbe3;
-  font-size:13px;font-weight:700;letter-spacing:.08em;
-}
-.netflixLuxe .kicker::before{width:8px;height:8px;border-radius:50%;background:#e50914;box-shadow:0 0 16px #e50914}
-.netflixLuxe .heroTitle{
-  margin:14px 0 14px;
-  font-size:clamp(54px,7vw,94px);
-  line-height:.92;
-  letter-spacing:-.06em;
-  text-shadow:0 18px 40px #000;
-}
-.netflixLuxe .heroMeta{gap:10px}
-.netflixLuxe .heroMeta>span{
-  padding:7px 12px;
-  border:1px solid #ffffff10;
-  border-radius:999px;
-  background:#ffffff10;
-  backdrop-filter:blur(8px);
-}
-.netflixLuxe .heroMeta .score{
-  color:#fff;
-  background:#e5091422;
-  border-color:#e5091436;
-}
-.netflixLuxe .heroDescription{
-  max-width:620px;
-  margin-top:18px;
-  font-size:18px;
-  line-height:1.65;
-  color:#dde2eb;
-}
-.netflixLuxe .heroActions{margin-top:26px;gap:12px}
-.netflixLuxe .primaryBtn,
-.netflixLuxe .secondaryBtn{
-  min-height:50px;
-  padding:0 22px;
-  border-radius:12px;
-  font-size:15px;
-  font-weight:800;
-}
-.netflixLuxe .primaryBtn{
-  color:#0a0b0e;
-  background:#fff;
-  box-shadow:0 12px 28px #00000040;
-}
-.netflixLuxe .primaryBtn:hover{filter:none;background:#f0f2f7}
-.netflixLuxe .secondaryBtn{
-  border:1px solid #ffffff18;
-  background:rgba(109,109,110,.46);
-  backdrop-filter:blur(12px);
-}
-.netflixLuxe .secondaryBtn:hover{background:rgba(109,109,110,.64)}
-.netflixLuxe .heroRotationControls{
-  position:absolute;
-  right:clamp(18px,4vw,46px);
-  bottom:128px;
-  display:flex;align-items:center;gap:10px;
-  z-index:4;
-  padding:10px 12px;
-  border:1px solid #ffffff14;
-  border-radius:999px;
-  background:rgba(7,8,11,.42);
-  backdrop-filter:blur(12px);
-}
-.netflixLuxe .heroRoundButton{
-  width:42px;height:42px;border-radius:50%;border:1px solid #ffffff18;
-  background:#ffffff08;color:#fff;
-}
-.netflixLuxe .heroPosition{
-  min-width:68px;text-align:center;
-  color:#dee2eb;font-size:12px;font-weight:800;
-}
-
-.netflixLuxe .appMain{
-  position:relative;
-  z-index:3;
-  width:100%;
-  padding:0 0 90px;
-}
-.netflixLuxe .section{
-  width:min(100%,1540px);
-  margin:0 auto 38px;
-  padding:0 clamp(18px,4vw,52px);
-  border:0;
-  border-radius:0;
-  background:none;
-  box-shadow:none;
-}
-.netflixLuxe .discoverySection{padding-top:0}
-.netflixLuxe .sectionHead{margin-bottom:16px}
-.netflixLuxe .sectionTitle{
-  font-size:clamp(24px,2.5vw,36px);
-  letter-spacing:-.04em;
-}
-.netflixLuxe .sectionSub{color:#95a0b2}
-.netflixLuxe .filterBar,
-.netflixLuxe .libraryTools,
-.netflixLuxe .pagination{
-  background:rgba(255,255,255,.04);
-  border:1px solid #ffffff10;
-  box-shadow:0 12px 30px #00000022;
-  backdrop-filter:blur(12px);
-}
-.netflixLuxe .filterBar,
-.netflixLuxe .libraryTools{
-  border-radius:18px;
-}
-.netflixLuxe .filterBar{margin-bottom:22px}
-.netflixLuxe .select,
-.netflixLuxe .playerSourceSelect{
-  background:#111521;
-  border-color:#ffffff18;
-  color:#fff;
-}
-.netflixLuxe .grid{
-  grid-template-columns:repeat(auto-fill,minmax(270px,1fr));
-  gap:22px 18px;
-}
-.netflixLuxe .rail{
-  display:grid;
-  grid-auto-flow:column;
-  grid-auto-columns:minmax(290px,23vw);
-  gap:18px;
-  overflow-x:auto;
-  overflow-y:visible;
-  padding:10px 6px 26px;
-  scrollbar-width:none;
-  mask-image:linear-gradient(90deg,transparent 0,#000 3%,#000 97%,transparent 100%);
-}
-.netflixLuxe .rail::-webkit-scrollbar{display:none}
-.netflixLuxe .mediaCard{
-  border:0;
-  border-radius:18px;
-  background:linear-gradient(180deg,#141823,#0b0f17);
-  box-shadow:0 14px 34px #0000004d;
-  overflow:hidden;
-}
-.netflixLuxe .poster,
-.netflixLuxe .posterEmpty{
-  aspect-ratio:16/9;
-  border-radius:0;
-}
-.netflixLuxe .cardShade{inset:48% 0 0;background:linear-gradient(0deg,#07090d 0,#07090de0 20%,transparent 70%)}
-.netflixLuxe .cardInfo{
-  position:absolute;
-  inset:auto 0 0 0;
-  padding:16px;
-  background:linear-gradient(180deg,transparent 0,#06080dee 35%,#06080d 100%);
-}
-.netflixLuxe .cardTitle{font-size:16px;font-weight:800;white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
-.netflixLuxe .cardMeta{margin-top:8px;color:#c1c8d5;font-size:12px}
-.netflixLuxe .typePill{bottom:94px}
-.netflixLuxe .favoriteQuick{top:12px;right:12px;width:38px;height:38px;border:1px solid #ffffff18;background:#05070cb8}
-.netflixLuxe .cardBadge{
-  top:12px;left:12px;
-  background:rgba(6,7,10,.72);
-  border:1px solid #ffffff14;
-}
-.netflixLuxe .progressTrack{height:5px;background:#ffffff1a}
-.netflixLuxe .progressFill{background:linear-gradient(90deg,#ff4b59,#e50914)}
-.netflixLuxe .mediaCard:hover,.netflixLuxe .mediaCard:focus-visible{
-  transform:translateY(-8px) scale(1.028);
-  box-shadow:0 28px 54px #00000080;
-}
-.netflixLuxe .mediaCard:hover .poster{transform:scale(1.045);filter:saturate(1.05)}
-
-.netflixLuxe .detailModal{
-  background:rgba(2,4,9,.72);
-  backdrop-filter:blur(24px) saturate(1.1);
-}
-.netflixLuxe .detailPanel{
-  width:min(1180px,100%);
-  border:1px solid #ffffff12;
-  border-radius:26px;
-  background:linear-gradient(180deg,#0b0e14,#0a0d14 55%,#080b12 100%);
-  box-shadow:0 40px 120px #000c;
-}
-.netflixLuxe .detailBackdrop{min-height:460px}
-.netflixLuxe .detailBackdrop::after{
-  background:
-    linear-gradient(0deg,#090c13 0,#090c13f2 20%,#090c1387 42%,transparent 76%),
-    linear-gradient(90deg,#080b12b8 0,transparent 66%);
-}
-.netflixLuxe .closeDetail{
-  width:46px;height:46px;border-radius:50%;
-  border:1px solid #ffffff18;background:rgba(9,11,16,.7)
-}
-.netflixLuxe .detailContent{margin-top:-118px;padding:0 clamp(24px,4vw,52px) 52px}
-.netflixLuxe .detailTitle{font-size:clamp(42px,4.8vw,68px)}
-.netflixLuxe .detailMeta span,
-.netflixLuxe .statusLine,
-.netflixLuxe .episodeCard,
-.netflixLuxe .libraryTabs,
-.netflixLuxe .nextOverlay{
-  background:rgba(255,255,255,.06);
-  border-color:#ffffff12;
-}
-.netflixLuxe .episodeCard{border-radius:16px}
-.netflixLuxe .episodeCard:hover,.netflixLuxe .episodeCard:focus-visible{transform:translateX(6px)}
-
-.netflixLuxe .playerOverlay{
-  padding:28px;
-  background:
-    radial-gradient(circle at 50% 50%,#192232 0,#0b0f17 35%,#020307 100%);
-  overflow:auto;
-}
-.netflixLuxe .playerBackdropGlow{
-  position:fixed;inset:0;pointer-events:none;
-  background:
-    radial-gradient(40rem 22rem at 50% 55%,#ff334114 0,transparent 54%),
-    radial-gradient(38rem 20rem at 50% 55%,#5b90ff14 0,transparent 58%);
-}
-.netflixLuxe .playerShell{
-  position:relative;
-  width:min(1520px,100%);
-  height:auto;
-  min-height:min(92vh,980px);
-  margin:0 auto;
-  grid-template-rows:auto auto auto;
-  gap:14px;
-  background:transparent;
-}
-.netflixLuxe .playerBar{
-  position:relative;
-  min-height:74px;
-  padding:14px 18px;
-  border:1px solid #ffffff10;
-  border-radius:22px;
-  background:linear-gradient(180deg,rgba(16,20,29,.92),rgba(8,11,17,.88));
-  box-shadow:0 18px 46px #0007;
-}
-.netflixLuxe .playerBack{
-  width:48px;height:48px;border-radius:14px;
-  background:#ffffff0e;border:1px solid #ffffff14;
-}
-.netflixLuxe .playingTitle{
-  font-size:17px;
-  font-weight:800;
-}
-.netflixLuxe .playerServerTools{
-  padding:8px 10px;
-  border:1px solid #ffffff10;
-  border-radius:16px;
-  background:#ffffff05;
-}
-.netflixLuxe .playerServerLabel{color:#97a3b6}
-.netflixLuxe .playerControlBtn,
-.netflixLuxe .playerActions .ghostBtn{
-  min-height:42px;
-  border:1px solid #ffffff14!important;
-  border-radius:12px;
-  background:#ffffff08!important;
-  color:#fff!important;
-}
-.netflixLuxe .playerActions{gap:8px}
-.netflixLuxe .playerHint{
-  display:block;
-  margin:0;
-  padding:12px 14px;
-  border:1px solid #ffffff10;
-  border-radius:16px;
-  background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.04));
-  color:#c4cbd8;
-}
-.netflixLuxe .playerStage{
-  position:relative;
-  min-height:min(72vh,820px);
-  border:1px solid #ffffff12;
-  border-radius:28px;
-  overflow:hidden;
-  background:#000;
-  box-shadow:0 28px 80px #000a;
-}
-.netflixLuxe .playerCinemaFrame{
-  position:absolute;
-  inset:0;
-  z-index:1;
-  pointer-events:none;
-  box-shadow:inset 0 0 0 1px #ffffff09,inset 0 60px 90px #0008,inset 0 -90px 120px #0008;
-}
-.netflixLuxe .playerStage iframe,
-.netflixLuxe .playerStage video{
-  position:relative;
-  z-index:0;
-}
-.netflixLuxe .playerLoading{
-  background:radial-gradient(circle at center,#11151e,#000);
-}
-.netflixLuxe .nextOverlay{
-  inset:auto 20px 20px 20px;
-  display:none;
-  place-items:center;
-  border:1px solid #ffffff12;
-  border-radius:22px;
-  background:rgba(6,8,12,.84);
-  backdrop-filter:blur(20px);
-}
-.netflixLuxe .nextOverlay.show{display:grid}
-.netflixLuxe .nextOverlay strong{font-size:78px}
-.netflixLuxe .playerFooterNote{
-  display:flex;
-  justify-content:space-between;
-  gap:14px;
-  flex-wrap:wrap;
-  padding:0 6px;
-  color:#98a3b5;
-  font-size:12px;
-}
-.netflixLuxe .playerFooterNote span{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:9px 12px;
-  border:1px solid #ffffff10;
-  border-radius:999px;
-  background:#ffffff05;
-}
-
-.netflixLuxe .toast{
-  border-radius:999px;
-  background:#10141de6;
-  border:1px solid #ffffff12;
-  backdrop-filter:blur(16px);
-}
-
-@media(max-width:980px){
-  .netflixLuxe .topbar{gap:14px;padding-inline:14px}
-  .netflixLuxe .heroContent{padding-top:128px;padding-bottom:148px}
-  .netflixLuxe .playerOverlay{padding:16px}
-  .netflixLuxe .playerShell{min-height:auto}
-  .netflixLuxe .playerBar{gap:12px}
-  .netflixLuxe .playerServerTools{order:4;width:100%;margin-left:0}
-}
-@media(max-width:760px){
-  body.netflixLuxe{--heroH:76vh}
-  .netflixLuxe .topbar{padding:10px 12px 18px;background:linear-gradient(180deg,#050608f0 0,#050608db 56%,transparent)}
-  .netflixLuxe .topbar.scrolled{padding-bottom:10px}
-  .netflixLuxe .brand{font-size:22px}
-  .netflixLuxe .nav{order:3;width:100%;overflow:auto;gap:16px}
-  .netflixLuxe .navBtn{font-size:14px}
-  .netflixLuxe .navBtn::after{bottom:-2px}
-  .netflixLuxe .searchBox{max-width:none}
-  .netflixLuxe .hero{margin-bottom:-44px}
-  .netflixLuxe .heroContent{width:100%;padding:138px 18px 110px}
-  .netflixLuxe .heroTitle{font-size:clamp(40px,13vw,60px)}
-  .netflixLuxe .heroDescription{font-size:15px}
-  .netflixLuxe .heroRotationControls{right:16px;bottom:56px;padding:8px 10px}
-  .netflixLuxe .heroRoundButton{width:38px;height:38px}
-  .netflixLuxe .section{padding-inline:14px;margin-bottom:30px}
-  .netflixLuxe .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 10px}
-  .netflixLuxe .rail{grid-auto-columns:minmax(210px,78vw);gap:12px;padding-inline:2px;mask-image:none}
-  .netflixLuxe .mediaCard{border-radius:14px}
-  .netflixLuxe .cardInfo{padding:12px}
-  .netflixLuxe .cardTitle{font-size:14px}
-  .netflixLuxe .detailPanel{border-radius:0;max-height:100vh}
-  .netflixLuxe .detailBackdrop{min-height:340px}
-  .netflixLuxe .detailContent{margin-top:-60px;padding:0 16px 24px}
-  .netflixLuxe .playerOverlay{padding:10px;background:#020306}
-  .netflixLuxe .playerBar{padding:12px;border-radius:18px}
-  .netflixLuxe .playerStage{min-height:42vh;border-radius:18px}
-  .netflixLuxe .playerActions{width:100%;justify-content:stretch}
-  .netflixLuxe .playerActions .ghostBtn{flex:1}
-  .netflixLuxe .playerFooterNote{font-size:11px;padding:0}
-}
-
-
-
-/* ==========================================================
-   FIRE TV COMFORT MODE 2026.5 · más cómodo con control remoto
-   ========================================================== */
-.remoteDock{display:none}
-
-.firetv body,
-.firetv button,
-.firetv input,
-.firetv select{
-  letter-spacing:.01em;
-}
-.firetv .topbar{
-  gap:18px;
-}
-.firetv .nav{gap:10px}
-.firetv .navBtn,
-.firetv .remoteDockBtn,
-.firetv .ghostBtn,
-.firetv .secondaryBtn,
-.firetv .primaryBtn,
-.firetv .libraryTab,
-.firetv .playerBack,
-.firetv .playerSourceSelect,
-.firetv .select,
-.firetv .suggestionItem,
-.firetv .episodeCard,
-.firetv .favoriteQuick,
-.firetv .heroRoundButton{
-  min-height:54px;
-}
-.firetv .navBtn,
-.firetv .libraryTab{
-  padding:12px 16px;
-  border-radius:14px;
-  background:#ffffff10;
-  border:1px solid #ffffff10;
-}
-.firetv .navBtn.active{
-  background:#ffffff1c;
-}
-.firetv .navBtn::after{display:none}
-.firetv .searchBox{max-width:520px}
-.firetv .searchBox input{
-  height:52px;
-  font-size:16px;
-}
-.firetv .searchSuggestions{
-  max-height:55vh;
-  border-radius:18px;
-}
-.firetv .suggestionItem{
-  min-height:78px;
-  padding:10px;
-  border-radius:14px;
-}
-.firetv .suggestionItem img,
-.firetv .suggestionPoster{
-  width:52px;height:72px;border-radius:9px;
-}
-.firetv .suggestionItem b{font-size:15px}
-.firetv .suggestionItem small{font-size:12px}
-.firetv .profileButton{
-  width:48px;height:48px;
-}
-.firetv .remoteDock{
-  position:relative;
-  z-index:90;
-  display:flex;
-  gap:10px;
-  overflow-x:auto;
-  width:min(100%,1460px);
-  margin:88px auto 0;
-  padding:0 22px;
-  scrollbar-width:none;
-}
-.firetv .remoteDock::-webkit-scrollbar{display:none}
-.firetv .remoteDockBtn{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  padding:0 16px;
-  border:1px solid #ffffff14;
-  border-radius:999px;
-  background:rgba(255,255,255,.08);
-  color:#edf2ff;
-  font-weight:800;
-  white-space:nowrap;
-}
-.firetv .remoteDockBtn i{font-size:15px;color:#cfd7e5}
-.firetv .hero{
-  min-height:68vh;
-  margin-top:10px;
-}
-.firetv .heroContent{
-  width:min(760px,95%);
-  padding-top:138px;
-  padding-bottom:126px;
-}
-.firetv .heroTitle{font-size:clamp(50px,6vw,82px)}
-.firetv .heroDescription{font-size:17px;max-width:700px}
-.firetv .heroActions{gap:14px}
-.firetv .heroRotationControls{bottom:82px}
-.firetv .appMain{padding-bottom:110px}
-.firetv .section{padding-inline:22px;margin-bottom:34px}
-.firetv .sectionTitle{font-size:28px}
-.firetv .sectionSub{font-size:14px}
-.firetv .filterBar,
-.firetv .libraryTools,
-.firetv .pagination{border-radius:20px}
-.firetv .select,
-.firetv .playerSourceSelect{
-  min-height:54px;
-  font-size:15px;
-  border-radius:14px;
-}
-.firetv .filterBar{gap:12px}
-.firetv .filterBar label{min-width:180px}
-.firetv .grid{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px 18px}
-.firetv .rail{grid-auto-columns:minmax(360px,28vw);gap:18px;padding:12px 4px 24px;mask-image:none}
-.firetv .compactRail{grid-auto-columns:minmax(230px,20vw)}
-.firetv .mediaCard{border-radius:20px}
-.firetv .cardInfo{padding:18px}
-.firetv .cardTitle{font-size:18px;-webkit-line-clamp:2}
-.firetv .cardMeta{font-size:13px}
-.firetv .typePill{bottom:104px;font-size:10px;padding:6px 9px}
-.firetv .favoriteQuick{width:42px;height:42px}
-.firetv .cardBadge{font-size:11px;padding:7px 10px}
-.firetv .detailModal{background:#000c;backdrop-filter:none}
-.firetv .detailPanel{max-width:100%;height:100vh;max-height:100vh;border-radius:0;border:0}
-.firetv .detailBackdrop{min-height:390px}
-.firetv .detailContent{padding:0 22px 28px;margin-top:-72px}
-.firetv .detailTitle{font-size:46px}
-.firetv .detailOverview{font-size:16px;max-width:920px}
-.firetv .detailActions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.firetv .episodeHeader h3{font-size:25px}
-.firetv .episodeCard{grid-template-columns:52px 176px 1fr auto;min-height:100px;padding:10px 12px;border-radius:16px}
-.firetv .episodeStill,
-.firetv .episodeStillEmpty{width:176px;border-radius:12px}
-.firetv .episodeName{font-size:16px}
-.firetv .episodeOverview{display:block;font-size:13px}
-.firetv .castRail{grid-auto-columns:116px}
-.firetv .castCard b{font-size:13px}
-.firetv .castCard span{font-size:11px}
-.firetv .playerOverlay{padding:14px;background:#020307}
-.firetv .playerShell{width:100%;min-height:100%}
-.firetv .playerBar{padding:14px;border-radius:18px;gap:12px}
-.firetv .playerHint{display:block;font-size:12px}
-.firetv .playerServerTools{padding:10px;border-radius:16px}
-.firetv .playerActions .ghostBtn,
-.firetv .playerControlBtn,
-.firetv .playerBack{
-  min-height:56px;
-  border-radius:14px;
-  font-size:15px;
-}
-.firetv .playerStage{min-height:56vh;border-radius:20px}
-.firetv .playerFooterNote{gap:10px;font-size:12px}
-.firetv .playerFooterNote span{padding:10px 14px}
-.firetv .nextOverlay{inset:auto 16px 16px 16px}
-.firetv .toast{font-size:14px}
-
-.firetv :focus-visible{
-  outline:4px solid #ffffff;
-  outline-offset:3px;
-  box-shadow:0 0 0 6px #1d4ed8aa,0 16px 36px #0008;
-}
-.firetv .mediaCard:focus-visible,
-.firetv .episodeCard:focus-visible,
-.firetv .suggestionItem:focus-visible,
-.firetv .remoteDockBtn:focus-visible,
-.firetv .navBtn:focus-visible,
-.firetv .libraryTab:focus-visible{
-  transform:scale(1.03);
-  border-color:#fff;
-}
-.firetv .mediaCard,
-.firetv .episodeCard,
-.firetv .remoteDockBtn,
-.firetv .navBtn,
-.firetv .ghostBtn,
-.firetv .secondaryBtn,
-.firetv .primaryBtn,
-.firetv .libraryTab,
-.firetv .playerBack,
-.firetv .heroRoundButton,
-.firetv .suggestionItem,
-.firetv .select,
-.firetv .playerSourceSelect,
-.firetv .searchBox input{
-  scroll-margin-top:130px;
-  scroll-margin-bottom:40px;
-}
-
-@media(max-width:980px){
-  .firetv .topbar{position:sticky}
-  .firetv .remoteDock{margin-top:10px;padding-inline:14px}
-  .firetv .grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .firetv .rail{grid-auto-columns:minmax(280px,72vw)}
-}
-@media(max-width:760px){
-  .firetv .topbar{padding:10px 12px}
-  .firetv .remoteDock{padding-inline:12px}
-  .firetv .hero{min-height:62vh}
-  .firetv .heroContent{padding:128px 16px 106px}
-  .firetv .heroTitle{font-size:clamp(40px,12vw,58px)}
-  .firetv .section{padding-inline:12px}
-  .firetv .filterBar{display:grid;grid-template-columns:1fr 1fr}
-  .firetv .filterBar .ghostBtn{grid-column:1/-1}
-  .firetv .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-  .firetv .rail{grid-auto-columns:minmax(235px,82vw);gap:12px}
-  .firetv .detailActions{grid-template-columns:1fr}
-  .firetv .episodeCard{grid-template-columns:40px 112px 1fr;min-height:88px}
-  .firetv .episodeStill,.firetv .episodeStillEmpty{width:112px}
-  .firetv .episodeOverview,.firetv .episodeCheck{display:none}
-  .firetv .playerBar{border-radius:16px}
-  .firetv .playerStage{border-radius:16px;min-height:42vh}
-  .firetv .playerFooterNote{padding:0 2px}
-}
-
-
-
-/* ==========================================================
-   FIRE TV IMAGE FIT FIX 2026.6 · evita portadas recortadas
-   ========================================================== */
-.firetv .hero{
-  width:100%;
-  height:auto;
-  min-height:0;
-  max-height:none;
-  aspect-ratio:16/9;
-  margin-top:10px;
-  background-size:contain!important;
-  background-position:center center!important;
-  background-repeat:no-repeat!important;
-  background-color:#050607;
-}
-.firetv .hero::before{
-  background:
-    linear-gradient(90deg,#050607f2 0,#050607d7 24%,#05060772 48%,transparent 76%),
-    linear-gradient(0deg,#050607 0,#050607c7 13%,transparent 48%),
-    linear-gradient(180deg,#0005 0,transparent 20%);
-}
-.firetv .hero::after{
-  height:28%;
-  background:linear-gradient(180deg,transparent,#06070b 92%);
-}
-.firetv .heroContent{
-  padding-top:clamp(100px,12vw,156px);
-  padding-bottom:clamp(90px,11vw,138px);
-}
-.firetv .heroRotationControls{
-  bottom:clamp(54px,7vw,90px);
-}
-
-.firetv .poster,
-.firetv .posterEmpty{
-  width:100%;
-  aspect-ratio:16/9;
-  object-fit:contain!important;
-  object-position:center center!important;
-  background:#0a0d13;
-}
-.firetv .mediaCard{
-  background:#0a0d13;
-}
-.firetv .mediaCard .poster{
-  transform:none!important;
-  filter:none!important;
-}
-
-.firetv .detailBackdrop{
-  width:100%;
-  height:auto;
-  min-height:0;
-  aspect-ratio:16/9;
-  max-height:68vh;
-  background-size:contain!important;
-  background-position:center top!important;
-  background-repeat:no-repeat!important;
-  background-color:#090b10;
-}
-.firetv .detailBackdrop::after{
-  background:
-    linear-gradient(0deg,#090c13 0,#090c13e8 14%,transparent 42%),
-    linear-gradient(90deg,#080b128f 0,transparent 55%);
-}
-.firetv .detailContent{
-  margin-top:-8vh;
-}
-
-.firetv .episodeStill,
-.firetv .episodeStillEmpty{
-  object-fit:contain!important;
-  background:#0b0e14;
-}
-
-.firetv .suggestionItem img,
-.firetv .suggestionPoster{
-  object-fit:contain!important;
-  background:#0b0e14;
-}
-
-@media(max-width:980px){
-  .firetv .hero{
-    aspect-ratio:16/9;
-    min-height:0;
-    height:auto;
-    background-size:contain!important;
-  }
-  .firetv .heroContent{
-    padding-top:96px;
-    padding-bottom:92px;
-  }
-  .firetv .detailBackdrop{
-    aspect-ratio:16/9;
-    max-height:none;
-  }
-  .firetv .detailContent{
-    margin-top:-46px;
-  }
-}
-
-@media(max-width:760px){
-  .firetv .hero{
-    aspect-ratio:16/9;
-    min-height:420px;
-    background-size:cover!important;
-    background-position:center 22%!important;
-  }
-  .firetv .heroContent{
-    padding:120px 16px 88px;
-  }
-  .firetv .detailBackdrop{
-    min-height:300px;
-    aspect-ratio:auto;
-    background-size:cover!important;
-    background-position:center 18%!important;
-  }
-}
-
-
-
-/* ==========================================================
-   PLAYER MINIMAL 2026.6 · limpio para TV / Fire Stick
-   ========================================================== */
-.playerShellMinimal{
-  position:relative;
-  grid-template-rows:auto 1fr!important;
-  gap:12px!important;
-}
-.playerBarMinimal{
-  display:grid!important;
-  grid-template-columns:auto minmax(0,1fr) auto!important;
-  align-items:center!important;
-  gap:14px!important;
-  min-height:68px!important;
-  padding:10px 12px!important;
-  border:1px solid #ffffff10!important;
-  border-radius:18px!important;
-  background:rgba(8,11,16,.82)!important;
-  backdrop-filter:blur(16px)!important;
-  box-shadow:0 16px 40px #0007!important;
-}
-.playingInfo{min-width:0;display:grid;gap:2px}
-.playingEyebrow{color:#788396;font-size:9px;font-weight:900;letter-spacing:.14em}
-.playerBarMinimal .playingTitle{font-size:15px!important;font-weight:800!important;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.playerQuickActions{display:flex;align-items:center;gap:7px}
-.playerIconBtn,
-.playerOptionClose{
-  display:grid;place-items:center;
-  width:44px;height:44px;
-  border:1px solid #ffffff14;
-  border-radius:13px;
-  background:#ffffff09;
-  color:#fff;
-  font-size:17px;
-}
-.playerIconBtn:hover,.playerOptionClose:hover{background:#ffffff15}
-.playerOptionsPanel{
-  position:absolute;
-  z-index:40;
-  top:82px;
-  right:0;
-  width:min(390px,calc(100vw - 36px));
-  padding:16px;
-  border:1px solid #ffffff14;
-  border-radius:22px;
-  background:linear-gradient(180deg,rgba(17,21,30,.97),rgba(8,11,17,.97));
-  box-shadow:0 28px 80px #000c;
-  backdrop-filter:blur(20px);
-}
-.playerOptionHead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px}
-.playerOptionHead div{display:grid;gap:2px}
-.playerOptionHead small{color:#7f899b;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.12em}
-.playerOptionHead strong{font-size:19px}
-.playerOptionClose{width:38px;height:38px;border-radius:12px}
-.playerOptionField{display:grid;gap:8px;padding:12px;border:1px solid #ffffff0f;border-radius:16px;background:#ffffff05}
-.playerOptionField>span{display:flex;align-items:center;gap:8px;color:#bfc7d5;font-size:12px;font-weight:800}
-.playerOptionField .playerSourceSelect{width:100%;min-width:0;height:48px}
-.playerOptionGrid{display:grid;gap:8px;margin-top:10px}
-.playerOptionBtn{
-  display:grid;
-  grid-template-columns:42px 1fr;
-  align-items:center;
-  gap:11px;
-  width:100%;
-  min-height:60px;
-  padding:9px 11px;
-  border:1px solid #ffffff0f;
-  border-radius:15px;
-  background:#ffffff05;
-  color:#fff;
-  text-align:left;
-}
-.playerOptionBtn>i{display:grid;place-items:center;width:38px;height:38px;border-radius:12px;background:#ffffff0b;color:#dce3ef;font-size:16px}
-.playerOptionBtn span{display:grid;gap:2px}
-.playerOptionBtn b{font-size:14px}
-.playerOptionBtn small{color:#8f99aa;font-size:11px}
-.playerOptionBtn:hover{background:#ffffff0b;border-color:#ffffff1b}
-.wrongEpisodeBtn{
-  border-color:#ffb0202f;
-  background:linear-gradient(180deg,#ffb0200d,#ff8a0010);
-}
-.wrongEpisodeBtn>i{
-  color:#ffd07a;
-  background:#ff9f0018;
-}
-.wrongEpisodeBtn:hover,.wrongEpisodeBtn:focus-visible{
-  border-color:#ffca6b88;
-  background:#ff9d001c;
-}
-.playerOptionTip{display:flex;gap:8px;margin:12px 2px 0;color:#8791a3;font-size:11px;line-height:1.45}
-.playerStageMinimal{border-radius:20px!important;min-height:min(78vh,850px)!important}
-
-.firetv .playerShellMinimal{width:100%;min-height:100%;gap:10px!important}
-.firetv .playerBarMinimal{
-  min-height:64px!important;
-  padding:8px 10px!important;
-  border-radius:16px!important;
-  backdrop-filter:none!important;
-  background:#0b0e14!important;
-}
-.firetv .playerBarMinimal .playerBack,
-.firetv .playerIconBtn{
-  width:48px!important;height:48px!important;min-height:48px!important;border-radius:13px!important;
-}
-.firetv .playingEyebrow{display:none}
-.firetv .playerBarMinimal .playingTitle{font-size:16px!important}
-.firetv .playerOptionsPanel{
-  top:72px;
-  right:0;
-  width:min(430px,46vw);
-  padding:16px;
-  border-radius:18px;
-  backdrop-filter:none;
-  background:#0d1119;
-}
-.firetv .playerOptionBtn{min-height:66px}
-.firetv .playerOptionBtn b{font-size:15px}
-.firetv .playerOptionBtn small{font-size:12px}
-.firetv .playerOptionField .playerSourceSelect{height:54px}
-.firetv .playerStageMinimal{min-height:calc(100vh - 100px)!important;border-radius:14px!important}
-.firetv .playerFooterNote,.firetv .playerHint{display:none!important}
-.firetv .playerQuickActions{gap:8px}
-.firetv .playerIconBtn:focus-visible,
-.firetv .playerOptionBtn:focus-visible,
-.firetv .playerOptionClose:focus-visible{
-  color:#07090d;
-  background:#fff;
-  outline:4px solid #60a5fa;
-  outline-offset:2px;
-  box-shadow:none;
-}
-.firetv .playerOptionBtn:focus-visible>i{background:#0c111a;color:#fff}
-
-@media(max-width:760px){
-  .playerBarMinimal{grid-template-columns:auto minmax(0,1fr) auto!important}
-  .playerOptionsPanel{top:70px;right:0;left:0;margin:auto;width:calc(100% - 14px)}
-  .playerStageMinimal{min-height:45vh!important}
-  .firetv .playerOptionsPanel{width:calc(100% - 14px)}
-  .firetv .playerStageMinimal{min-height:calc(100vh - 88px)!important}
-}
-
-
-
-/* Auto siguiente · estado visible y discreto */
-.autoEndStatus{
-  display:flex;
-  align-items:center;
-  gap:10px;
-  min-height:42px;
-  margin-top:12px;
-  padding:10px 12px;
-  border:1px solid #ffffff10;
-  border-radius:13px;
-  background:#ffffff06;
-  color:#aeb8c8;
-  font-size:12px;
-  font-weight:700;
-}
-.autoEndStatus i{width:18px;text-align:center}
-.autoEndStatus.active{color:#bbf7d0;border-color:#22c55e33;background:#22c55e0d}
-.autoEndStatus.signal{color:#bfdbfe;border-color:#60a5fa33;background:#60a5fa0d}
-.autoEndStatus.unavailable{color:#fde68a;border-color:#f59e0b33;background:#f59e0b0d}
-.firetv .autoEndStatus{min-height:50px;font-size:13px;border-radius:14px}
+:root{color-scheme:dark;--bg:#090a0e;--panel:#12141b;--panel2:#1a1d26;--line:#ffffff13;--text:#f4f4f6;--muted:#999dab;--red:#e94354;--red2:#f05a68;--green:#90d9b1;--amber:#e5c07c;--radius:12px;--shadow:0 24px 100px #000a;--gutter:clamp(20px,3.2vw,52px);--sidebar:184px}
+*{box-sizing:border-box}html{background:var(--bg);scroll-behavior:smooth;scroll-padding-top:100px}body{margin:0;background:var(--bg);color:var(--text);font:16px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}button,input,select{font:inherit}button,a,input,select{-webkit-tap-highlight-color:transparent}button{cursor:pointer}button:disabled{opacity:.4;cursor:not-allowed}a{color:inherit}button{color:inherit}img{display:block;max-width:100%}.hidden{display:none!important}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:3px solid #f3c2c7;outline-offset:4px}button i{margin-right:6px}button[aria-label] i:only-child{margin:0}.skipLink{position:fixed;left:20px;top:-100px;z-index:5000;background:white;color:black;padding:12px}.skipLink:focus{top:12px}
+.topbar{height:84px;position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:24px;padding:0 var(--gutter);background:#090a0ef5;border-bottom:1px solid var(--line)}.brand{width:calc(var(--sidebar) - var(--gutter));flex-shrink:0;display:flex;align-items:center;gap:10px}.brandMark{display:grid;place-items:center;flex:none;width:31px;height:36px;color:var(--red2);font-size:23px}.brandText{font-size:15px;font-weight:800;line-height:1.05;letter-spacing:1.6px}.brandText span{display:block;color:var(--muted);font-size:11px;letter-spacing:3.5px;margin-top:5px}.nav{position:fixed;left:0;top:84px;bottom:0;width:var(--sidebar);padding:36px 16px;border-right:1px solid var(--line);display:flex;flex-direction:column;gap:7px;background:var(--bg)}.nav:before{content:'DESCUBRIR';font-size:11px;letter-spacing:2px;color:#717687;margin:0 16px 15px}.nav:after{content:'TU CINE. A TU RITMO.';font-size:10px;letter-spacing:1px;color:#646879;margin:auto 14px 0;line-height:2}.navBtn{display:flex;align-items:center;gap:8px;min-height:49px;padding:12px 16px;border:0;border-radius:8px;background:transparent;color:var(--muted);text-align:left;font-size:14px;font-weight:600}.navBtn i{width:18px}.navBtn:hover{background:#ffffff08;color:white}.navBtn.active{color:#fff;background:#e9435419;box-shadow:inset 3px 0 var(--red)}.navBtn.active i{color:var(--red2)}.topbarLabel{font-size:14px;color:var(--muted);letter-spacing:.2px}.searchBox{position:relative;max-width:400px;flex:1;margin-left:auto}.searchScope{display:none}.searchBox input{height:43px;width:100%;padding:0 78px 0 17px;border:1px solid var(--line);background:#161820;border-radius:24px;color:white;font-size:14px;outline-offset:2px}.searchBox input::-webkit-search-cancel-button{display:none}.searchBox input:focus{border-color:#777d8e}.searchBox button{position:absolute;right:8px;top:5px;width:33px;height:33px;border:0;background:transparent;border-radius:50%;color:#bbb}.searchBox #clearSearch{right:43px}.searchSuggestions{position:absolute;top:53px;right:0;width:min(480px,85vw);background:#181b24;border:1px solid #ffffff20;box-shadow:var(--shadow);padding:8px;border-radius:14px;max-height:65vh;overflow:auto}.suggestionItem{display:flex;gap:13px;width:100%;align-items:center;text-align:left;border:0;background:transparent;padding:9px;border-radius:8px}.suggestionItem:hover,.suggestionItem:focus{background:#ffffff0d}.suggestionItem img,.suggestionPoster{width:38px;height:55px;object-fit:cover;border-radius:4px;background:#242935;flex:none}.suggestionItem b{font-size:14px;display:block}.suggestionItem small{display:block;color:var(--muted);font-size:12px}.suggestionType{display:none}.profileButton{width:38px;height:38px;border:1px solid #ffffff20;border-radius:50%;background:#26202a;color:#f0b8bd;flex:none}.remoteDock{display:none}
+.hero{position:relative;isolation:isolate;min-height:460px;height:min(64vh,610px);margin:24px var(--gutter) 0 calc(var(--sidebar) + var(--gutter));border-radius:16px;overflow:hidden;background:#151823 center 28%/cover no-repeat}.hero:before{content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,#0c0e14f5 0%,#0c0e14c9 38%,#0c0e1440 72%),linear-gradient(0deg,#0c0e14e6,transparent 60%)}.heroContent{height:100%;width:min(680px,72%);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;padding:50px clamp(25px,4vw,64px) 64px}.kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:2.4px;text-transform:uppercase;color:#eec2c7;background:#cf32452a;border:1px solid #f286932a;border-radius:5px;padding:6px 10px}.heroTitle{margin:19px 0 15px;font-size:clamp(32px,4.5vw,65px);line-height:1.02;letter-spacing:-2px;font-weight:800;text-wrap:balance;overflow-wrap:anywhere}.heroMeta,.detailMeta{display:flex;flex-wrap:wrap;align-items:center;gap:13px;font-size:14px;color:#d5d6dd}.score{color:var(--amber)}.matchScore{color:var(--green)}.heroDescription{margin:17px 0 0;font-size:15px;line-height:1.75;color:#b7bac5;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden;max-width:480px}.heroActions,.detailActions{display:flex;flex-wrap:wrap;gap:10px;margin-top:24px}.primaryBtn,.secondaryBtn,.ghostBtn,.iconBtn{min-height:44px;border:1px solid transparent;border-radius:8px;font-weight:600;font-size:14px;padding:11px 17px;display:inline-flex;align-items:center;justify-content:center;gap:5px}.primaryBtn{background:var(--red);color:#fff}.primaryBtn:hover{background:#f15a69}.secondaryBtn{background:#ffffff0b;border-color:#ffffff20;color:#ececf1}.secondaryBtn:hover{background:#ffffff17}.secondaryBtn.active{background:#e943541d;border-color:#e9435470;color:#ffadb7}.ghostBtn,.iconBtn{background:transparent;color:var(--muted)}.ghostBtn:hover,.iconBtn:hover{color:#fff;background:#ffffff09}.heroRotationControls{position:absolute;bottom:23px;right:26px;display:flex;align-items:center;gap:13px}.heroRoundButton,.railArrow{height:34px;width:34px;border-radius:50%;border:1px solid #ffffff25;background:#10121bc9;color:#fff}.heroRoundButton:hover,.railArrow:hover{background:#343845}.heroPosition{font-size:12px;color:#a8adbc;min-width:39px;text-align:center;font-variant-numeric:tabular-nums}.heroAutoTrack{position:absolute;left:0;right:0;bottom:0;height:2px;background:#ffffff07}.heroAutoTrack span{display:block;height:100%;background:var(--red);width:0}.heroChanging .heroContent{opacity:.8}.heroContent{transition:opacity .18s}
+.appMain{margin-left:var(--sidebar);padding:0 var(--gutter) 60px}.section{margin:34px 0 40px}.sectionHead,.discoveryGroupHead{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:18px}.sectionTitle{margin:0;font-size:24px;letter-spacing:-.65px;font-weight:700}.sectionSub{display:block;font-size:13px;color:var(--muted);margin-top:5px}.headTools{display:flex;gap:8px;align-items:center}.select,.playerSourceSelect{height:43px;border:1px solid #ffffff1c;background:#171a22;color:#e5e6ec;border-radius:8px;padding:0 12px;font-size:14px;max-width:100%}.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:27px 18px}.rail{display:grid;grid-auto-flow:column;grid-auto-columns:165px;gap:18px;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#343946 transparent;padding:5px 4px 15px;margin:0 -4px;overscroll-behavior-x:contain}.mediaCard{position:relative;min-width:0;scroll-snap-align:start;border-radius:10px;cursor:pointer;transition:transform .18s;background:transparent;outline-offset:4px}.mediaCard:hover{transform:translateY(-4px)}.posterFrame{position:relative;overflow:hidden;border-radius:10px;border:1px solid #ffffff0b;background:#1a1e29;aspect-ratio:2/3}.poster,.posterEmpty{width:100%;height:100%;object-fit:cover}.posterEmpty{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;color:#778093;padding:20px;font-size:12px;text-align:center}.posterEmpty i{font-size:25px}.cardShade{position:absolute;inset:50% 0 0;background:linear-gradient(0deg,#05070ac4,transparent);pointer-events:none}.cardInfo{padding:11px 2px 0}.cardTitle{font-size:14px;font-weight:600;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}.cardMeta{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);gap:8px;margin-top:5px}.cardMeta i{color:var(--amber);font-size:10px;margin-right:3px}.cardBadge{position:absolute;top:10px;left:10px;padding:4px 7px;font-size:10px;font-weight:700;background:#111620d9;border:1px solid #ffffff20;border-radius:4px;z-index:2}.cardBadge.watched{color:#a1e3b7}.typePill{position:absolute;bottom:10px;left:10px;color:#eeeff3;font-size:11px;z-index:2}.favoriteQuick{position:absolute;right:9px;top:9px;width:32px;height:32px;border:1px solid #ffffff29;border-radius:50%;background:#0c0e17dd;z-index:3;opacity:0;transition:opacity .15s;color:#fff}.mediaCard:hover .favoriteQuick,.mediaCard:focus-within .favoriteQuick,.favoriteQuick.active{opacity:1}.favoriteQuick.active{color:#ff8390}.cardPlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:43px;height:43px;border-radius:50%;display:grid;place-items:center;background:#f2f2f5ee;color:#10121a;opacity:0;transition:opacity .2s;pointer-events:none}.mediaCard:hover .cardPlay,.mediaCard:focus-visible .cardPlay{opacity:1}.progressTrack{position:absolute;bottom:0;width:100%;height:3px;background:#ffffff26;z-index:3}.progressFill{display:block;height:100%;background:var(--red)}#continueRail{grid-auto-columns:280px}#continueRail .posterFrame{aspect-ratio:16/9}#continueRail .cardInfo{padding:11px 2px}#continueRail .cardMeta{justify-content:flex-start}.discoverySection>.sectionHead{display:none}.discoveryGroup{margin:32px 0}.discoveryGroupHead h3{margin:0;font-size:22px;font-weight:650;letter-spacing:-.5px}.discoveryGroupHead small{display:block;margin-top:4px;font-size:13px;color:var(--muted)}.railControls{display:flex;gap:8px}.filterBar{display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px;background:#11141b;border:1px solid var(--line);border-radius:12px;padding:16px;margin-bottom:25px}.filterBar label{display:flex;flex:1;min-width:130px;max-width:240px;flex-direction:column;gap:6px}.filterBar label>span{font-size:12px;color:var(--muted)}.filterBar .ghostBtn{margin-left:auto;font-size:13px}.pagination{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:35px}.pageLabel{color:var(--muted);font-size:13px}.emptyState{grid-column:1/-1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:45px 24px;min-height:180px;text-align:center;border:1px solid var(--line);border-radius:12px;color:var(--muted);font-size:14px}.emptyState>i{font-size:28px;color:#727b91}.emptyState b{color:var(--text);font-size:18px}.emptyState p{max-width:420px;margin:0}.skeleton{aspect-ratio:2/3;background:linear-gradient(100deg,#171a22 30%,#222631 48%,#171a22 65%);background-size:250% 100%;border-radius:10px;animation:shimmer 1.8s infinite}@keyframes shimmer{to{background-position:-170% 0}}.libraryTools{display:flex;justify-content:space-between;gap:16px;align-items:center;flex-wrap:wrap;margin:20px 0}.libraryTabs{display:flex;gap:4px;background:#13161e;padding:4px;border-radius:9px;overflow:auto}.libraryTab{border:0;background:transparent;padding:9px 13px;border-radius:6px;color:var(--muted);font-size:14px;white-space:nowrap}.libraryTab.active{background:#303442;color:#fff}.libraryActions{display:flex;gap:8px}.importButton{cursor:pointer;position:relative;overflow:hidden}.importButton input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer}.importButton:focus-within{outline:3px solid #f3c2c7}.librarySummary{display:flex;gap:24px;padding:20px 0;color:var(--muted);font-size:13px}.librarySummary b{font-size:24px;color:#fff;margin-right:6px}.catalogOnly .hero{display:none}.catalogOnly #discoverySection{display:none}
+.detailModal{position:fixed;z-index:500;inset:0;display:none;align-items:center;justify-content:center;padding:24px;background:#030409da;backdrop-filter:blur(8px)}.detailModal.show{display:flex}.detailPanel{position:relative;width:min(1040px,100%);max-height:92vh;overflow:auto;overscroll-behavior:contain;border:1px solid #ffffff1b;border-radius:16px;background:var(--panel);box-shadow:var(--shadow)}.detailBackdrop{position:relative;min-height:380px;background:#1a1e29 center 25%/cover}.detailBackdrop:after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,var(--panel),#12141b15 90%),linear-gradient(90deg,#12141b80,transparent)}.closeDetail{position:absolute;z-index:5;right:16px;top:16px;border:1px solid #ffffff30;border-radius:50%;width:42px;height:42px;background:#0c0f18db;color:white;font-size:18px}.detailContent{position:relative;margin-top:-125px;padding:0 36px 36px;z-index:2}.detailTitle{font-size:clamp(30px,4vw,48px);letter-spacing:-1.5px;line-height:1.1;margin:0 0 15px;max-width:800px}.detailOverview{font-size:15px;line-height:1.8;color:#b4bac7;max-width:800px}.detailActions{margin:22px 0 12px}.detailActions .tasteBtn{font-size:13px}.statusLine{font-size:13px;color:var(--muted);margin:12px 0}.statusLine.error{color:#fba8b0}.statusLine.ok{color:#afb7c5}.episodeSection,.detailExtra{margin-top:28px;padding-top:25px;border-top:1px solid var(--line)}.episodeHeader{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-bottom:14px}.episodeHeader h3{font-size:21px;margin:0}.episodeList{display:grid;gap:8px}.episodeCard{display:grid;grid-template-columns:30px 135px 1fr 24px;gap:15px;align-items:center;width:100%;border:1px solid transparent;border-radius:10px;background:#ffffff03;padding:12px;text-align:left}.episodeCard:hover{background:#ffffff09;border-color:#ffffff15}.episodeCard.current{border-color:#f05a6870;background:#e943540d}.episodeNumber{font-size:17px;color:var(--muted);text-align:center}.episodeStill,.episodeStillEmpty{width:135px;aspect-ratio:16/9;border-radius:6px;object-fit:cover;background:#252a37}.episodeName{font-size:14px;display:block}.episodeOverview{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;color:var(--muted);font-size:13px;margin-top:5px}.episodeCheck{color:var(--green)}.episodeDuration{display:block;color:var(--muted);font-size:12px;margin-top:4px}.castRail{display:flex;gap:18px;overflow:auto;padding:4px}.castCard{width:95px;flex-shrink:0;text-align:center}.castCard img,.castAvatar{width:75px;height:75px;border-radius:50%;object-fit:cover;margin:0 auto 9px;background:#252935}.castCard b{display:block;font-size:12px}.castCard span{font-size:11px;color:var(--muted);display:block}.compactRail{grid-auto-columns:135px}.trailerModal{position:fixed;inset:0;z-index:1300;display:flex;align-items:center;justify-content:center;background:#000e;padding:50px 20px}.trailerShell{width:min(1100px,100%);aspect-ratio:16/9}.trailerShell iframe{width:100%;height:100%;border:0}.modal-open{overflow:hidden}
+.playerOverlay{position:fixed;z-index:1000;inset:0;display:none;background:#000}.playerOverlay.show{display:block}.playerShell{height:100%;display:grid;grid-template-rows:auto minmax(0,1fr)}.playerBar{display:flex;gap:14px;align-items:center;min-height:64px;padding:9px 22px;background:#0c0e14;border-bottom:1px solid #ffffff10}.playerBack,.playerIconBtn,.playerOptionClose{width:42px;height:42px;border:1px solid #ffffff15;background:#ffffff05;border-radius:8px;color:#dfe3ed;font-size:16px}.playerBack:hover,.playerIconBtn:hover{background:#ffffff15}.playingInfo{min-width:0;flex:1}.playingEyebrow{font-size:10px;color:#929bad;letter-spacing:2px;display:block}.playingTitle{font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.playerQuickActions{display:flex;gap:7px}.playerStage{position:relative;min-height:0;background:#000}.playerStage iframe{display:block;width:100%;height:100%;border:0;background:#000}.playerBackdropGlow,.playerCinemaFrame{display:none}.playerOptionsPanel{position:absolute;z-index:8;right:18px;top:78px;width:350px;max-width:calc(100% - 36px);max-height:calc(100dvh - 100px);overflow:auto;background:#181b24;border:1px solid #ffffff24;border-radius:13px;padding:20px;box-shadow:var(--shadow)}.playerOptionHead{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px}.playerOptionHead small{display:none}.playerOptionHead strong{font-size:19px}.playerOptionClose{width:32px;height:32px}.playerOptionField{display:flex;flex-direction:column;gap:9px;font-size:13px;color:var(--muted)}.playerSourceSelect{width:100%}.playerOptionGrid{display:grid;gap:6px;margin:16px 0}.playerOptionBtn{display:flex;gap:12px;align-items:center;background:transparent;border:1px solid transparent;border-radius:8px;text-align:left;padding:11px 8px;width:100%}.playerOptionBtn:hover{background:#ffffff08}.playerOptionBtn>i{color:#959eb2;width:18px}.playerOptionBtn b{display:block;font-size:14px;font-weight:500}.playerOptionBtn small{display:block;font-size:12px;color:var(--muted);margin-top:3px}.autoEndStatus{font-size:12px;color:var(--muted);display:flex;gap:9px;align-items:flex-start;border-top:1px solid var(--line);padding-top:15px}.autoEndStatus.signal{color:var(--green)}.playerOptionTip{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:0}.playerLoading{position:absolute;z-index:3;inset:0;display:grid;place-items:center;background:#000;pointer-events:none;color:var(--muted);font-size:14px}.spinner{width:32px;height:32px;border:3px solid #ffffff20;border-top-color:var(--red2);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px}@keyframes spin{to{transform:rotate(360deg)}}.nextOverlay{position:absolute;z-index:6;inset:0;display:none;place-items:center;text-align:center;background:#090b12ed;padding:25px}.nextOverlay.show{display:grid}.nextOverlay small{font-size:12px;letter-spacing:2px;color:var(--muted);text-transform:uppercase}.nextOverlay strong{display:block;font-size:72px;line-height:1.4}.nextName{font-size:18px;max-width:600px}.nextActions{display:flex;justify-content:center;gap:10px}.autoplayField{display:flex;align-items:center;gap:12px;padding:14px 0;font-size:14px;border-bottom:1px solid var(--line)}.autoplayField input{width:18px;height:18px;accent-color:var(--red)}.player-open{overflow:hidden}.player-open .topbar,.player-open .hero,.player-open .appMain,.player-open .detailModal,.player-open .remoteDock{visibility:hidden}.toast{position:fixed;z-index:1600;bottom:25px;left:50%;transform:translate(-50%,20px);opacity:0;pointer-events:none;background:#272c39;border:1px solid #ffffff24;padding:13px 20px;border-radius:10px;font-size:14px;box-shadow:var(--shadow);max-width:90vw;text-align:center;transition:.2s}.toast.show{opacity:1;transform:translate(-50%,0)}.offlineBadge{position:fixed;z-index:1500;right:20px;bottom:20px;background:#613f14;color:#ffe4b9;border-radius:8px;font-size:13px;padding:9px 14px}.playerHelp{position:absolute;z-index:5;bottom:25px;left:50%;transform:translateX(-50%);background:#191e2beF;border:1px solid #ffffff25;border-radius:12px;padding:16px;display:flex;gap:16px;align-items:center;max-width:90%;font-size:14px}.playerHelp p{margin:0;color:#c0c5d2}.playerHelp button{white-space:nowrap}.playerHelpClose{background:transparent;border:0;color:white;font-size:18px}
+@media(min-width:1550px){.rail{grid-auto-columns:190px}.grid{grid-template-columns:repeat(auto-fill,minmax(180px,1fr))}}
+@media(max-width:1100px){:root{--sidebar:82px;--gutter:24px}.brand{width:34px}.brandText{display:none}.nav{padding:28px 12px}.navBtn{justify-content:center;padding:14px}.navBtn span,.nav:before,.nav:after{display:none}.navBtn i{margin:0;font-size:19px}.topbarLabel{font-size:13px}.heroContent{width:78%;padding-left:35px}.heroTitle{font-size:44px}.grid{grid-template-columns:repeat(auto-fill,minmax(145px,1fr))}.rail{grid-auto-columns:150px}}
+@media(max-width:700px){:root{--sidebar:0px;--gutter:18px}.topbar{height:69px;gap:12px;padding:0 18px}.topbarLabel{display:none}.brand{width:26px}.brandMark{width:24px}.searchBox{max-width:none}.searchBox input{font-size:13px;padding-left:13px}.profileButton{display:none}.nav{top:auto;bottom:0;right:0;width:100%;height:68px;padding:7px 12px calc(7px + env(safe-area-inset-bottom));display:flex;flex-direction:row;justify-content:space-around;background:#10121bf8;border:0;border-top:1px solid #ffffff18}.navBtn{flex:1;flex-direction:column;gap:5px;font-size:10px;padding:5px;min-height:47px}.navBtn i{font-size:16px}.navBtn span{display:block}.navBtn.active{box-shadow:none;background:#e9435412}.appMain{padding-bottom:90px}.hero{margin-top:16px;min-height:445px;height:64vh;max-height:600px;background-position:62% 20%;border-radius:12px}.hero:before{background:linear-gradient(0deg,#0a0d15 1%,#0a0d15ce 35%,#0a0d1530 95%)}.heroContent{width:100%;justify-content:flex-end;padding:120px 23px 68px}.heroTitle{font-size:36px;letter-spacing:-1.2px;margin:14px 0 12px;max-width:100%}.heroDescription{-webkit-line-clamp:2;font-size:13px;line-height:1.6;margin-top:12px}.heroMeta{font-size:12px;gap:10px}.heroActions{margin-top:18px;gap:8px}.heroActions button{padding:10px 13px;font-size:13px}.heroRotationControls{bottom:17px;right:20px}.kicker{font-size:10px}.section{margin-top:26px}.sectionTitle{font-size:22px}.sectionSub{font-size:12px}.sectionHead{align-items:flex-start;flex-wrap:wrap;gap:10px}.headTools{margin-left:auto}.headTools .select{max-width:170px;font-size:12px}.grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:22px 11px}.rail{grid-auto-columns:130px;gap:13px}.favoriteQuick{opacity:1;width:28px;height:28px;font-size:12px;top:7px;right:7px}.cardBadge{top:7px;left:7px;font-size:9px;padding:3px 5px}.cardTitle{font-size:12px}.cardMeta{font-size:11px}.typePill{font-size:10px}.discoveryGroupHead h3{font-size:20px}.railControls{gap:5px}.railArrow{width:29px;height:29px}.filterBar{gap:10px;padding:12px}.filterBar label{min-width:calc(50% - 10px);max-width:none}.filterBar .ghostBtn{padding:10px;font-size:12px}.libraryTools{gap:13px}.libraryTabs{width:100%}.libraryTab{flex:1;font-size:12px;padding:9px 10px}.librarySummary{gap:15px;flex-wrap:wrap}.librarySummary b{font-size:21px}.detailModal{padding:0}.detailPanel{width:100%;max-height:100dvh;height:100dvh;border-radius:0;border:0}.detailBackdrop{min-height:290px}.detailContent{padding:0 20px 28px;margin-top:-90px}.detailTitle{font-size:33px}.detailActions{gap:7px}.detailActions button{font-size:12px;padding:10px 12px}.episodeCard{grid-template-columns:20px 92px 1fr;gap:10px;padding:9px 5px}.episodeStill,.episodeStillEmpty{width:92px}.episodeOverview,.episodeCheck{display:none}.episodeName{font-size:13px}.episodeDuration{font-size:11px}.playerBar{padding:8px;gap:9px}.playerBack,.playerIconBtn{height:36px;width:36px}.playingTitle{font-size:12px}.playingEyebrow{font-size:9px}.playerOptionsPanel{top:68px;right:10px;max-width:calc(100% - 20px)}.playerHelp{flex-wrap:wrap;bottom:15px;width:90%;gap:10px}.toast{bottom:85px}.pagination{gap:8px}.pagination button{font-size:12px;padding:10px}.pageLabel{font-size:12px}.sectionHead #clearHistory{font-size:12px;min-height:32px;padding:4px 0}.posterEmpty{font-size:10px;padding:9px}}
+@media(max-width:380px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.heroTitle{font-size:31px}.heroActions .secondaryBtn{font-size:12px}.heroContent{padding-left:17px;padding-right:17px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+.firetv{--sidebar:170px;--gutter:34px}.firetv *{scroll-behavior:auto!important;transition:none!important;backdrop-filter:none!important}.firetv .hero{min-height:360px;height:56vh;max-height:530px}.firetv .heroTitle{font-size:42px;line-height:1.15}.firetv .heroContent{padding:30px 35px 55px;width:72%}.firetv .heroDescription{-webkit-line-clamp:2}.firetv .navBtn span{display:block}.firetv .navBtn{justify-content:flex-start}.firetv .nav{padding:25px 12px}.firetv .mediaCard:hover{transform:none}.firetv .favoriteQuick{opacity:1}.firetv .detailModal{padding:22px}.firetv .detailPanel{max-height:calc(100vh - 44px)}.firetv .playerBar{padding:12px 32px}.firetv button:focus-visible,.firetv [tabindex]:focus-visible,.firetv select:focus-visible{outline:4px solid white;outline-offset:5px}.firetv .heroAutoTrack{display:none}.firetv .skeleton{animation:none}.firetv .topbar{padding-left:34px;padding-right:34px}.firetv .nav:after{display:none}.firetv .remoteDock{display:flex;position:fixed;left:12px;bottom:25px;width:146px;flex-direction:column;gap:6px;z-index:105}.remoteDockBtn{display:flex;gap:8px;align-items:center;background:transparent;border:0;border-radius:8px;padding:9px;font-size:12px;color:var(--muted);text-align:left}.remoteDockBtn:hover{background:#ffffff10}.firetv .playerOptionBtn{min-height:52px}
 
 </style>
 </head>
-<body class="netflixLuxe">
+<body>
+<a class="skipLink" href="#catalogSection">Saltar al catálogo</a>
 
 <header class="topbar">
   <div class="brand">
@@ -2812,6 +44,7 @@ body.netflixLuxe::before{
     <button class="navBtn" data-section="library"><i class="fa-solid fa-bookmark"></i><span>Mi espacio</span></button>
   </nav>
 
+  <span class="topbarLabel">Una buena historia te espera.</span>
   <div class="searchBox">
     <span class="searchScope">PELIS + SERIES</span>
     <input
@@ -2826,7 +59,8 @@ body.netflixLuxe::before{
       <i class="fa-solid fa-magnifying-glass"></i>
     </button>
 
-    <div id="searchSuggestions" class="searchSuggestions hidden"></div>
+    <button id="clearSearch" aria-label="Limpiar búsqueda" class="hidden"><i class="fa-solid fa-xmark"></i></button>
+<div id="searchSuggestions" class="searchSuggestions hidden" aria-label="Sugerencias de búsqueda"></div>
   </div>
 
   <button id="profileButton" class="profileButton" aria-label="Abrir mi espacio" title="Mi espacio"><i class="fa-solid fa-user"></i></button>
@@ -2846,26 +80,25 @@ body.netflixLuxe::before{
     </span>
 
     <h1 id="heroTitle" class="heroTitle">
-      Tu próxima historia empieza aquí.
+      Cargando destacados…
     </h1>
 
     <div id="heroMeta" class="heroMeta">
       <span class="score">
-        Entretenimiento sin perder tu progreso
+        Películas y series
       </span>
     </div>
 
     <p id="heroDescription" class="heroDescription">
-      Explora películas y series, continúa donde te quedaste
-      y marca automáticamente todo lo que ya viste.
+      
     </p>
 
     <div class="heroActions">
-      <button id="heroPlay" class="primaryBtn">
+      <button id="heroPlay" class="primaryBtn" disabled>
         <i class="fa-solid fa-play"></i> Reproducir
       </button>
 
-      <button id="heroExplore" class="secondaryBtn">
+      <button id="heroExplore" class="secondaryBtn" disabled>
         <i class="fa-solid fa-circle-info"></i> Más información
       </button>
     </div>
@@ -2875,6 +108,7 @@ body.netflixLuxe::before{
     <button id="heroPrevious" class="heroRoundButton" aria-label="Destacado anterior" title="Anterior">
       <i class="fa-solid fa-chevron-left"></i>
     </button>
+    <button id="heroPause" class="heroRoundButton" aria-label="Pausar destacados" aria-pressed="false"><i class="fa-solid fa-pause"></i></button>
     <span id="heroPosition" class="heroPosition">1 / 1</span>
     <button id="heroNext" class="heroRoundButton" aria-label="Siguiente destacado" title="Siguiente">
       <i class="fa-solid fa-chevron-right"></i>
@@ -2914,7 +148,7 @@ body.netflixLuxe::before{
     <div id="discoveryRows"></div>
   </section>
 
-  <section class="section">
+  <section class="section" id="catalogSection">
     <div class="sectionHead">
       <div>
         <h2 id="catalogTitle" class="sectionTitle">
@@ -2927,7 +161,7 @@ body.netflixLuxe::before{
       </div>
 
       <div class="headTools">
-        <select id="sortSelect" class="select">
+        <select id="sortSelect" class="select" aria-label="Ordenar catálogo">
           <option value="popularity.desc">
             Más populares
           </option>
@@ -2964,8 +198,9 @@ body.netflixLuxe::before{
       <button id="clearFilters" class="ghostBtn"><i class="fa-solid fa-xmark"></i> Limpiar filtros</button>
     </div>
 
+    <div id="librarySummary" class="librarySummary hidden"><span><b id="statStarted">0</b>En progreso</span><span><b id="statFavorites">0</b>Favoritos</span><span><b id="statWatched">0</b>Terminados</span></div>
     <div id="libraryTools" class="libraryTools hidden">
-      <div class="libraryTabs" role="tablist">
+      <div class="libraryTabs" aria-label="Filtrar biblioteca">
         <button class="libraryTab active" data-library-filter="all">Todo</button>
         <button class="libraryTab" data-library-filter="favorites">Favoritos</button>
         <button class="libraryTab" data-library-filter="progress">En progreso</button>
@@ -2998,6 +233,7 @@ body.netflixLuxe::before{
 <div
   id="detailModal"
   class="detailModal"
+  aria-labelledby="detailTitle"
   role="dialog"
   aria-modal="true"
 >
@@ -3054,6 +290,7 @@ body.netflixLuxe::before{
 
           <select
             id="seasonSelect"
+            aria-label="Temporada"
             class="select"
           ></select>
         </div>
@@ -3074,12 +311,12 @@ body.netflixLuxe::before{
   </article>
 </div>
 
-<div id="trailerModal" class="trailerModal hidden" role="dialog" aria-modal="true">
+<div id="trailerModal" class="trailerModal hidden" role="dialog" aria-modal="true" aria-label="Tráiler">
   <button id="closeTrailer" class="closeDetail" aria-label="Cerrar tráiler"><i class="fa-solid fa-xmark"></i></button>
-  <div class="trailerShell"><iframe id="trailerFrame" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
+  <div class="trailerShell"><iframe title="Tráiler del título" id="trailerFrame" allow="autoplay; fullscreen" allowfullscreen></iframe></div>
 </div>
 
-<div id="playerOverlay" class="playerOverlay">
+<div id="playerOverlay" class="playerOverlay" role="dialog" aria-modal="true" aria-label="Reproductor">
   <div class="playerBackdropGlow" aria-hidden="true"></div>
   <div class="playerShell playerShellMinimal">
     <div class="playerBar playerBarMinimal">
@@ -3114,12 +351,13 @@ body.netflixLuxe::before{
       </div>
 
       <label class="playerOptionField">
-        <span><i class="fa-solid fa-server"></i> Servidor</span>
+        <span><i class="fa-solid fa-server"></i> Ruta del reproductor</span>
         <select id="playerSourceSelect" class="playerSourceSelect" aria-label="Elegir servidor">
           <option value="tmdb">Ruta TMDB</option>
         </select>
       </label>
 
+      <label class="autoplayField"><input id="autoplayNext" type="checkbox" checked> Siguiente episodio automático</label>
       <div class="playerOptionGrid">
         <button id="focusPlayer" class="playerOptionBtn">
           <i class="fa-solid fa-gamepad"></i>
@@ -3127,7 +365,7 @@ body.netflixLuxe::before{
         </button>
         <button id="retryPlayer" class="playerOptionBtn">
           <i class="fa-solid fa-rotate"></i>
-          <span><b>Cambiar servidor</b><small>Probar otra ruta</small></span>
+          <span><b>Reintentar video</b><small>Volver a cargar la ruta actual</small></span>
         </button>
         <button id="wrongEpisodeButton" class="playerOptionBtn wrongEpisodeBtn hidden">
           <i class="fa-solid fa-triangle-exclamation"></i>
@@ -3135,7 +373,7 @@ body.netflixLuxe::before{
         </button>
         <button id="finishedButton" class="playerOptionBtn">
           <i class="fa-solid fa-circle-check"></i>
-          <span><b>Forzar siguiente</b><small>Solo si falla la detección automática</small></span>
+          <span><b>Marcar terminado</b><small>Continuar con el próximo episodio</small></span>
         </button>
       </div>
 
@@ -3144,12 +382,13 @@ body.netflixLuxe::before{
         <span>Auto siguiente: esperando reproductor…</span>
       </div>
 
-      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> El final intenta detectarse por evento del reproductor. Si el servidor no lo comunica, se usa la duración del título como respaldo.</p>
+      <p class="playerOptionTip"><i class="fa-solid fa-circle-info"></i> El siguiente episodio comienza cuando el reproductor comunica el final. Si no lo comunica, usa “Marcar terminado”. Las rutas principal y alternativa pertenecen al mismo proveedor.</p>
     </div>
 
     <div id="playerStage" class="playerStage playerStageMinimal">
       <div class="playerCinemaFrame" aria-hidden="true"></div>
       <iframe
+        title="Reproductor de video"
         id="playerFrame"
         allow="autoplay; encrypted-media; fullscreen; picture-in-picture"
         allowfullscreen
@@ -3165,21 +404,23 @@ body.netflixLuxe::before{
         </div>
       </div>
 
+      <div id="playerHelp" class="playerHelp hidden"><p>¿El video no inicia? Puedes reintentar o elegir otra ruta en las opciones.</p><button id="helpOptions" class="secondaryBtn">Opciones</button><button id="dismissHelp" class="playerHelpClose" aria-label="Ocultar ayuda">×</button></div>
       <div id="nextOverlay" class="nextOverlay">
         <div>
           <small>Reproduciendo a continuación</small>
           <strong id="nextCounter">5</strong>
           <p id="nextName" class="nextName"></p>
+          <div class="nextActions"><button id="playNextNow" class="primaryBtn">Reproducir ahora</button>
           <button id="cancelNext" class="secondaryBtn">
             <i class="fa-solid fa-xmark"></i> Cancelar
-          </button>
+          </button></div>
         </div>
       </div>
     </div>
   </div>
 </div>
 
-<div id="toast" class="toast"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
 
 <script>
     const TMDB_API_KEY =
@@ -3192,7 +433,7 @@ const IMG =
   "https://image.tmdb.org/t/p/w500";
 
 const BACKDROP =
-  "https://image.tmdb.org/t/p/original";
+  "https://image.tmdb.org/t/p/w1280";
 
 const STILL =
   "https://image.tmdb.org/t/p/w300";
@@ -3262,6 +503,12 @@ let featuredIndex = 0;
 let featuredRotationTimer = null;
 let tasteRefreshTimer = null;
 
+let catalogRequest=0, detailRequest=0, seasonRequest=0, discoveryRequest=0, suggestionRequest=0, filterRequest=0;
+let detailReturnFocus=null, featuredPaused=IS_FIRE_TV || matchMedia('(prefers-reduced-motion: reduce)').matches;
+let sourceLoadToken=0, sourceLoadTimer=null, playerHelpTimer=null, pendingNext=null, progressSavedAt=0;
+let autoplayNext=true; try{autoplayNext=localStorage.getItem('cineLatinoAutoplay')!=='false'}catch{}
+const requestCache=new Map();
+let historyMemo=null;
 let historyData = {};
 
 try{
@@ -3274,10 +521,9 @@ try{
 }
 
 function saveHistory(){
-  localStorage.setItem(
-    STORAGE_KEY,
-    JSON.stringify(historyData)
-  );
+  historyMemo=null;
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(historyData));return true}
+  catch{showToast('No se pudo guardar en este navegador. Exporta tu biblioteca para conservarla.');return false}
 }
 
 function mediaName(item){
@@ -3326,26 +572,21 @@ function historyKey(item,episode = null){
 }
 
 async function getJSON(path){
-  const separator =
-    path.includes("?") ? "&" : "?";
-
-  const response = await fetch(
-    `${TMDB}${path}` +
-    `${separator}api_key=${TMDB_API_KEY}` +
-    `&language=es-MX`
-  );
-
-  const payload =
-    await response.json().catch(() => ({}));
-
-  if(!response.ok){
-    throw new Error(
-      payload.status_message ||
-      `Error HTTP ${response.status}`
-    );
-  }
-
-  return payload;
+  const cached=requestCache.get(path);
+  if(cached && Date.now()-cached.time<180000) return cached.promise;
+  const promise=(async()=>{
+    const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),14000);
+    try{
+      const response=await fetch(`${TMDB}${path}${path.includes('?')?'&':'?'}api_key=${TMDB_API_KEY}&language=es-MX`,{signal:controller.signal});
+      const payload=await response.json().catch(()=>({}));
+      if(!response.ok)throw new Error(response.status===401?'La clave del catálogo no es válida. Revisa tu configuración de TMDB.':response.status===429?'Hay demasiadas solicitudes. Espera un momento y vuelve a intentar.':`No se pudo cargar el catálogo (${response.status}).`);
+      return payload;
+    }catch(error){if(error.name==='AbortError')throw new Error('La conexión tardó demasiado. Vuelve a intentar.');if(error instanceof TypeError)throw new Error('No se pudo conectar. Revisa tu conexión a internet.');throw error}
+    finally{clearTimeout(timer)}
+  })();
+  requestCache.set(path,{time:Date.now(),promise});
+  if(requestCache.size>120)requestCache.delete(requestCache.keys().next().value);
+  try{return await promise}catch(error){requestCache.delete(path);throw error}
 }
 
 function showToast(message){
@@ -3463,6 +704,9 @@ function remember(
       null,
 
     updated:Date.now(),
+    vote_average:Number(item.vote_average||old.vote_average)||0,
+    release_date:item.release_date||old.release_date||'',first_air_date:item.first_air_date||old.first_air_date||'',
+
 
     ...(episode ? {
       season:episode.season_number,
@@ -3476,148 +720,38 @@ function remember(
   renderContinue();
 }
 
-function cardTemplate(item){
-  const type =
-    mediaType(item);
-
+function cardTemplate(item,landscape=false){
+  const type=mediaType(item), saved=savedEntry({...item,media_type:type});
   itemCache.set(`${type}:${item.id}`,{...item,media_type:type});
-
-  const saved =
-    savedEntry({
-      ...item,
-      media_type:type
-    });
-
-  const name =
-    mediaName(item);
-
-  const poster = item.backdrop_path
-    ? `https://image.tmdb.org/t/p/w780${item.backdrop_path}`
-    : item.poster_path
-      ? `${IMG}${item.poster_path}`
-      : null;
-
-  const date =
-    mediaDate(item).slice(0,4) || "—";
-
-  const badge = saved.watched
-    ? `
-      <span class="cardBadge watched"><i class="fa-solid fa-check"></i> VISTA</span>
-      `
-    : saved.progress
-      ? `
-        <span class="cardBadge">
-          CONTINUAR
-        </span>
-        `
-      : "";
-
-  const posterHTML = poster
-    ? `
-      <img
-        class="poster"
-        src="${poster}"
-        alt="${escapeHTML(name)}"
-        loading="lazy"
-      >
-      `
-    : `
-      <div class="posterEmpty">
-        Sin portada
-      </div>
-      `;
-
-  const progress = saved.progress
-    ? `
-      <div class="progressTrack">
-        <i
-          class="progressFill"
-          style="width:${Math.min(
-            saved.progress,
-            100
-          )}%"
-        ></i>
-      </div>
-      `
-    : "";
-
-  return `
-    <article
-      class="mediaCard"
-      tabindex="0"
-      data-id="${item.id}"
-      data-type="${type}"
-      aria-label="${escapeHTML(name)}"
-    >
-      ${badge}
-      <span class="typePill">${type === "tv" ? "Serie" : "Película"}</span>
-      <button class="favoriteQuick ${saved.favorite ? "active" : ""}" data-favorite="${item.id}" aria-label="${saved.favorite ? "Quitar de favoritos" : "Agregar a favoritos"}" title="Favorito">
-        <i class="${saved.favorite ? "fa-solid" : "fa-regular"} fa-heart"></i>
-      </button>
-      ${posterHTML}
-
-      <span class="cardShade"></span>
-
-      ${progress}
-
-      <div class="cardInfo">
-        <div class="cardTitle">
-          ${escapeHTML(name)}
-        </div>
-
-        <div class="cardMeta">
-          <span>${date}</span>
-
-          <span>
-            <i class="fa-solid fa-star"></i> ${Number(
-              item.vote_average || 0
-            ).toFixed(1)}
-          </span>
-        </div>
-      </div>
-    </article>
-  `;
+  const name=mediaName(item),art=landscape?(item.backdrop_path||item.poster_path):(item.poster_path||item.backdrop_path);
+  const poster=art?`https://image.tmdb.org/t/p/${landscape?'w780':'w342'}${art}`:null;
+  const state=historyTitles().find(e=>e.id===item.id&&e.media_type===type)||saved;
+  const watched=Boolean(state.watched),started=Boolean(state.started||state.progress>0);
+  const realProgress=state.progressKnown?Math.max(0,Math.min(100,Number(state.progress)||0)):0;
+  const rating=Number(item.vote_average)||0;
+  return `<article class="mediaCard" tabindex="0" data-id="${Number(item.id)}" data-type="${type}" aria-label="${escapeHTML(name)}">
+  <div class="posterFrame">
+  ${poster?`<img class="poster" src="${escapeHTML(poster)}" alt="${escapeHTML(name)}" loading="lazy" decoding="async" width="${landscape?780:342}" height="${landscape?439:513}">`:'<div class="posterEmpty"><i class="fa-solid fa-film"></i><span>Portada no disponible</span></div>'}
+  <span class="cardShade"></span>${watched?'<span class="cardBadge watched"><i class="fa-solid fa-check"></i> VISTA</span>':started?'<span class="cardBadge">EN PROGRESO</span>':''}
+  <span class="typePill">${type==='tv'?'Serie':'Película'}</span>
+  <button class="favoriteQuick ${saved.favorite?'active':''}" aria-pressed="${Boolean(saved.favorite)}" aria-label="${saved.favorite?'Quitar de':'Agregar a'} favoritos: ${escapeHTML(name)}"><i class="${saved.favorite?'fa-solid':'fa-regular'} fa-heart"></i></button>
+  <span class="cardPlay"><i class="fa-solid fa-play"></i></span>
+  ${realProgress?`<div class="progressTrack" aria-label="${Math.round(realProgress)}% visto"><span class="progressFill" style="width:${realProgress}%"></span></div>`:''}</div>
+  <div class="cardInfo"><div class="cardTitle">${escapeHTML(name)}</div><div class="cardMeta"><span>${landscape&&state.season?`T${state.season} · E${state.episode}`:escapeHTML(mediaDate(item).slice(0,4)||'—')}</span><span>${rating?`<i class="fa-solid fa-star"></i>${rating.toFixed(1)}`:landscape?'Abrir título':''}</span></div></div></article>`;
 }
 
 function bindCards(root){
-  root.querySelectorAll(".favoriteQuick").forEach(button => {
-    button.onclick = event => {
-      event.stopPropagation();
-      const card = button.closest(".mediaCard");
-      const item = {
-        ...(itemCache.get(`${card.dataset.type}:${card.dataset.id}`) || {}),
-        id:Number(card.dataset.id),
-        media_type:card.dataset.type,
-        [card.dataset.type === "tv" ? "name" : "title"]:card.getAttribute("aria-label")
-      };
-      const favorite = !savedEntry(item).favorite;
-      remember(item,null,{favorite});
-      button.classList.toggle("active",favorite);
-      button.innerHTML = `<i class="${favorite ? "fa-solid" : "fa-regular"} fa-heart"></i>`;
-      showToast(favorite ? "Agregado a favoritos" : "Eliminado de favoritos");
-      updateStats();
-      scheduleTasteRefresh();
-    };
+  root.querySelectorAll('.poster').forEach(img=>img.onerror=()=>{const p=document.createElement('div');p.className='posterEmpty';p.textContent='Portada no disponible';img.replaceWith(p)});
+  root.querySelectorAll('.favoriteQuick').forEach(button=>button.onclick=event=>{
+    event.stopPropagation();const card=button.closest('.mediaCard');const item=itemCache.get(`${card.dataset.type}:${card.dataset.id}`);if(!item)return;
+    const favorite=!savedEntry(item).favorite;remember(item,null,{favorite});
+    document.querySelectorAll(`.mediaCard[data-id="${item.id}"][data-type="${item.media_type}"] .favoriteQuick`).forEach(b=>{b.classList.toggle('active',favorite);b.setAttribute('aria-pressed',String(favorite));b.setAttribute('aria-label',`${favorite?'Quitar de':'Agregar a'} favoritos: ${mediaName(item)}`);b.innerHTML=`<i class="${favorite?'fa-solid':'fa-regular'} fa-heart"></i>`});
+    if(currentItem?.id===item.id)updateFavoriteButton();if(section==='library')renderLibrary();showToast(favorite?'Agregado a favoritos':'Eliminado de favoritos');scheduleTasteRefresh();
   });
-
-  root
-    .querySelectorAll(".mediaCard")
-    .forEach(card => {
-      const open = () => {
-        openDetails(
-          card.dataset.id,
-          card.dataset.type
-        );
-      };
-
-      card.onclick = open;
-
-      card.onkeydown = event => {
-        if(event.key === "Enter"){
-          open();
-        }
-      };
-    });
+  root.querySelectorAll('.mediaCard').forEach(card=>{
+    const open=()=>{const saved=historyTitles().find(x=>String(x.id)===card.dataset.id&&x.media_type===card.dataset.type);openDetails(card.dataset.id,card.dataset.type,saved?.season)};
+    card.onclick=open;card.onkeydown=event=>{if(event.target!==card)return;if(event.key==='Enter'||event.key===' '){event.preventDefault();open()}};
+  });
 }
 
 function renderCatalog(items){
@@ -3625,10 +759,10 @@ function renderCatalog(items){
 
   $("#catalog").innerHTML =
     items.length
-      ? items.map(cardTemplate).join("")
+      ? items.map(item=>cardTemplate(item)).join("")
       : `
         <div class="emptyState">
-          No se encontró contenido.
+          <b>No encontramos coincidencias</b><p>Prueba otro título o cambia los filtros.</p>
         </div>
         `;
 
@@ -3640,204 +774,66 @@ function renderCatalog(items){
 }
 
 function historyTitles(){
-  const titles = new Map();
-
-  Object.values(historyData)
-    .sort((a,b) => b.updated - a.updated)
-    .forEach(entry => {
-      const key =
-        `${entry.type}:${entry.id}`;
-
-      if(!titles.has(key)){
-        titles.set(key,{
-          ...entry,
-
-          media_type:entry.type,
-
-          [entry.type === "tv"
-            ? "name"
-            : "title"
-          ]:entry.title,
-
-          progress:entry.watched
-            ? 100
-            : entry.progress || 4,
-
-          vote_average:0
-        });
-      }
-    });
-
-  return [...titles.values()];
+  if(historyMemo)return historyMemo;
+  const groups=new Map();
+  Object.values(historyData).filter(e=>e&&Number.isInteger(Number(e.id))&&['tv','movie'].includes(e.type)).forEach(e=>{const key=`${e.type}:${e.id}`;if(!groups.has(key))groups.set(key,[]);groups.get(key).push(e)});
+  return historyMemo=[...groups.entries()].map(([key,rows])=>{
+    rows.sort((a,b)=>(Number(b.updated)||0)-(Number(a.updated)||0));
+    const base=historyData[key]||{},active=rows.find(e=>e.started||e.progress>0||e.watched)||base,last=rows[0];
+    return {...last,...base,id:Number(last.id),media_type:last.type,type:last.type,title:base.title||last.title,name:base.title||last.title,
+      updated:Math.max(...rows.map(e=>Number(e.updated)||0)),watched:Boolean(last.type==='tv'?base.watched:(base.watched||active.watched)),
+      started:Boolean(active.started||active.progress>0),progress:Number(active.progress)||0,progressKnown:Boolean(active.progressKnown),
+      season:active.season,episode:active.episode,episodeName:active.episodeName,poster_path:base.poster_path||last.poster_path,backdrop_path:base.backdrop_path||last.backdrop_path,
+      favorite:Boolean(base.favorite),liked:Boolean(base.liked),disliked:Boolean(base.disliked),vote_average:Number(base.vote_average||last.vote_average)||0};
+  }).sort((a,b)=>b.updated-a.updated);
 }
 
 function renderContinue(){
-  const items = historyTitles().filter(item => {
-    const saved = savedEntry(item);
-    const progress = Number(item.progress || saved.progress || 0);
-    const watched = Boolean(item.watched || saved.watched);
-    return progress > 0 && !watched && !saved.disliked;
-  });
-
-  $("#continueSection")
-    .classList.toggle(
-      "hidden",
-      !items.length
-    );
-
-  $("#continueRail").innerHTML =
-    items
-      .slice(0,18)
-      .map(cardTemplate)
-      .join("");
-
-  bindCards($("#continueRail"));
-  updateStats();
+  const items=historyTitles().filter(item=>item.started&&!item.watched&&!item.disliked);
+  $('#continueSection').classList.toggle('hidden',!items.length||Boolean(query)||section==='library');
+  $('#continueRail').innerHTML=items.slice(0,18).map(item=>cardTemplate(item,true)).join('');bindCards($('#continueRail'));updateStats();
 }
 
 function renderLibrary(){
-  let items = historyTitles();
-
-  if(libraryFilter === "favorites"){
-    items = items.filter(item => savedEntry(item).favorite);
-  }else if(libraryFilter === "progress"){
-    items = items.filter(item => {
-      const saved = savedEntry(item);
-      return saved.progress > 0 && !saved.watched;
-    });
-  }else if(libraryFilter === "watched"){
-    items = items.filter(item => savedEntry(item).watched);
-  }
-
-  renderCatalog(items);
-
-  $("#catalogTitle").textContent =
-    "Mi espacio";
-
-  $("#catalogSubtitle").textContent =
-    `${items.length} títulos en esta colección`;
-
-  $("#pagination").classList.add("hidden");
-
-  $("#hero").style.backgroundImage =
-    "none";
-
-  $("#heroTitle").textContent =
-    "Todo lo que has visto, en un lugar.";
-
-  $("#heroDescription").textContent =
-    "Continúa una película o serie y administra fácilmente tu historial.";
-
-  $("#heroPlay").classList.add("hidden");
-  $("#filterBar").classList.add("hidden");
-  $("#libraryTools").classList.remove("hidden");
-  $("#discoverySection").classList.add("hidden");
-
-  if(IS_FIRE_TV){
-    safeFocus(document.querySelector("#catalog .mediaCard, .libraryTab.active, #quickLibrary"),{delay:160});
-  }
+  let items=historyTitles();
+  if(libraryFilter==='favorites')items=items.filter(i=>i.favorite);
+  if(libraryFilter==='progress')items=items.filter(i=>i.started&&!i.watched);
+  if(libraryFilter==='watched')items=items.filter(i=>i.watched);
+  document.body.classList.add('catalogOnly');$('#librarySummary').classList.remove('hidden');
+  renderCatalog(items);$('#catalogTitle').textContent='Mi espacio';$('#catalogSubtitle').textContent=`${items.length} títulos · Guardados en este navegador`;
+  $('#pagination').classList.add('hidden');$('#filterBar').classList.add('hidden');$('#libraryTools').classList.remove('hidden');$('#discoverySection').classList.add('hidden');$('#continueSection').classList.add('hidden');updateStats();
+  if(!items.length)$('#catalog').innerHTML='<div class="emptyState"><i class="fa-regular fa-bookmark"></i><b>Tu próxima colección empieza aquí</b><p>Guarda títulos con el corazón o empieza a ver algo. Aquí encontrarás tus favoritos y tu actividad.</p><button class="primaryBtn" id="exploreEmpty">Explorar películas</button></div>';
+  $('#exploreEmpty')?.addEventListener('click',()=>changeSection('movie'));
 }
 
 async function loadCatalog(){
-  closePlayer(false);
-
-  if(section === "library" && !query){
-    renderLibrary();
-    return;
-  }
-
-  $("#filterBar").classList.toggle("hidden",Boolean(query));
-  $("#libraryTools").classList.add("hidden");
-  $("#discoverySection").classList.toggle("hidden",Boolean(query));
-
-  $("#catalog").innerHTML = `
-    <div class="emptyState">
-      Cargando catálogo…
-    </div>
-  `;
-
-  $("#pagination")
-    .classList.remove("hidden");
-
-  $("#heroPlay")
-    .classList.remove("hidden");
-
+  const request=++catalogRequest, view=section, search=query, requestedPage=page;
+  document.body.classList.toggle('catalogOnly',Boolean(search)||view==='library');
+  $('#librarySummary').classList.add('hidden');$('#searchSuggestions').classList.add('hidden');
+  if(view==='library'&&!search){renderLibrary();return}
+  $('#filterBar').classList.toggle('hidden',Boolean(search));$('#sortSelect').classList.toggle('hidden',Boolean(search));$('#libraryTools').classList.add('hidden');$('#discoverySection').classList.toggle('hidden',Boolean(search));renderContinue();
+  $('#catalog').setAttribute('aria-busy','true');$('#catalog').innerHTML=Array.from({length:12},()=>'<div class="skeleton" aria-hidden="true"></div>').join('');
+  $('#pagination').classList.add('hidden');$('#catalogTitle').textContent=search?`Resultados para “${search}”`:view==='tv'?'Explorar series':'Explorar películas';$('#catalogSubtitle').textContent='Cargando catálogo…';
   try{
-    const endpoint = query
-      ? (
-        `/search/multi` +
-        `?query=${encodeURIComponent(query)}` +
-        `&page=${page}` +
-        `&include_adult=false`
-      )
-      : (
-        `/discover/${section}` +
-        `?page=${page}` +
-        `&sort_by=${encodeURIComponent(
-          $("#sortSelect").value
-        )}` +
-        (genreId ? `&with_genres=${genreId}` : "") +
-        (ratingValue ? `&vote_average.gte=${ratingValue}&vote_count.gte=100` : "") +
-        (yearValue ? (section === "tv" ? `&first_air_date_year=${yearValue}` : `&primary_release_year=${yearValue}`) : "")
-      );
-
-    const result =
-      await getJSON(endpoint);
-
-    maxPages = Math.min(
-      result.total_pages || 1,
-      500
-    );
-
-    const visibleResults = query
-      ? (result.results || []).filter(item => item.media_type === "movie" || item.media_type === "tv")
-      : (result.results || []).map(item => ({...item,media_type:section}));
-
-    renderCatalog(visibleResults);
-
-    $("#catalogTitle").textContent =
-      query
-        ? `Películas y series para “${query}”`
-        : section === "tv"
-          ? "Series populares"
-          : "Películas populares";
-
-    $("#catalogSubtitle").textContent =
-      `${Number(
-        result.total_results || 0
-      ).toLocaleString("es-MX")} títulos disponibles`;
-
-    $("#pageLabel").textContent =
-      `Página ${page} de ${maxPages}`;
-
-    $("#previousPage").disabled =
-      page <= 1;
-
-    $("#nextPage").disabled =
-      page >= maxPages;
-
-    setFeaturedPool(
-      visibleResults.slice(0,8),
-      {randomStart:true}
-    );
-    loadDiscovery();
+    let sort=$('#sortSelect').value;if(view==='tv'&&sort==='primary_release_date.desc')sort='first_air_date.desc';
+    const today=new Date().toISOString().slice(0,10);
+    const endpoint=search?`/search/multi?query=${encodeURIComponent(search)}&page=${requestedPage}&include_adult=false`:
+      `/discover/${view}?page=${requestedPage}&include_adult=false&sort_by=${sort}${genreId?`&with_genres=${genreId}`:''}${ratingValue?`&vote_average.gte=${ratingValue}`:''}${ratingValue||sort==='vote_average.desc'?'&vote_count.gte=100':''}${yearValue?`&${view==='tv'?'first_air_date_year':'primary_release_year'}=${yearValue}`:''}&${view==='tv'?'first_air_date':'primary_release_date'}.lte=${today}`;
+    const result=await getJSON(endpoint);if(request!==catalogRequest)return;
+    maxPages=Math.max(1,Math.min(result.total_pages||1,500));
+    const items=(result.results||[]).filter(i=>!search||['movie','tv'].includes(i.media_type)).map(i=>({...i,media_type:search?i.media_type:view}));
+    renderCatalog(items);$('#catalogSubtitle').textContent=search?`${items.length} películas y series en esta página`:`${Number(result.total_results||0).toLocaleString('es-MX')} títulos en el catálogo`;
+    $('#pageLabel').textContent=`Página ${requestedPage} de ${maxPages}`;$('#previousPage').disabled=requestedPage<=1;$('#nextPage').disabled=requestedPage>=maxPages;$('#pagination').classList.toggle('hidden',!items.length||maxPages<=1);
+    if(!search){$('#heroPlay').classList.remove('hidden');if(items.length)setFeaturedPool(items.slice(0,8));loadDiscovery()}
     focusBestLanding();
-  }catch(error){
-    $("#catalog").innerHTML = `
-      <div class="emptyState">
-        ${escapeHTML(error.message)}
-      </div>
-    `;
-  }
+  }catch(error){if(request!==catalogRequest)return;$('#catalogSubtitle').textContent='No pudimos actualizar el catálogo';$('#catalog').innerHTML=`<div class="emptyState"><i class="fa-solid fa-wifi"></i><b>No pudimos cargar los títulos</b><p>${escapeHTML(error.message)}</p><button id="retryCatalog" class="primaryBtn">Volver a intentar</button></div>`;$('#retryCatalog').onclick=()=>loadCatalog()}
+  finally{if(request===catalogRequest)$('#catalog').setAttribute('aria-busy','false')}
 }
 
 function resetHeroProgress(){
-  const progress = $("#heroAutoProgress");
-  if(!progress) return;
-  progress.classList.remove("running");
-  void progress.offsetWidth;
-  progress.style.animationDuration = `${FEATURED_ROTATION_MS}ms`;
-  progress.classList.add("running");
+  const bar=$('#heroAutoProgress');if(!bar)return;bar.style.transition='none';bar.style.width='0';
+  if(featuredPaused||query||section==='library'||featuredPool.length<2)return;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{bar.style.transition=`width ${FEATURED_ROTATION_MS}ms linear`;bar.style.width='100%'}));
 }
 
 function updateHeroPosition(){
@@ -3850,75 +846,14 @@ function updateHeroPosition(){
 }
 
 function setFeatured(item){
-  featured = item;
-
-  if(!item){
-    return;
-  }
-
-  const hero = $("#hero");
-  hero.classList.add("heroChanging");
-
-  window.setTimeout(() => {
-    hero.style.backgroundImage =
-      item.backdrop_path
-        ? `url("${BACKDROP}${item.backdrop_path}")`
-        : "none";
-
-    const featuredType = mediaType(item);
-    const customLabel = item.__featuredLabel;
-
-    $("#heroKicker").innerHTML = customLabel
-      ? `<i class="fa-solid fa-sparkles"></i> ${escapeHTML(customLabel)}`
-      : featuredType === "tv"
-        ? '<i class="fa-solid fa-tv"></i> Serie destacada'
-        : '<i class="fa-solid fa-film"></i> Película destacada';
-
-    $("#heroTitle").textContent = mediaName(item);
-
-    const matchValue = item.__matchScore
-      ? `<span class="matchScore"><i class="fa-solid fa-thumbs-up"></i> ${Math.max(80,Math.min(99,Math.round(item.__matchScore)))}% para ti</span>`
-      : "";
-
-    $("#heroMeta").innerHTML = `
-      ${matchValue}
-      <span class="score">
-        <i class="fa-solid fa-star"></i> ${Number(
-          item.vote_average || 0
-        ).toFixed(1)}
-      </span>
-
-      <span>
-        ${mediaDate(item).slice(0,4) ||
-          "Próximamente"}
-      </span>
-
-      <span>
-        ${featuredType === "tv"
-          ? "Serie"
-          : "Película"}
-      </span>
-    `;
-
-    $("#heroDescription").textContent =
-      item.overview ||
-      "Descubre este título destacado.";
-
-    $("#heroPlay").onclick = () => {
-      openDetails(
-        item.id,
-        featuredType
-      );
-    };
-
-    $("#heroExplore").onclick = () => {
-      openDetails(item.id,featuredType);
-    };
-
-    hero.classList.remove("heroChanging");
-    updateHeroPosition();
-    resetHeroProgress();
-  },150);
+  if(!item)return;featured=item;const type=mediaType(item);
+  $('#hero').style.backgroundImage=item.backdrop_path?`url("${BACKDROP}${item.backdrop_path}")`:'none';
+  $('#heroKicker').textContent=item.__featuredLabel||(type==='tv'?'Serie destacada':'Película destacada');$('#heroTitle').textContent=mediaName(item);
+  $('#heroMeta').innerHTML=`${Number(item.vote_average)?`<span class="score"><i class="fa-solid fa-star"></i> ${Number(item.vote_average).toFixed(1)}</span>`:''}<span>${escapeHTML(mediaDate(item).slice(0,4)||'Próximamente')}</span><span>${type==='tv'?'Serie':'Película'}</span>${item.__matchScore?'<span class="matchScore">Según tus gustos</span>':''}`;
+  $('#heroDescription').textContent=item.overview||'Sin sinopsis disponible.';$('#heroPlay').disabled=false;$('#heroExplore').disabled=false;
+  $('#heroPlay').innerHTML=`<i class="fa-solid ${type==='tv'?'fa-list':'fa-play'}"></i> ${type==='tv'?'Ver episodios':'Reproducir'}`;
+  $('#heroPlay').onclick=async()=>{await openDetails(item.id,type);if(currentItem?.id===item.id&&currentItem.media_type===type&&$('#detailModal').classList.contains('show')){if(type==='movie')playMedia();else safeFocus('#seasonSelect')}};
+  $('#heroExplore').onclick=()=>openDetails(item.id,type);updateHeroPosition();resetHeroProgress();
 }
 
 function uniqueMedia(items){
@@ -3938,11 +873,8 @@ function stopFeaturedRotation(){
 }
 
 function startFeaturedRotation(){
-  stopFeaturedRotation();
-  if(featuredPool.length < 2 || section === "library") return;
-  featuredRotationTimer = setInterval(() => {
-    showFeaturedAt(featuredIndex + 1);
-  },FEATURED_ROTATION_MS);
+  stopFeaturedRotation();if(featuredPaused||featuredPool.length<2||section==='library'||query)return;
+  featuredRotationTimer=setInterval(()=>{if(document.visibilityState!=='visible'||$('#detailModal').classList.contains('show')||$('#hero').matches(':hover')||$('#hero').contains(document.activeElement))return;showFeaturedAt(featuredIndex+1)},FEATURED_ROTATION_MS);
 }
 
 function showFeaturedAt(index){
@@ -4082,7 +1014,15 @@ async function buildTasteRecommendations(type){
 }
 
 async function openDetails(id,type,preferredSeason = null){
-  closePlayer(false);
+  const request=++detailRequest;++seasonRequest;
+  if(!['movie','tv'].includes(type)||!/^\d+$/.test(String(id)))return;
+  if(!$('#detailModal').classList.contains('show'))detailReturnFocus=document.activeElement;
+  closePlayer(false); currentItem=null;
+  document.body.classList.add('modal-open');
+  $('#detailTitle').textContent='Cargando…';$('#detailMeta').textContent='';$('#detailOverview').textContent='';$('#detailBackdrop').style.backgroundImage='none';
+  $('#detailModal .detailPanel').scrollTop=0;
+  for(const id of ['toggleFavorite','toggleWatched','likeTitle','dislikeTitle'])$('#'+id).disabled=true;
+  safeFocus('#closeDetail',{delay:20});
 
   $("#detailModal")
     .classList.add("show");
@@ -4091,6 +1031,7 @@ async function openDetails(id,type,preferredSeason = null){
     .classList.add("hidden");
 
   $("#playTitle").disabled = true;
+  $("#playTitle").classList.remove("hidden");
 
   $("#detailStatus").className =
     "statusLine";
@@ -4106,11 +1047,14 @@ async function openDetails(id,type,preferredSeason = null){
   currentEpisode = null;
 
   try{
-    currentItem = await getJSON(
+    const loadedItem = await getJSON(
       `/${type}/${id}` +
       `?append_to_response=external_ids,credits,videos,recommendations`
     );
 
+    if(request!==detailRequest||!$('#detailModal').classList.contains('show'))return;
+    currentItem=loadedItem;
+    for(const id of ['toggleFavorite','toggleWatched','likeTitle','dislikeTitle'])$('#'+id).disabled=false;
     currentItem.media_type = type;
 
     $("#detailTitle").textContent =
@@ -4160,10 +1104,16 @@ async function openDetails(id,type,preferredSeason = null){
     renderDetailExtras();
 
     if(type === "tv"){
-      await prepareSeasons(preferredSeason);
+      const resume=historyTitles().find(i=>i.id===Number(id)&&i.media_type===type);
+      await prepareSeasons(preferredSeason||resume?.season);
+      if(request!==detailRequest)return;
 
-      $("#playTitle")
-        .classList.add("hidden");
+      const episodes=currentItem._episodes||[],last=historyTitles().find(i=>i.id===currentItem.id&&i.media_type==='tv');
+      let resumeEp=last?.season===Number($('#seasonSelect').value)?episodes.find(e=>e.episode_number===last.episode):null;
+      if(resumeEp&&savedEntry(currentItem,resumeEp).watched)resumeEp=episodes.find(e=>e.episode_number>resumeEp.episode_number&&!savedEntry(currentItem,e).watched);
+      resumeEp=resumeEp||episodes.find(e=>!savedEntry(currentItem,e).watched&&(!e.air_date||e.air_date<=new Date().toISOString().slice(0,10)));
+      $('#playTitle').classList.toggle('hidden',!resumeEp);
+      if(resumeEp){$('#playTitle').disabled=false;$('#playTitle').innerHTML=`<i class="fa-solid fa-play"></i> ${last?.started?'Continuar':'Ver'} T${resumeEp.season_number} · E${resumeEp.episode_number}`;$('#playTitle').onclick=()=>playMedia(resumeEp)}
 
       $("#detailStatus").textContent =
         "Elige un episodio para comenzar.";
@@ -4176,6 +1126,7 @@ async function openDetails(id,type,preferredSeason = null){
         .classList.remove("hidden");
 
       $("#playTitle").disabled = false;
+      $("#playTitle").innerHTML='<i class="fa-solid fa-play"></i> Reproducir';
 
       $("#playTitle").onclick = () => {
         playMedia();
@@ -4185,9 +1136,10 @@ async function openDetails(id,type,preferredSeason = null){
         .classList.add("ok");
 
       $("#detailStatus").innerHTML =
-        '<i class="fa-solid fa-circle-check"></i> Reproductor preparado';
+        'La disponibilidad del video depende del proveedor.';
     }
   }catch(error){
+    if(request!==detailRequest)return;
     $("#detailStatus")
       .classList.add("error");
 
@@ -4262,7 +1214,7 @@ function renderDetailExtras(){
   $("#castSection").classList.toggle("hidden",!cast.length);
 
   const similar = (currentItem.recommendations?.results || []).slice(0,12).map(item => ({...item,media_type:currentItem.media_type}));
-  $("#similarRail").innerHTML = similar.map(cardTemplate).join("");
+  $("#similarRail").innerHTML = similar.map(item=>cardTemplate(item)).join("");
   $("#similarSection").classList.toggle("hidden",!similar.length);
   if(similar.length) bindCards($("#similarRail"));
 
@@ -4290,6 +1242,7 @@ async function prepareSeasons(preferredSeason = null){
     .classList.remove("hidden");
 
   $("#seasonSelect").onchange = () => {
+    $("#playTitle").classList.add("hidden");
     loadSeason(
       Number($("#seasonSelect").value)
     );
@@ -4312,97 +1265,15 @@ async function prepareSeasons(preferredSeason = null){
 }
 
 async function loadSeason(number){
-  $("#episodeList").innerHTML = `
-    <div class="emptyState">
-      Cargando episodios…
-    </div>
-  `;
-
+  const request=++seasonRequest,item=currentItem;if(!item||!Number.isInteger(Number(number)))return;
+  $('#episodeList').innerHTML='<div class="emptyState">Cargando episodios…</div>';
   try{
-    const seasonData =
-      await getJSON(
-        `/tv/${currentItem.id}/season/${number}`
-      );
-
-    currentItem._episodes =
-      seasonData.episodes || [];
-
-    $("#episodeList").innerHTML =
-      currentItem._episodes
-        .map(episode => {
-          const watched =
-            savedEntry(
-              currentItem,
-              episode
-            ).watched;
-
-          return `
-            <button
-              class="episodeCard"
-              data-episode="${episode.episode_number}"
-            >
-              <span class="episodeNumber">
-                ${episode.episode_number}
-              </span>
-
-              ${episode.still_path
-                ? `
-                  <img
-                    class="episodeStill"
-                    src="${STILL}${episode.still_path}"
-                    alt=""
-                  >
-                  `
-                : `
-                  <span class="episodeStillEmpty"></span>
-                  `
-              }
-
-              <span>
-                <b class="episodeName">
-                  ${escapeHTML(
-                    episode.name ||
-                    `Episodio ${episode.episode_number}`
-                  )}
-                </b>
-
-                <span class="episodeOverview">
-                  ${escapeHTML(
-                    episode.overview ||
-                    "Sin descripción disponible."
-                  )}
-                </span>
-              </span>
-
-              <span class="episodeCheck">
-                ${watched ? '<i class="fa-solid fa-circle-check"></i>' : ""}
-              </span>
-            </button>
-          `;
-        })
-        .join("");
-
-    $("#episodeList")
-      .querySelectorAll(".episodeCard")
-      .forEach(button => {
-        button.onclick = () => {
-          currentEpisode =
-            currentItem._episodes.find(
-              episode =>
-                episode.episode_number ==
-                button.dataset.episode
-            );
-
-          playMedia(currentEpisode);
-        };
-      });
-  }catch(error){
-    $("#episodeList").innerHTML = `
-      <div class="emptyState">
-        ${escapeHTML(error.message)}
-      </div>
-    `;
-  }
+    const data=await getJSON(`/tv/${item.id}/season/${Number(number)}`);if(request!==seasonRequest||currentItem!==item)return;
+    item._episodes=(data.episodes||[]).map(e=>({...e,season_number:Number(number)}));
+    const resume=historyTitles().find(i=>i.id===item.id&&i.media_type==='tv');
+    $('#episodeList').innerHTML=item._episodes.map(ep=>{const watched=savedEntry(item,ep).watched,future=ep.air_date&&ep.air_date>new Date().toISOString().slice(0,10),active=resume?.season===ep.season_number&&resume?.episode===ep.episode_number;return `<button class="episodeCard ${active?'current':''}" data-episode="${ep.episode_number}" ${future?'disabled':''}><span class="episodeNumber">${ep.episode_number}</span>${ep.still_path?`<img class="episodeStill" src="${STILL}${escapeHTML(ep.still_path)}" alt="" loading="lazy">`:'<span class="episodeStillEmpty"></span>'}<span><b class="episodeName">${escapeHTML(ep.name||`Episodio ${ep.episode_number}`)}</b><span class="episodeDuration">${watched?'Visto · ':active?'Último episodio abierto · ':''}${future?'Próximamente':ep.runtime?`${Number(ep.runtime)} min`:''}</span><span class="episodeOverview">${escapeHTML(ep.overview||'Sin descripción disponible.')}</span></span><span class="episodeCheck"><i class="fa-solid ${watched?'fa-circle-check':'fa-play'}"></i></span></button>`}).join('')||'<div class="emptyState">No hay episodios publicados en esta temporada.</div>';
+    $('#episodeList').querySelectorAll('.episodeCard').forEach(b=>b.onclick=()=>{const ep=item._episodes.find(e=>e.episode_number===Number(b.dataset.episode));if(ep)playMedia(ep)});
+  }catch(error){if(request!==seasonRequest)return;$('#episodeList').innerHTML=`<div class="emptyState">${escapeHTML(error.message)}<button id="retrySeason" class="secondaryBtn">Reintentar</button></div>`;$('#retrySeason').onclick=()=>loadSeason(number)}
 }
 
 function updateWatchedButton(){
@@ -4544,7 +1415,7 @@ function buildPlayerURL(episode = currentEpisode, sourceId = currentPlayerSource
 }
 
 function savePlayerSession(playerURL){
-  localStorage.setItem(
+  try{localStorage.setItem(
     PLAYER_SESSION_KEY,
     JSON.stringify({
       active:true,
@@ -4556,35 +1427,17 @@ function savePlayerSession(playerURL){
       playerURL,
       savedAt:Date.now()
     })
-  );
+  );}catch{}
 }
 
-function loadPlayerSource(sourceId = currentPlayerSource,{announce=true} = {}){
-  if(!currentItem){
-    return;
-  }
-
-  playbackEndHandled = false;
-  stopAutoEndWatch();
-  setAutoEndStatus("waiting","Auto siguiente: cargando servidor…");
-  syncPlayerSourceSelect(sourceId);
-
-  const playerURL = buildPlayerURL(currentEpisode,currentPlayerSource);
-  const frame = $("#playerFrame");
-
-  $("#playerLoading").classList.remove("hidden");
-  frame.classList.remove("playerFrameFocused");
-  frame.src = "about:blank";
-
-  setTimeout(() => {
-    frame.src = playerURL;
-    savePlayerSession(playerURL);
-  },80);
-
-  if(announce){
-    const label = $("#playerSourceSelect").selectedOptions?.[0]?.textContent || "Servidor";
-    showToast(`Cargando ${label}`);
-  }
+function loadPlayerSource(sourceId=currentPlayerSource,{announce=true}={}){
+  if(!currentItem)return;const token=++sourceLoadToken;clearTimeout(sourceLoadTimer);clearTimeout(playerHelpTimer);
+  playbackEndHandled=false;stopAutoEndWatch();syncPlayerSourceSelect(sourceId);
+  const playerURL=buildPlayerURL(currentEpisode,currentPlayerSource),frame=$('#playerFrame');
+  $('#playerHelp').classList.add('hidden');$('#playerLoading').classList.remove('hidden');frame.src='about:blank';
+  sourceLoadTimer=setTimeout(()=>{if(token!==sourceLoadToken||!$('#playerOverlay').classList.contains('show'))return;frame.src=playerURL;savePlayerSession(playerURL)},80);
+  playerHelpTimer=setTimeout(()=>{if(token===sourceLoadToken&&$('#playerOverlay').classList.contains('show')){$('#playerLoading').classList.add('hidden');$('#playerHelp').classList.remove('hidden')}},18000);
+  if(announce)showToast('Cargando la ruta seleccionada');
 }
 
 function focusPlayerFrame(){
@@ -4652,6 +1505,7 @@ function tryAlternateEpisodeRoute(){
 }
 
 function playMedia(episode = null,preferredSource = null){
+  if(!currentItem)return;
   currentEpisode = episode;
   currentPlayerSource = preferredSource || preferredInitialPlayerSource();
   playbackEndHandled = false;
@@ -4678,7 +1532,8 @@ function playMedia(episode = null,preferredSource = null){
     currentItem,
     episode,
     {
-      progress:Math.max(savedEntry(currentItem,episode).progress || 0,4),
+      started:true,
+      progress:savedEntry(currentItem,episode).progress || 0,
       watched:false
     }
   );
@@ -4692,6 +1547,11 @@ function playMedia(episode = null,preferredSource = null){
 }
 
 function closePlayer(clear = true){
+  const wasShowing=$("#playerOverlay").classList.contains("show");
+  ++sourceLoadToken;clearTimeout(sourceLoadTimer);clearTimeout(playerHelpTimer);pendingNext=null;
+  $('#playerHelp').classList.add('hidden');
+  $('#playerFrame').src='about:blank';
+  if(document.fullscreenElement)document.exitFullscreen?.().catch(()=>{});
   cancelNextPlayback();
   stopAutoEndWatch();
   $("#playerOptionsPanel")?.classList.add("hidden");
@@ -4707,15 +1567,13 @@ function closePlayer(clear = true){
     .classList.remove("show");
 
   if(clear){
-    $("#playerFrame").src = "";
-    localStorage.removeItem(
-      PLAYER_SESSION_KEY
-    );
+    $("#playerFrame").src = "about:blank";
+    try{localStorage.removeItem(PLAYER_SESSION_KEY)}catch{}
   }
 
   renderContinue();
 
-  if(IS_FIRE_TV){
+  if(wasShowing){
     const fallback = $("#detailModal").classList.contains("show")
       ? (currentItem?.media_type === "tv" ? document.querySelector("#episodeList .episodeCard") || $("#seasonSelect") : $("#playTitle"))
       : document.querySelector("#continueRail .mediaCard") || $("#heroPlay");
@@ -4746,9 +1604,7 @@ function readPlayerSession(){
 
     return saved;
   }catch{
-    localStorage.removeItem(
-      PLAYER_SESSION_KEY
-    );
+    try{localStorage.removeItem(PLAYER_SESSION_KEY)}catch{}
     return null;
   }
 }
@@ -4801,9 +1657,7 @@ async function restorePlayerSession(){
       "Reproductor restaurado"
     );
   }catch(error){
-    localStorage.removeItem(
-      PLAYER_SESSION_KEY
-    );
+    try{localStorage.removeItem(PLAYER_SESSION_KEY)}catch{}
 
     showToast(
       error.message ||
@@ -4815,43 +1669,12 @@ async function restorePlayerSession(){
 }
 
 function retryCurrentPlayer(){
-  if(!currentItem){
-    showToast("No hay reproducción para reintentar");
-    return;
-  }
-
-  cyclePlayerSource();
+  if(!currentItem)return;loadPlayerSource(currentPlayerSource);
 }
 
 function findNext(){
-  if(
-    currentItem?.media_type === "tv" &&
-    currentEpisode
-  ){
-    const episodes =
-      currentItem._episodes || [];
-
-    const index =
-      episodes.findIndex(
-        episode =>
-          episode.id === currentEpisode.id
-      );
-
-    return episodes[index + 1] || null;
-  }
-
-  if(currentItem?.media_type === "movie"){
-    const index =
-      catalogItems.findIndex(
-        item =>
-          String(item.id) ===
-          String(currentItem.id)
-      );
-
-    return catalogItems[index + 1] || null;
-  }
-
-  return null;
+  if(!currentEpisode||currentItem?.media_type!=='tv')return null;
+  return (currentItem._episodes||[]).filter(e=>e.season_number===currentEpisode.season_number&&e.episode_number>currentEpisode.episode_number).sort((a,b)=>a.episode_number-b.episode_number)[0]||null;
 }
 
 function setAutoEndStatus(state,message){
@@ -4924,74 +1747,8 @@ function stopAutoEndWatch({keepStatus=false} = {}){
 }
 
 async function startAutoEndWatch(){
-  clearInterval(autoEndTimer);
-  autoEndTimer = null;
-
-  const token = ++autoEndWatchToken;
-  autoEndStartedAt = Date.now();
-  autoEndPausedAt = 0;
-  autoEndResolvedRuntime = 0;
-
-  setAutoEndStatus("waiting","Auto siguiente: sincronizando duración…");
-
-  const runtimeMinutes = await resolveAutoEndRuntimeMinutes();
-
-  if(
-    token !== autoEndWatchToken ||
-    !currentItem ||
-    !$("#playerOverlay").classList.contains("show") ||
-    playbackEndHandled
-  ){
-    return;
-  }
-
-  autoEndResolvedRuntime = runtimeMinutes;
-
-  if(!runtimeMinutes){
-    setAutoEndStatus(
-      "unavailable",
-      "Auto siguiente: esperando señal del servidor (TMDB no informa duración)"
-    );
-    return;
-  }
-
-  autoEndTargetMs = runtimeMinutes * 60 * 1000 + AUTO_END_GRACE_MS;
-  autoEndDeadline = Date.now() + autoEndTargetMs;
-
-  setAutoEndStatus(
-    "active",
-    `Auto siguiente activo · respaldo aproximado ${runtimeMinutes} min`
-  );
-
-  autoEndTimer = setInterval(() => {
-    if(playbackEndHandled || !currentItem){
-      return;
-    }
-
-    const playerVisible = $("#playerOverlay").classList.contains("show");
-    if(!playerVisible){
-      return;
-    }
-
-    if(document.visibilityState !== "visible"){
-      if(!autoEndPausedAt){
-        autoEndPausedAt = Date.now();
-      }
-      return;
-    }
-
-    if(autoEndPausedAt){
-      const pausedFor = Date.now() - autoEndPausedAt;
-      autoEndDeadline += pausedFor;
-      autoEndPausedAt = 0;
-    }
-
-    if(Date.now() >= autoEndDeadline){
-      clearInterval(autoEndTimer);
-      autoEndTimer = null;
-      playbackEnded("runtime");
-    }
-  },AUTO_END_TICK_MS);
+  clearInterval(autoEndTimer);autoEndTimer=null;autoEndStartedAt=Date.now();
+  setAutoEndStatus('waiting',autoplayNext?'Siguiente automático: esperando el final del video':'Siguiente automático desactivado');
 }
 
 function restartAutoEndWatch(){
@@ -5045,18 +1802,9 @@ function normalizePlayerMessage(data){
 }
 
 function isStrongEndedMessage(data){
-  const normalized = normalizePlayerMessage(data);
-  const text = normalized.text;
-  if(!text) return false;
-
-  const strongTokens = [
-    "ended","videoended","video-ended","video_ended",
-    "playbackended","playback-ended","playback_ended",
-    "mediaended","media-ended","media_ended",
-    "finished","video finished","playback finished"
-  ];
-
-  return strongTokens.some(token => text === token || text.includes(token));
+  const text=normalizePlayerMessage(data).text;
+  if(/adended|ad_ended|ad-ended|advert|preroll/.test(text))return false;
+  return /^(ended|videoended|video-ended|video_ended|playbackended|playback-ended|playback_ended|mediaended|media-ended|media_ended|finished|video finished|playback finished)$/.test(text);
 }
 
 function isGenericCompleteMessage(data){
@@ -5084,94 +1832,41 @@ function canAcceptExternalEndSignal(){
   return elapsed >= minimum;
 }
 
-function playbackEnded(source = "player"){
-  if(!currentItem || playbackEndHandled){
-    return;
+async function playbackEnded(source='manual'){
+  if(!currentItem||playbackEndHandled)return;
+  playbackEndHandled=true;const item=currentItem,ep=currentEpisode,token=sourceLoadToken;
+  remember(item,ep,{watched:true,started:true,progress:100,progressKnown:true});updateWatchedButton();
+  setAutoEndStatus('signal',source==='postMessage'?'Final comunicado por el reproductor':'Marcado como terminado');
+  if(!ep){showToast('Película marcada como vista');return}
+  let next=findNext();
+  if(!next){const nextSeason=(item.seasons||[]).filter(s=>s.season_number>ep.season_number&&s.episode_count>0).sort((a,b)=>a.season_number-b.season_number)[0];
+    if(nextSeason){try{const data=await getJSON(`/tv/${item.id}/season/${nextSeason.season_number}`);next=(data.episodes||[]).find(e=>!e.air_date||e.air_date<=new Date().toISOString().slice(0,10));if(next)next={...next,season_number:nextSeason.season_number,_nextSeasonEpisodes:data.episodes}}catch{showToast('No se pudo cargar la siguiente temporada. Puedes elegirla desde la ficha.')}}
   }
-
-  playbackEndHandled = true;
-  clearInterval(autoEndTimer);
-  autoEndTimer = null;
-
-  remember(
-    currentItem,
-    currentEpisode,
-    {
-      watched:true,
-      progress:100
-    }
-  );
-
-  updateWatchedButton();
-
-  if(source === "runtime"){
-    setAutoEndStatus("signal","Final estimado por duración alcanzado");
-    showToast("Final estimado automáticamente");
-  }else if(source === "postMessage"){
-    showToast("Final detectado por el reproductor");
-  }
-
-  const next =
-    findNext();
-
-  if(!next){
-    showToast(
-      currentEpisode
-        ? "Terminaste la temporada"
-        : "No hay otro título en esta página"
-    );
-
-    return;
-  }
-
-  let seconds = 5;
-
-  $("#nextCounter").textContent =
-    seconds;
-
-  $("#nextName").textContent =
-    currentEpisode
-      ? (
-        `Episodio ${next.episode_number}: ` +
-        `${next.name}`
-      )
-      : mediaName(next);
-
-  $("#nextOverlay")
-    .classList.add("show");
-
-  nextTimer = setInterval(() => {
-    seconds--;
-
-    $("#nextCounter").textContent =
-      seconds;
-
-    if(seconds <= 0){
-      cancelNextPlayback();
-
-      if(currentEpisode){
-        playMedia(next,currentPlayerSource);
-      }else{
-        closePlayer();
-
-        openDetails(
-          next.id,
-          "movie"
-        );
-      }
-    }
-  },1000);
+  if(token!==sourceLoadToken||currentItem!==item||!$('#playerOverlay').classList.contains('show'))return;
+  if(next?.air_date&&next.air_date>new Date().toISOString().slice(0,10))next=null;
+  if(!next){showToast('Terminaste los episodios disponibles');return}
+  pendingNext=next;$('#nextName').textContent=`T${next.season_number} · E${next.episode_number} — ${next.name||'Siguiente episodio'}`;
+  $('#nextCounter').textContent=autoplayNext?'5':'✓';$('#nextOverlay').classList.add('show');safeFocus('#playNextNow',{delay:30});
+  if(!autoplayNext)return;let seconds=5;nextTimer=setInterval(()=>{if(document.visibilityState!=='visible')return;$('#nextCounter').textContent=String(--seconds);if(seconds<=0)playPendingNext()},1000);
+}
+function playPendingNext(){
+  const next=pendingNext;if(!next||!currentItem)return;
+  if(next._nextSeasonEpisodes){currentItem._episodes=next._nextSeasonEpisodes;$('#seasonSelect').value=String(next.season_number)}
+  pendingNext=null;playMedia(next,currentPlayerSource);
 }
 
 function cancelNextPlayback(){
   clearInterval(nextTimer);
   nextTimer = null;
+  pendingNext=null;
 
   $("#nextOverlay")
     .classList.remove("show");
 }
 
 function changeSection(nextSection){
+  ++suggestionRequest;++discoveryRequest;clearTimeout(suggestionTimer);$('#searchSuggestions').classList.add('hidden');$('#clearSearch').classList.add('hidden');
+  document.body.classList.remove('catalogOnly');window.scrollTo({top:0,behavior:'auto'});
   section = nextSection;
   if(section === "library") stopFeaturedRotation();
   page = 1;
@@ -5203,64 +1898,29 @@ function changeSection(nextSection){
 }
 
 function searchCatalog(){
-  const text =
-    $("#searchInput").value.trim();
-
-  if(!text){
-    return;
-  }
-
-  query = text;
-  page = 1;
-
-  loadCatalog();
+  query=$('#searchInput').value.trim();page=1;++suggestionRequest;clearTimeout(suggestionTimer);$('#searchSuggestions').classList.add('hidden');$('#clearSearch').classList.toggle('hidden',!query);
+  stopFeaturedRotation();loadCatalog();window.scrollTo({top:0,behavior:'auto'});
 }
 
 function closeDetails(){
-  closePlayer();
-
-  $("#detailModal")
-    .classList.remove("show");
-
-  currentEpisode = null;
-
-  renderContinue();
-
-  if(section !== "library"){
-    renderCatalog(catalogItems);
-  }
-
-  if(IS_FIRE_TV){
-    focusBestLanding();
-  }
+  ++detailRequest;++seasonRequest;closePlayer();$('#detailModal').classList.remove('show');document.body.classList.remove('modal-open');currentEpisode=null;
+  renderContinue();if(section==='library')renderLibrary();else renderCatalog(catalogItems);
+  const card=detailReturnFocus?.dataset?.id?document.querySelector(`.mediaCard[data-id="${detailReturnFocus.dataset.id}"][data-type="${detailReturnFocus.dataset.type}"]`):detailReturnFocus;
+  safeFocus(card?.isConnected?card:'.navBtn.active',{delay:30});startFeaturedRotation();
 }
 
 function updateStats(){
-  if(!$("#statStarted")) return;
-  const titles = historyTitles();
-  $("#statStarted").textContent = titles.filter(item => {
-    const saved = savedEntry(item);
-    return saved.progress || saved.watched;
-  }).length;
-  $("#statWatched").textContent = titles.filter(item => savedEntry(item).watched).length;
-  $("#statFavorites").textContent = titles.filter(item => savedEntry(item).favorite).length;
+  const titles=historyTitles();$('#statStarted').textContent=titles.filter(i=>i.started&&!i.watched).length;$('#statWatched').textContent=titles.filter(i=>i.watched).length;$('#statFavorites').textContent=titles.filter(i=>i.favorite).length;
 }
 
 async function initializeFilters(){
-  const currentYear = new Date().getFullYear();
-  $("#yearFilter").innerHTML = `<option value="">Cualquier año</option>` + Array.from({length:35},(_,index) => {
-    const value = currentYear - index;
-    return `<option value="${value}">${value}</option>`;
-  }).join("");
-  $("#yearFilter").value = yearValue;
-  try{
-    const data = await getJSON(`/genre/${section === "tv" ? "tv" : "movie"}/list`);
-    $("#genreFilter").innerHTML = `<option value="">Todos</option>` + (data.genres || []).map(genre => `<option value="${genre.id}">${escapeHTML(genre.name)}</option>`).join("");
-    $("#genreFilter").value = genreId;
-  }catch{}
+  const request=++filterRequest,type=section==='tv'?'tv':'movie';
+  const year=new Date().getFullYear();$('#yearFilter').innerHTML='<option value="">Cualquier año</option>'+Array.from({length:year-1899},(_,i)=>`<option value="${year-i}">${year-i}</option>`).join('');$('#yearFilter').value=yearValue;
+  try{const data=await getJSON(`/genre/${type}/list`);if(request!==filterRequest)return;$('#genreFilter').innerHTML='<option value="">Todos los géneros</option>'+(data.genres||[]).map(g=>`<option value="${g.id}">${escapeHTML(g.name)}</option>`).join('');$('#genreFilter').value=genreId}catch{}
 }
 
 async function loadDiscovery(force = false){
+  const request=++discoveryRequest;
   if(section === "library" || query) return;
   const type = section;
 
@@ -5289,11 +1949,12 @@ async function loadDiscovery(force = false){
     Promise.all(groups.map(async ([title,path]) => {
       const key = `${type}:${path}`;
       if(!discoveryCache.has(key)) discoveryCache.set(key,getJSON(path));
-      const data = await discoveryCache.get(key);
+      const data = await discoveryCache.get(key).catch(()=>{discoveryCache.delete(key);return {results:[]}});
       return [title,(data.results || []).slice(0,18).map(item => ({...item,media_type:type}))];
     })).catch(() => [])
   ]);
 
+  if(request!==discoveryRequest||type!==section||query)return;
   const rows = [];
 
   if(taste.items.length){
@@ -5324,11 +1985,16 @@ async function loadDiscovery(force = false){
           ${row.subtitle ? `<small>${escapeHTML(row.subtitle)}</small>` : ""}
         </div>
       </div>
-      <div class="rail">${row.items.map(cardTemplate).join("")}</div>
+      <div class="rail">${row.items.map(item=>cardTemplate(item)).join("")}</div>
     </div>
   `).join("");
 
-  $("#discoveryRows").querySelectorAll(".rail").forEach(bindCards);
+  $('#discoveryRows').querySelectorAll('.rail').forEach(bindCards);
+  $('#discoveryRows').querySelectorAll('.discoveryGroup').forEach(group=>{
+    const controls=document.createElement('div');controls.className='railControls';
+    for(const [direction,icon,label] of [[-1,'left','Títulos anteriores'],[1,'right','Más títulos']]){const button=document.createElement('button');button.className='railArrow';button.setAttribute('aria-label',label);button.innerHTML=`<i class="fa-solid fa-chevron-${icon}"></i>`;button.onclick=()=>group.querySelector('.rail').scrollBy({left:direction*group.querySelector('.rail').clientWidth*.8,behavior:IS_FIRE_TV?'auto':'smooth'});controls.append(button)}
+    group.querySelector('.discoveryGroupHead').append(controls);
+  });
 
   const fallbackHero = baseResults[0]?.[1] || catalogItems;
   const personalHero = taste.items.slice(0,6);
@@ -5342,24 +2008,15 @@ async function loadDiscovery(force = false){
 }
 
 async function showSearchSuggestions(){
-  const value = $("#searchInput").value.trim();
-  clearTimeout(suggestionTimer);
-  if(value.length < 2){ $("#searchSuggestions").classList.add("hidden"); return; }
-  suggestionTimer = setTimeout(async () => {
-    try{
-      const data = await getJSON(`/search/multi?query=${encodeURIComponent(value)}&page=1&include_adult=false`);
-      const items = (data.results || []).filter(item => item.media_type === "movie" || item.media_type === "tv").slice(0,8);
-      $("#searchSuggestions").innerHTML = items.map(item => {
-        const itemType = item.media_type || section;
-        return `<button class="suggestionItem" data-id="${item.id}" data-type="${itemType}">${item.poster_path ? `<img src="${IMG}${item.poster_path}" alt="">` : `<span class="suggestionPoster"></span>`}<span><b>${escapeHTML(mediaName(item))}</b><small>${mediaDate(item).slice(0,4) || "—"} · ${itemType === "tv" ? "Serie" : "Película"}</small></span><span class="suggestionType">${itemType === "tv" ? "Serie" : "Peli"}</span></button>`;
-      }).join("") || `<div class="emptyState">Sin coincidencias</div>`;
-      $("#searchSuggestions").classList.remove("hidden");
-      $("#searchSuggestions").querySelectorAll(".suggestionItem").forEach(button => button.onclick = () => {
-        $("#searchSuggestions").classList.add("hidden");
-        openDetails(button.dataset.id,button.dataset.type);
-      });
-    }catch{}
-  },280);
+  clearTimeout(suggestionTimer);const request=++suggestionRequest,value=$('#searchInput').value.trim();$('#clearSearch').classList.toggle('hidden',!value);
+  if(value.length<2){$('#searchSuggestions').classList.add('hidden');return}
+  suggestionTimer=setTimeout(async()=>{
+    try{const data=await getJSON(`/search/multi?query=${encodeURIComponent(value)}&page=1&include_adult=false`);if(request!==suggestionRequest||value!==$('#searchInput').value.trim())return;
+      const items=(data.results||[]).filter(i=>['movie','tv'].includes(i.media_type)).slice(0,6);
+      $('#searchSuggestions').innerHTML=items.map(i=>`<button class="suggestionItem" data-id="${i.id}" data-type="${i.media_type}">${i.poster_path?`<img src="https://image.tmdb.org/t/p/w92${escapeHTML(i.poster_path)}" alt="">`:'<span class="suggestionPoster"></span>'}<span><b>${escapeHTML(mediaName(i))}</b><small>${mediaDate(i).slice(0,4)||'—'} · ${i.media_type==='tv'?'Serie':'Película'}</small></span></button>`).join('')||'<div class="emptyState">No hay coincidencias.</div>';
+      $('#searchSuggestions').classList.remove('hidden');$('#searchSuggestions').querySelectorAll('button').forEach(b=>b.onclick=()=>{++suggestionRequest;$('#searchSuggestions').classList.add('hidden');openDetails(b.dataset.id,b.dataset.type)});
+    }catch{if(request===suggestionRequest)$('#searchSuggestions').classList.add('hidden')}
+  },300);
 }
 
 function exportHistoryFile(){
@@ -5372,25 +2029,22 @@ function exportHistoryFile(){
 }
 
 function setupSpatialNavigation(){
-  document.addEventListener("keydown",event => {
-    if(!["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"].includes(event.key)) return;
-    const active = document.activeElement;
-    if(!active?.matches("button,[tabindex='0']") || active.matches("input,select,textarea")) return;
-    const candidates = [...document.querySelectorAll("button:not([disabled]),[tabindex='0']")].filter(element => element.offsetParent !== null && element !== active);
-    const source = active.getBoundingClientRect();
-    const horizontal = event.key === "ArrowLeft" || event.key === "ArrowRight";
-    const direction = event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 1;
-    const valid = candidates.map(element => ({element,rect:element.getBoundingClientRect()})).filter(({rect}) => {
-      const delta = horizontal ? rect.left - source.left : rect.top - source.top;
-      return Math.sign(delta) === direction;
-    }).sort((a,b) => {
-      const da = horizontal ? Math.abs(a.rect.left-source.left)+Math.abs(a.rect.top-source.top)*2 : Math.abs(a.rect.top-source.top)+Math.abs(a.rect.left-source.left)*2;
-      const db = horizontal ? Math.abs(b.rect.left-source.left)+Math.abs(b.rect.top-source.top)*2 : Math.abs(b.rect.top-source.top)+Math.abs(b.rect.left-source.left)*2;
-      return da-db;
-    });
-    if(valid[0]){ event.preventDefault(); valid[0].element.focus({preventScroll:true}); valid[0].element.scrollIntoView({block:"nearest",inline:"nearest"}); }
+  if(!IS_FIRE_TV)return;
+  document.addEventListener('keydown',event=>{
+    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)||event.defaultPrevented)return;
+    const active=document.activeElement;if(active.matches('input,select,textarea,iframe'))return;
+    const rect=active.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,horizontal=/Left|Right/.test(event.key),direction=/Left|Up/.test(event.key)?-1:1;
+    const targets=focusable(activeFocusScope()).filter(e=>e!==active).map(e=>{const r=e.getBoundingClientRect(),dx=r.left+r.width/2-cx,dy=r.top+r.height/2-cy;return{e,along:horizontal?dx:dy,across:horizontal?dy:dx}}).filter(x=>x.along*direction>3).sort((a,b)=>(Math.abs(a.along)+Math.abs(a.across)*3)-(Math.abs(b.along)+Math.abs(b.across)*3));
+    if(targets[0]){event.preventDefault();targets[0].e.focus({preventScroll:true});targets[0].e.scrollIntoView({block:'nearest',inline:'nearest'})}
   });
 }
+function activeFocusScope(){
+  if(!$('#trailerModal').classList.contains('hidden'))return $('#trailerModal');
+  if($('#playerOverlay').classList.contains('show'))return !$('#playerOptionsPanel').classList.contains('hidden')?$('#playerOptionsPanel'):$('#nextOverlay').classList.contains('show')?$('#nextOverlay'):$('#playerOverlay');
+  if($('#detailModal').classList.contains('show'))return $('#detailModal');return document;
+}
+function focusable(scope){return [...scope.querySelectorAll('button:not([disabled]),input:not([disabled]),select:not([disabled]),a[href],iframe,[tabindex="0"]')].filter(e=>e.getClientRects().length&&getComputedStyle(e).visibility!=='hidden'&&!e.closest('.hidden'))}
+
 
 document
   .querySelectorAll(".navBtn")
@@ -5462,16 +2116,28 @@ $("#playTrailer").onclick = () => {
 $("#closeTrailer").onclick = () => { $("#trailerFrame").src = ""; $("#trailerModal").classList.add("hidden"); };
 $("#trailerModal").onclick = event => { if(event.target === $("#trailerModal")) $("#closeTrailer").click(); };
 $("#exportHistory").onclick = exportHistoryFile;
-$("#importHistory").onchange = async event => {
-  const file = event.target.files?.[0];
-  if(!file) return;
+$('#importHistory').onchange=async event=>{
+  const file=event.target.files?.[0];if(!file)return;
   try{
-    const data = JSON.parse(await file.text());
-    const imported = data.history || data;
-    if(!imported || typeof imported !== "object" || Array.isArray(imported)) throw new Error();
-    historyData = {...historyData,...imported}; saveHistory(); renderContinue(); renderLibrary(); showToast("Historial importado");
-  }catch{ showToast("El archivo no es un respaldo válido"); }
-  event.target.value = "";
+    if(file.size>5*1024*1024)throw Error('El respaldo supera 5 MB.');
+    const parsed=JSON.parse(await file.text()),data=parsed.history||parsed;
+    if(!data||typeof data!=='object'||Array.isArray(data))throw Error('El archivo no es un respaldo válido.');
+    const clean={};let count=0;
+    for(const [key,value] of Object.entries(data)){
+      if(!/^(movie|tv):[1-9]\d*(?::s\d+e\d+)?$/.test(key)||!value||typeof value!=='object')continue;
+      const parts=key.split(':');if(!['movie','tv'].includes(value.type)||value.type!==parts[0]||String(value.id)!==parts[1]||typeof value.title!=='string')continue;
+      const entry={id:Number(value.id),type:value.type,title:value.title.slice(0,500),updated:Math.max(0,Math.min(Date.now(),Number(value.updated)||0))};
+      for(const name of ['favorite','liked','disliked','watched','started','progressKnown'])entry[name]=value[name]===true;
+      for(const name of ['poster_path','backdrop_path','still_path'])if(typeof value[name]==='string'&&/^\/[a-zA-Z0-9_.-]+$/.test(value[name]))entry[name]=value[name];
+      for(const name of ['release_date','first_air_date'])if(/^\d{4}-\d{2}-\d{2}$/.test(value[name]||''))entry[name]=value[name];
+      entry.progress=Math.max(0,Math.min(100,Number(value.progress)||0));entry.vote_average=Math.max(0,Math.min(10,Number(value.vote_average)||0));
+      if(parts[2]){const m=/^s(\d+)e(\d+)$/.exec(parts[2]);entry.season=Number(m[1]);entry.episode=Number(m[2]);entry.episodeName=String(value.episodeName||'').slice(0,500)}
+      clean[key]=entry;count++;
+    }
+    if(!count)throw Error('No se encontraron títulos válidos en el respaldo.');
+    for(const [key,value] of Object.entries(clean))if(!historyData[key]||value.updated>=Number(historyData[key].updated||0))historyData[key]=value;
+    const saved=saveHistory();renderContinue();if(section==='library')renderLibrary();if(saved)showToast(`${count} títulos procesados; se conserva la actividad más reciente.`);
+  }catch(error){showToast(error.message||'El archivo no es válido.')}event.target.value='';
 };
 
 $("#sortSelect").onchange = () => {
@@ -5526,7 +2192,7 @@ function openPlayerOptions(){
   const panel = $("#playerOptionsPanel");
   panel.classList.remove("hidden");
   $("#playerMenuButton").setAttribute("aria-expanded","true");
-  safeFocus("#playerSourceSelect",{delay:50});
+  safeFocus($("#playerSourceSelect").disabled?"#autoplayNext":"#playerSourceSelect",{delay:50});
 }
 
 function closePlayerOptions({restoreFocus=true} = {}){
@@ -5582,145 +2248,72 @@ $("#focusPlayer").onclick = () => {
 $("#cancelNext").onclick =
   cancelNextPlayback;
 
-$("#playerFullscreen").onclick = () => {
-  const stage =
-    $("#playerStage");
+$('#playerFullscreen').onclick=()=>{
+  if(document.fullscreenElement){document.exitFullscreen?.().catch(()=>showToast('No se pudo salir de pantalla completa'));return}
+  const target=$('#playerOverlay');if(target.requestFullscreen)target.requestFullscreen().catch(()=>showToast('Pantalla completa no disponible'));else showToast('Usa la pantalla completa dentro del video.');
+};
+$('#playerFrame').addEventListener('load',()=>{
+  const source=$('#playerFrame').getAttribute('src');if(!source||source==='about:blank'||!$('#playerOverlay').classList.contains('show'))return;
+  $('#playerLoading').classList.add('hidden');startAutoEndWatch();
+});
 
-  if(stage.requestFullscreen){
-    stage
-      .requestFullscreen()
-      .catch(() => {
-        showToast(
-          "Pantalla completa no disponible"
-        );
-      });
+$('#clearHistory').onclick=()=>{
+  if(!confirm('¿Borrar el progreso y los títulos vistos? Tus favoritos y gustos se conservarán.'))return;
+  for(const key of Object.keys(historyData)){
+    const e=historyData[key];if(e.favorite||e.liked||e.disliked){e.progress=0;e.started=false;e.watched=false;e.progressKnown=false;delete e.season;delete e.episode}
+    else delete historyData[key];
   }
+  saveHistory();renderContinue();if(section==='library')renderLibrary();showToast('Historial borrado. Favoritos conservados.');
 };
 
-$("#playerFrame").addEventListener(
-  "load",
-  () => {
-    const frame = $("#playerFrame");
-    const source = String(frame.getAttribute("src") || "");
-    const isRealPlayer = source && source !== "about:blank";
-
-    setTimeout(() => {
-      $("#playerLoading")
-        .classList.add("hidden");
-
-      if(isRealPlayer){
-        playbackEndHandled = false;
-        startAutoEndWatch();
-      }
-
-      if(IS_FIRE_TV){
-        focusPlayerFrame();
-      }
-    },450);
+window.addEventListener('message',event=>{
+  if(!currentItem||playbackEndHandled||!$('#playerOverlay').classList.contains('show'))return;
+  const frame=$('#playerFrame');let origin;try{origin=new URL(frame.src).origin}catch{return}
+  if(event.source!==frame.contentWindow||event.origin!==origin||origin==='null')return;
+  let data=event.data;if(typeof data==='string'){try{data=JSON.parse(data)}catch{}}
+  if(data?.isAd||data?.ad||/advert|preroll|adended|ad_ended/.test(normalizePlayerMessage(data).text))return;
+  if(isStrongEndedMessage(data)&&!playbackEndHandled){playbackEnded('postMessage');return}
+  const details=data?.data||data?.detail||data;
+  const position=Number(details?.currentTime),duration=Number(details?.duration);
+  if(Number.isFinite(position)&&Number.isFinite(duration)&&duration>60&&position>=0&&position<=duration&&Date.now()-progressSavedAt>15000){
+    progressSavedAt=Date.now();remember(currentItem,currentEpisode,{started:true,watched:false,progressKnown:true,progress:Math.min(99,position/duration*100)});
   }
-);
+});
 
-$("#clearHistory").onclick = () => {
-  const confirmed = confirm(
-    "¿Borrar todo el progreso y los títulos vistos?"
-  );
-
-  if(!confirmed){
-    return;
+document.addEventListener('keydown',event=>{
+  const scope=activeFocusScope();
+  if(event.key==='Tab'&&scope!==document){
+    const list=focusable(scope);if(!list.length)return;const first=list[0],last=list[list.length-1];
+    if(event.shiftKey&&(document.activeElement===first||!scope.contains(document.activeElement))){event.preventDefault();last.focus()}
+    else if(!event.shiftKey&&(document.activeElement===last||!scope.contains(document.activeElement))){event.preventDefault();first.focus()}
   }
+  if(!['Escape','Backspace','GoBack','BrowserBack'].includes(event.key))return;
+  if(event.key==='Backspace'&&event.target.matches('input,textarea,[contenteditable]'))return;
+  if(!$('#trailerModal').classList.contains('hidden')){event.preventDefault();$('#closeTrailer').click()}
+  else if(!$('#searchSuggestions').classList.contains('hidden')){event.preventDefault();++suggestionRequest;$('#searchSuggestions').classList.add('hidden');safeFocus('#searchInput')}
+  else if($('#playerOverlay').classList.contains('show')){event.preventDefault();if(!$('#playerOptionsPanel').classList.contains('hidden'))closePlayerOptions();else if($('#nextOverlay').classList.contains('show'))cancelNextPlayback();else closePlayer()}
+  else if($('#detailModal').classList.contains('show')){event.preventDefault();closeDetails()}
+});
 
-  historyData = {};
-  saveHistory();
-  renderContinue();
-
-  if(section === "library"){
-    renderLibrary();
-  }
-
-  showToast("Historial borrado");
-};
-
-/*
-UnlimPlay está dentro de un iframe externo.
-
-Si el reproductor comunica que terminó mediante
-postMessage, comenzará la cuenta regresiva.
-
-Si no comunica el final, se usa una estimación por duración de TMDB con margen adicional. El botón manual queda solo como respaldo.
-*/
-window.addEventListener(
-  "message",
-  event => {
-    if(
-      !currentItem ||
-      playbackEndHandled ||
-      !$("#playerOverlay").classList.contains("show")
-    ){
-      return;
-    }
-
-    const origin = String(event.origin || "").toLowerCase();
-    const fromUnlimPlay = /^https:\/\/(?:www\.)?unlimplay\.com$/i.test(origin);
-    const strongEnded = isStrongEndedMessage(event.data);
-    const genericComplete = isGenericCompleteMessage(event.data);
-
-    if(!strongEnded && !genericComplete){
-      return;
-    }
-
-    /*
-      UnlimPlay puede contener reproductores anidados de otros dominios.
-      No se acepta un "complete" genérico de terceros al inicio porque
-      podría corresponder al final de un anuncio preroll.
-    */
-    if(!fromUnlimPlay && !canAcceptExternalEndSignal()){
-      return;
-    }
-
-    if(!fromUnlimPlay && genericComplete && !strongEnded){
-      return;
-    }
-
-    setAutoEndStatus("signal","Final recibido desde el reproductor");
-    playbackEnded("postMessage");
-  }
-);
-
-/*
-Permite regresar usando Escape, Backspace
-o el botón de retroceso del control.
-*/
-document.addEventListener(
-  "keydown",
-  event => {
-    if(
-      event.key !== "Escape" &&
-      event.key !== "Backspace"
-    ){
-      return;
-    }
-
-    if(
-      $("#playerOverlay").classList.contains("show") &&
-      !$("#playerOptionsPanel").classList.contains("hidden")
-    ){
-      event.preventDefault();
-      closePlayerOptions();
-    }else if(
-      $("#playerOverlay")
-        .classList.contains("show")
-    ){
-      event.preventDefault();
-      closePlayer();
-    }else if(
-      $("#detailModal")
-        .classList.contains("show")
-    ){
-      event.preventDefault();
-      closeDetails();
-    }
-  }
-);
+$('#heroPause').setAttribute('aria-pressed',String(featuredPaused));
+$('#heroPause').setAttribute('aria-label',featuredPaused?'Activar giro de destacados':'Pausar destacados');
+$('#heroPause').innerHTML=`<i class="fa-solid ${featuredPaused?'fa-play':'fa-pause'}"></i>`;
+$('#heroPause').onclick=()=>{featuredPaused=!featuredPaused;$('#heroPause').setAttribute('aria-pressed',String(featuredPaused));$('#heroPause').setAttribute('aria-label',featuredPaused?'Activar giro de destacados':'Pausar destacados');$('#heroPause').innerHTML=`<i class="fa-solid ${featuredPaused?'fa-play':'fa-pause'}"></i>`;startFeaturedRotation();resetHeroProgress()};
+$('#clearSearch').onclick=()=>{$('#searchInput').value='';searchCatalog();safeFocus('#searchInput')};
+$('#searchInput').addEventListener('keydown',event=>{if(event.key==='ArrowDown'&&!$('#searchSuggestions').classList.contains('hidden')){event.preventDefault();safeFocus('#searchSuggestions button')}});
+$('#searchSuggestions').addEventListener('keydown',event=>{if(!['ArrowUp','ArrowDown'].includes(event.key))return;const list=[...$('#searchSuggestions').querySelectorAll('button')],index=list.indexOf(document.activeElement);event.preventDefault();if(event.key==='ArrowUp'&&index<=0)safeFocus('#searchInput');else safeFocus(list[Math.max(0,Math.min(list.length-1,index+(event.key==='ArrowDown'?1:-1)))])});
+document.addEventListener('click',event=>{if(!event.target.closest('.searchBox')){++suggestionRequest;clearTimeout(suggestionTimer);$('#searchSuggestions').classList.add('hidden')}});
+$('#autoplayNext').checked=autoplayNext;
+$('#autoplayNext').onchange=event=>{autoplayNext=event.target.checked;try{localStorage.setItem('cineLatinoAutoplay',String(autoplayNext))}catch{};setAutoEndStatus('waiting',autoplayNext?'Siguiente automático: esperando el final del video':'Siguiente automático desactivado')};
+$('#playNextNow').onclick=playPendingNext;
+$('#helpOptions').onclick=openPlayerOptions;$('#dismissHelp').onclick=()=>$('#playerHelp').classList.add('hidden');
+const originalCloseTrailer=$('#closeTrailer').onclick;
+$('#closeTrailer').onclick=()=>{originalCloseTrailer();safeFocus('#playTrailer')};
+$('#playTrailer').addEventListener('click',()=>safeFocus('#closeTrailer',{delay:30}));
+// A dismissed detail cannot receive stale metadata or steal keyboard focus.
+new MutationObserver(()=>{const blocking=$('#detailModal').classList.contains('show')||$('#playerOverlay').classList.contains('show');
+  for(const node of document.querySelectorAll('.topbar,.hero,.appMain,.remoteDock')){node.inert=blocking;}
+}).observe($('#detailModal'),{attributes:true,attributeFilter:['class']});
 
 renderContinue();
 initializeFilters();
@@ -5742,21 +2335,6 @@ window.addEventListener("offline",() => {
   const notice = document.createElement("div"); notice.id = "offlineNotice"; notice.className = "offlineBadge"; notice.textContent = "Sin conexión"; document.body.append(notice);
 });
 window.addEventListener("online",() => { $("#offlineNotice")?.remove(); showToast("Conexión restaurada"); });
-
-window.addEventListener(
-  "beforeunload",
-  event => {
-    if(
-      !$("#playerOverlay")
-        .classList.contains("show")
-    ){
-      return;
-    }
-
-    event.preventDefault();
-    event.returnValue = true;
-  }
-);
 
 window.addEventListener(
   "pageshow",
