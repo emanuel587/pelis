@@ -1401,7 +1401,7 @@ function buildPlayerURL(episode = currentEpisode, sourceId = currentPlayerSource
   const source = getPlayerSources().find(item => item.id === sourceId) || getPlayerSources()[0];
   const externalId = source?.externalId || currentItem.id;
 
-  return episode
+  const baseURL = episode
     ? (
       `https://unlimplay.com/f/embed/tv/` +
       `${encodeURIComponent(externalId)}/` +
@@ -1412,9 +1412,16 @@ function buildPlayerURL(episode = currentEpisode, sourceId = currentPlayerSource
       `https://unlimplay.com/f/embed/movie/` +
       `${encodeURIComponent(externalId)}`
     );
+
+  // IMPORTANTE PARA FIRE TV / SILK:
+  // El proveedor genera tokens temporales. Silk puede reutilizar una copia
+  // cacheada del embed y terminar mostrando ERR_TOKEN_EXPIRED.
+  // Este parámetro hace que cada carga sea una solicitud nueva.
+  const cacheBuster = `${Date.now()}-${sourceLoadToken + 1}`;
+  return `${baseURL}?_fresh=${encodeURIComponent(cacheBuster)}`;
 }
 
-function savePlayerSession(playerURL){
+function savePlayerSession(){
   try{localStorage.setItem(
     PLAYER_SESSION_KEY,
     JSON.stringify({
@@ -1424,20 +1431,50 @@ function savePlayerSession(playerURL){
       season:currentEpisode?.season_number || null,
       episode:currentEpisode?.episode_number || null,
       source:currentPlayerSource,
-      playerURL,
+      // No guardamos la URL del reproductor porque puede quedar asociada
+      // a una sesión/token ya expirado del proveedor.
       savedAt:Date.now()
     })
   );}catch{}
 }
 
 function loadPlayerSource(sourceId=currentPlayerSource,{announce=true}={}){
-  if(!currentItem)return;const token=++sourceLoadToken;clearTimeout(sourceLoadTimer);clearTimeout(playerHelpTimer);
-  playbackEndHandled=false;stopAutoEndWatch();syncPlayerSourceSelect(sourceId);
-  const playerURL=buildPlayerURL(currentEpisode,currentPlayerSource),frame=$('#playerFrame');
-  $('#playerHelp').classList.add('hidden');$('#playerLoading').classList.remove('hidden');frame.src='about:blank';
-  sourceLoadTimer=setTimeout(()=>{if(token!==sourceLoadToken||!$('#playerOverlay').classList.contains('show'))return;frame.src=playerURL;savePlayerSession(playerURL)},80);
-  playerHelpTimer=setTimeout(()=>{if(token===sourceLoadToken&&$('#playerOverlay').classList.contains('show')){$('#playerLoading').classList.add('hidden');$('#playerHelp').classList.remove('hidden')}},18000);
-  if(announce)showToast('Cargando la ruta seleccionada');
+  if(!currentItem)return;
+
+  const token=++sourceLoadToken;
+  clearTimeout(sourceLoadTimer);
+  clearTimeout(playerHelpTimer);
+  playbackEndHandled=false;
+  stopAutoEndWatch();
+  syncPlayerSourceSelect(sourceId);
+
+  const frame=$('#playerFrame');
+  const playerURL=buildPlayerURL(currentEpisode,currentPlayerSource);
+
+  $('#playerHelp').classList.add('hidden');
+  $('#playerLoading').classList.remove('hidden');
+
+  // Desengancha por completo el documento anterior antes de pedir uno nuevo.
+  // En Silk/Fire TV damos un poco más de tiempo para evitar que recupere
+  // una navegación anterior desde caché.
+  try{frame.removeAttribute('src')}catch{}
+  frame.src='about:blank';
+
+  const freshLoadDelay = IS_FIRE_TV ? 350 : 100;
+  sourceLoadTimer=setTimeout(()=>{
+    if(token!==sourceLoadToken || !$('#playerOverlay').classList.contains('show'))return;
+    frame.src=playerURL;
+    savePlayerSession();
+  },freshLoadDelay);
+
+  playerHelpTimer=setTimeout(()=>{
+    if(token===sourceLoadToken && $('#playerOverlay').classList.contains('show')){
+      $('#playerLoading').classList.add('hidden');
+      $('#playerHelp').classList.remove('hidden');
+    }
+  },18000);
+
+  if(announce)showToast('Solicitando una sesión nueva del reproductor');
 }
 
 function focusPlayerFrame(){
